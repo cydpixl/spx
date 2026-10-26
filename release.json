@@ -1,0 +1,53 @@
+{
+  "version": "2026.10.25.66",
+  "date": "2026-10-25",
+  "sources": [
+    "CineSrc",
+    "MoviesAPI",
+    "ScreenScape",
+    "Cinextream",
+    "VidCore",
+    "AniEmbed",
+    "Aniweeb",
+    "YapGrid"
+  ],
+  "adSupportedSources": [
+    "VidRift",
+    "VidNest",
+    "VixSrc",
+    "VidLove",
+    "Cinezo",
+    "XPass",
+    "Braflix"
+  ],
+  "preservedUploads": [
+    "Buddy-20261015.mp4",
+    "clown-panic.mp4",
+    "The-Traitors-S05E01.mp4",
+    "The-Traitors-S05E02.mp4",
+    "The-Traitors-S05E03.mp4",
+    "The-Traitors-S05E04.mp4",
+    "The-Traitors-S05E05.mp4"
+  ],
+  "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
+  "notes": "Multiview: up to six independent movie, TV, sports and reading panels, adjustable layouts, split resizing, focus and saved workspaces.",
+  "name": "Spex",
+  "sports": {
+    "route": "/sports",
+    "feeds": [
+      "Streamed",
+      "BINTV",
+      "PPV",
+      "Matchora"
+    ],
+    "sandboxed": [
+      "BINTV"
+    ],
+    "standard": [
+      "Streamed",
+      "PPV",
+      "Matchora"
+    ],
+    "playbackEvidence": "Bounded decoded playback: BINTV sandbox and Streamed Golf SD standard. Sampled PPV and Matchora streams stalled; feed availability is not playback verification."
+  }
+}
