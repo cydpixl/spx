@@ -1,0 +1,10 @@
+{
+  "name": "spex-watch-party",
+  "account_id": "1009cf6c38c9760400a777525c33e643",
+  "main": "index.mjs",
+  "compatibility_date": "2026-10-27",
+  "workers_dev": true,
+  "observability": {"enabled": true, "head_sampling_rate": 0.1},
+  "durable_objects": {"bindings": [{"name": "ROOMS", "class_name": "WatchRoom"}]},
+  "migrations": [{"tag": "v1", "new_sqlite_classes": ["WatchRoom"]}]
+}

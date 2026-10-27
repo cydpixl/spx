@@ -1,5 +1,5 @@
 {
-  "version": "2026.10.27.69",
+  "version": "2026.10.27.70",
   "date": "2026-10-27",
   "sources": [
     "CineSrc",
@@ -30,7 +30,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Multiview workspace refinement: theme-aware panels, main + side layout, preserved playback during focus and arrangement, loading/retry, shareable workspaces, single-player audio, source auto-ranking with mode-aware observations and local playback events, live theme sync and visual theme previews. Multiview styling now matches Spex browsing: shared glass pills, white primary action, heading scale, gutters and theme backdrop. All domains directory lists 4 current and 6 older Spex addresses, with search, copy and open actions.",
+  "notes": "Multiview workspace refinement: theme-aware panels, main + side layout, preserved playback during focus and arrangement, loading/retry, shareable workspaces, single-player audio, source auto-ranking with mode-aware observations and local playback events, live theme sync and visual theme previews. Multiview styling now matches Spex browsing: shared glass pills, white primary action, heading scale, gutters and theme backdrop. All domains directory lists 4 current and 6 older Spex addresses, with search, copy and open actions. Server-backed synced watch parties with invite links, up to 12 viewers, host playback controls and reconnect handling.",
   "name": "Spex",
   "sports": {
     "route": "/sports",
@@ -70,5 +70,14 @@
     "route": "/domains",
     "current": 4,
     "older": 6
+  },
+  "watchParty": {
+    "maxViewers": 12,
+    "sources": [
+      "native",
+      "cinesrc",
+      "moviesapi",
+      "aniembed"
+    ]
   }
 }

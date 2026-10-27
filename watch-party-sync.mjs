@@ -1,23 +1,64 @@
-// Only playback state crosses this data channel; no media is captured or forwarded.
+// One authoritative timeline per room. Video stays in each viewer's player.
 export class SyncRoom {
- constructor({log,update,onSession,getSession,getState,applyState}){Object.assign(this,{log,update,onSession,getSession,getState,applyState});this.role=null;this.peer=null;this.conn=null;this.ready=false;this.remoteReady=false;this.offset=0;this.rtt=null;this.lastSequence=0;this.seq=0;this.clockSamples=[];this.timer=setInterval(()=>this.tick(),1000)}
- snapshot(){this.update({role:this.role,connected:!!this.conn?.open,ready:this.ready,remoteReady:this.remoteReady,rtt:this.rtt,room:this.room})}
- async start(role,room){this.leave();if(!window.Peer)throw Error('PeerJS library did not load.');if(!/^[a-f0-9]{24}$/.test(room))throw Error('Invalid room code.');this.room=room;this.role=role;this.snapshot();this.log('Connecting to public signaling server…');return new Promise((resolve,reject)=>{let settled=false;const timer=setTimeout(()=>{if(!settled){settled=true;this.leave();reject(Error('Signaling timed out. Try again or check your network.'))}},15000);const peer=this.peer=new window.Peer(role==='host'?'outlaw-movies-'+room:undefined,{debug:0});peer.on('open',()=>{if(this.peer!==peer)return;clearTimeout(timer);settled=true;if(role==='guest')this.attach(peer.connect('outlaw-movies-'+room,{reliable:true,serialization:'json',metadata:{room,version:1}}));this.snapshot();resolve()});peer.on('connection',conn=>{if(role!=='host'||this.conn||conn.metadata?.room!==room){conn.close();return}this.attach(conn)});peer.on('error',error=>{this.log('Connection error: '+error.message);clearTimeout(timer);if(!settled){settled=true;this.leave();reject(error)}else{this.snapshot()}});peer.on('disconnected',()=>{this.log('Signaling disconnected. Create or join again if the data channel closes.');this.snapshot()})})}
- attach(conn){this.conn=conn;conn.on('open',()=>{this.log('Second client connected. Waiting for both players to be ready.');this.snapshot();if(this.role==='host')this.send({type:'session',session:this.getSession()});this.send({type:'ready',ready:this.ready})});conn.on('data',d=>this.receive(d));conn.on('close',()=>{if(this.conn!==conn)return;this.conn=null;this.remoteReady=false;this.snapshot();this.log('Peer disconnected. Sync paused.')});conn.on('error',e=>this.log('Data channel: '+e.message))}
- send(d){if(this.conn?.open)this.conn.send({...d,version:1})}
- markReady(value=true){this.ready=value;this.send({type:'ready',ready:value});this.snapshot();if(value)this.log('Local player ready. Both devices must report playback telemetry for measured sync.')}
- sessionChanged(){this.ready=false;this.remoteReady=false;this.lastSequence=0;this.send({type:'session',session:this.getSession()});this.send({type:'ready',ready:false});this.snapshot()}
- receive(d){if(!d||typeof d!=='object'||d.version!==1)return;
-  if(d.type==='session'&&this.role==='guest'){const s=d.session;if(!s||typeof s.source!=='string'||s.source.length>80)return;this.ready=false;this.lastSequence=0;this.onSession(s);this.snapshot()}
-  if(d.type==='ready'){this.remoteReady=d.ready===true;this.snapshot()}
-  if(d.type==='ping'&&Number.isFinite(d.sent))this.send({type:'pong',sent:d.sent,remote:Date.now()});
-  if(d.type==='pong'&&Number.isFinite(d.sent)&&Number.isFinite(d.remote)){const rtt=Date.now()-d.sent;if(rtt>=0&&rtt<10000){this.rtt=rtt;this.clockSamples.push({rtt,offset:d.remote-(d.sent+rtt/2)});this.clockSamples=this.clockSamples.slice(-10);this.offset=this.clockSamples.reduce((a,b)=>a.rtt<b.rtt?a:b).offset;this.snapshot()}}
-  if(d.type==='state'&&this.role==='guest'&&this.ready&&this.remoteReady){if(!Number.isFinite(d.seq)||d.seq<=this.lastSequence||!Number.isFinite(d.position)||d.position<0||d.position>86400||!Number.isFinite(d.sent)||typeof d.playing!=='boolean')return;const s=this.getSession();if(d.source!==s.source||d.media!==s.media)return;this.lastSequence=d.seq;const age=Math.max(0,Math.min(5,(Date.now()+this.offset-d.sent)/1000));const target=d.position+(d.playing?age:0);const local=this.getState();const measured=local&&Date.now()-local.at<6000?local.position+(local.playing?(Date.now()-local.at)/1000:0)-target:null;this.update({drift:measured});this.applyState({position:target,playing:d.playing,force:d.force===true});this.send({type:'ack',seq:d.seq,position:local?.position??null,drift:measured,observedAt:local?.at??null})}
-  if(d.type==='ack'&&this.role==='host'){if(Number.isFinite(d.drift)&&Math.abs(d.drift)<86400)this.update({drift:d.drift});this.update({ack:d.seq,observed:d.observedAt})}
+ constructor(options){Object.assign(this,options);this.role=null;this.ready=false;this.members=[];this.offset=0;this.samples=[];this.revision=0;this.timer=setInterval(()=>this.tick(),1000);this.online=()=>{if(this.role&&!this.connected)this.connect()?.catch(()=>{})};window.addEventListener('online',this.online);}
+ get connected(){return this.socket?.readyState===1&&this.joined;}
+ snapshot(extra={}){this.update({role:this.role,connected:this.connected,ready:this.ready,room:this.room,members:this.members,hostOnline:this.members.some(m=>m.role==='host'),...extra});}
+ async start(role,room){
+  this.leave();this.clientId=crypto.randomUUID();this.role=role;
+  try{
+   if(role==='host'){
+    const response=await fetch(this.endpoint+'/rooms',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:this.getSession()})});
+    const data=await response.json();if(!response.ok)throw Error(data.error||'Could not create party.');this.room=data.room;this.token=data.token;
+   }else{if(!/^[a-f0-9]{24}$/.test(room))throw Error('Enter a valid party code or invite link.');this.room=room;}
+   this.snapshot({error:null});await this.connect();this.remember();
+  }catch(error){this.leave();throw error;}
  }
- broadcast(force=false){if(this.role!=='host'||!this.ready||!this.remoteReady||!this.conn?.open)return;const s=this.getState();if(!s||Date.now()-s.at>6000)return;const session=this.getSession();this.send({type:'state',seq:++this.seq,position:s.position+(s.playing?(Date.now()-s.at)/1000:0),playing:s.playing,sent:Date.now(),source:session.source,media:session.media,force})}
- tick(){if(this.conn?.open){this.send({type:'ping',sent:Date.now()});this.broadcast()}}
- leave(){const conn=this.conn,peer=this.peer;this.conn=null;this.peer=null;conn?.close();peer?.destroy();this.role=null;this.room=null;this.ready=false;this.remoteReady=false;this.rtt=null;this.offset=0;this.clockSamples=[];this.lastSequence=0;this.seq=0;this.snapshot()}
- destroy(){this.leave();clearInterval(this.timer)}
+ connect(){
+  if(!this.role||this.connecting)return this.connecting;
+  clearTimeout(this.retry);this.socket?.close();this.joined=false;
+  const socket=this.socket=new WebSocket(this.endpoint.replace(/^http/,'ws')+'/rooms/'+this.room);
+  this.connecting=new Promise((resolve,reject)=>{
+   const timeout=setTimeout(()=>{reject(Error('Connection timed out. Please try again.'));socket.close();},15000);
+   socket.onopen=()=>{this.lastReceived=Date.now();this.send({type:'hello',id:this.clientId,name:this.getName?.()||'Viewer',token:this.token});};
+   socket.onmessage=event=>{
+    if(this.socket!==socket)return;this.lastReceived=Date.now();let d;try{d=JSON.parse(event.data);}catch{return;}
+    if(d.type==='welcome'){clearTimeout(timeout);this.joined=true;this.attempt=0;this.connecting=null;this.role=d.role;this.receiveSession(d,true);this.snapshot({error:null});this.send({type:'ready',ready:this.ready});resolve();}
+    else this.receive(d);
+   };
+   socket.onerror=()=>{};
+   socket.onclose=event=>{
+    clearTimeout(timeout);if(this.socket!==socket)return;this.connecting=null;this.joined=false;this.members=[];this.target=null;this.onDisconnect?.();
+    if([1008,4001,4004].includes(event.code)){this.leave();this.snapshot({error:event.reason||'Party ended.'});reject(Error(event.reason||'Party ended.'));return;}
+    this.snapshot({error:'Connection lost. Reconnecting…'});reject(Error('Could not connect. The room may have expired or be full.'));
+    if(this.role)this.retry=setTimeout(()=>this.connect()?.catch(()=>{}),Math.min(15000,800*2**Math.min(this.attempt=(this.attempt||0)+1,4)));
+   };
+  });return this.connecting;
+ }
+ send(data){if(this.socket?.readyState===1)this.socket.send(JSON.stringify(data));}
+ receiveSession(d,welcome=false){
+  const changed=this.revision!==d.revision;this.revision=d.revision;
+  if(this.role==='guest'&&(changed||!this.ready)||this.role==='host'&&welcome){this.ready=false;this.target=null;this.restoring=this.role==='host';this.onSession(d.session);}
+  if(this.role==='host'&&!welcome&&changed&&this.getState())this.markReady(true);
+ }
+ receive(d){
+  if(d.type==='session'){this.receiveSession(d);this.snapshot();}
+  if(d.type==='presence'){this.members=d.members||[];if(this.role==='guest'&&!this.members.some(m=>m.role==='host'&&m.ready)){this.target=null;this.onDisconnect?.();}this.snapshot();}
+  if(d.type==='pong'&&Number.isFinite(d.sent)&&Number.isFinite(d.now)){
+   const rtt=Date.now()-d.sent;if(rtt>=0&&rtt<10000){this.samples.push({rtt,offset:d.now-d.sent-rtt/2});this.samples=this.samples.slice(-10);this.offset=this.samples.reduce((a,b)=>a.rtt<b.rtt?a:b).offset;}
+  }
+  if(d.type==='state'&&this.role==='guest'&&this.ready&&this.members.some(m=>m.role==='host'&&m.ready)&&d.revision===this.revision&&Number.isFinite(d.position)&&Number.isFinite(d.sent)){
+   this.target=d;const target=this.targetState(),local=this.getState();
+   const drift=local?local.position-target.position:null;this.snapshot({drift});this.applyState(target);this.send({type:'ack',drift});
+  }
+ }
+ targetState(){const s=this.target;if(!s)return null;return {...s,position:Math.min(s.duration,s.position+(s.playing?Math.max(0,Math.min(10,(Date.now()+this.offset-s.sent)/1000))*s.rate:0))};}
+ markReady(value=true){if(this.ready===value)return;this.ready=value;this.send({type:'ready',ready:value});this.snapshot();}
+ sessionChanged(){this.ready=false;this.target=null;this.send({type:'ready',ready:false});this.send({type:'session',session:this.getSession()});this.snapshot();}
+ broadcast(force=false){if(this.role!=='host'||!this.connected||!this.ready)return;const state=this.getState();if(!state||Date.now()-state.at>4000)return;const now=Date.now();if(!force&&now-(this.lastBroadcast||0)<900)return;this.lastBroadcast=now;this.send({type:'state',...state,session:this.getSession(),revision:this.revision,force});}
+ tick(){if(!this.connected)return;if(Date.now()-this.lastReceived>20000){this.socket.close();return;}if(Date.now()-(this.lastPing||0)>5000){this.lastPing=Date.now();this.send({type:'ping',sent:Date.now()});}if(this.role==='host')this.broadcast();}
+ resync(){this.send({type:'resync'});}
+ remember(){try{sessionStorage.setItem('spex.party.session',JSON.stringify({role:this.role,room:this.room,token:this.token,clientId:this.clientId}));}catch{}}
+ async resume(){let saved;try{saved=JSON.parse(sessionStorage.getItem('spex.party.session'));}catch{}if(!saved||!['host','guest'].includes(saved.role)||!/^[a-f0-9]{24}$/.test(saved.room))return;Object.assign(this,saved);this.snapshot();try{await this.connect();}catch{this.snapshot({error:'Reconnecting to your party…'});}}
+ leave(){try{sessionStorage.removeItem('spex.party.session');}catch{}clearTimeout(this.retry);const socket=this.socket;this.socket=null;this.role=null;this.room=null;this.token=null;this.expected=null;this.restoring=false;this.joined=false;this.connecting=null;this.ready=false;this.target=null;this.members=[];this.revision=0;this.samples=[];this.offset=0;socket?.close(1000,'Left party');this.snapshot({drift:null,error:null});}
+ destroy(){let saved;try{saved=sessionStorage.getItem('spex.party.session');}catch{}this.leave();if(saved)try{sessionStorage.setItem('spex.party.session',saved);}catch{}clearInterval(this.timer);window.removeEventListener('online',this.online);}
 }
-
