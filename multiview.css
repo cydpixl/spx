@@ -11,3 +11,5 @@
 .mv-panel-bar [data-move-panel]{flex:none;font-size:20px;padding:2px 4px;cursor:grab;touch-action:none;color:#78808d}
 .mv-panel-bar [data-move-panel]:active{cursor:grabbing}.mv-moving{opacity:.6}.mv-drop-target{outline:2px solid #bccadd;outline-offset:-2px}.mv-arranging iframe{pointer-events:none}.mv-arranging{user-select:none}
 @media(max-width:700px){.site-header .nav-pill{width:100%!important;grid-template-columns:repeat(6,minmax(0,1fr)) 26px 26px 26px;gap:1px!important}.site-header .nav-pill>a:not(.nav-icon){padding-left:3px!important;padding-right:3px!important}}
+
+.mv-add-current{width:42px;min-width:42px;height:42px;padding:0!important;border-radius:50%}.mv-add-current svg{width:18px;height:18px}
