@@ -1,11 +1,12 @@
-import {installMultiview} from './multiview.mjs?v=20261027-match1';
+import {installDomainLinks} from './domains.mjs?v=20261027-domains1';
+import {installMultiview} from './multiview.mjs?v=20261027-domains1';
 import {installInterfacePolish} from './interface-polish.mjs?v=20261027-polish1';
 import {installTrailerPreviews} from './trailer-previews.mjs?v=20261027-polish1';
 import {personPlaceholder} from './reference-ui.mjs?v=20261027-polish1';
 import {installHomeExperience} from './home-experience.mjs?v=20261027-polish1';
 import {installAmbientSilk} from './ambient-silk.mjs?v=20261027-polish1';
 import {playerIcon} from './player-icons.mjs?v=20261027-polish1';
-import {installOutlaw} from './outlaw.mjs?v=20261027-polish1';
+import {installOutlaw} from './outlaw.mjs?v=20261027-domains1';
 import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261027-polish1';
 (() => {
   "use strict";
@@ -137,5 +138,5 @@ outlaw=installOutlaw({app,read,write,notify,metadata,remember,find,catalog,publi
   installTrailerPreviews({app,find,metadata,remember,detailPath,watchPath,normalizeLinks,icon,saveButton,settings:outlaw.settings});
 installInterfacePolish({app});
 multiview=installMultiview({app,navigate,notify,streamPlayer,video,player});
-updateTimeline();renderRoute();
+installDomainLinks();updateTimeline();renderRoute();
 })();
