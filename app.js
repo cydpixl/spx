@@ -1,4 +1,4 @@
-import {installMultiview} from './multiview.mjs?v=20261027-polish1';
+import {installMultiview} from './multiview.mjs?v=20261027-match1';
 import {installInterfacePolish} from './interface-polish.mjs?v=20261027-polish1';
 import {installTrailerPreviews} from './trailer-previews.mjs?v=20261027-polish1';
 import {personPlaceholder} from './reference-ui.mjs?v=20261027-polish1';

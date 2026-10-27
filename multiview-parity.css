@@ -1,0 +1,144 @@
+/* Multiview uses the same heading scale, pills and glass as Spex browsing. */
+html:not([data-theme="dark"]):not([data-theme="amoled"]) body.multiview-open .ambient-silk-page {
+  display: block !important;
+  opacity: .22 !important;
+}
+.multiview-open .multiview-workspace {
+  padding: 132px 64px 12px;
+  gap: 22px;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+.multiview-workspace .mv-toolbar { min-height: 50px; gap: 24px; }
+.multiview-workspace .mv-workspace-icon { display: none; }
+.multiview-workspace .mv-heading > div { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.multiview-workspace .mv-heading h1 {
+  font: 700 48px/1 Inter, Arial, sans-serif;
+  letter-spacing: -.025em;
+}
+.multiview-workspace .mv-heading [data-panel-count] {
+  font: 400 12px/20px Inter, Arial, sans-serif;
+  color: #ffffff80;
+  letter-spacing: 0;
+  margin: 0;
+}
+.multiview-workspace .mv-toolbar button,
+.multiview-workspace .mv-footer button,
+.multiview-workspace .mv-empty button {
+  border-radius: 999px;
+  background: #ffffff0d;
+  border: 1px solid #ffffff1a;
+  color: #ffffffe6;
+  backdrop-filter: blur(12px);
+  font: 500 13px/20px Inter, Arial, sans-serif;
+  min-height: 40px;
+  padding: 9px 16px;
+  transition: background .2s, border-color .2s;
+}
+.multiview-workspace .mv-toolbar button:hover,
+.multiview-workspace .mv-toolbar button[aria-expanded="true"],
+.multiview-workspace .mv-footer button:hover,
+.multiview-workspace .mv-empty button:hover {
+  background: #ffffff1a;
+  border-color: #ffffff30;
+}
+.multiview-workspace .mv-toolbar [data-layout] { min-width: 138px; }
+.multiview-workspace .mv-toolbar [data-share],
+.multiview-workspace .mv-toolbar [data-fullscreen] { width: 40px; padding: 10px; }
+.multiview-workspace .mv-toolbar [data-add-panel] {
+  background: #f7f7f7;
+  border-color: transparent;
+  color: #0b0b0b;
+  font-weight: 600;
+  min-width: 126px;
+  padding: 9px 20px;
+}
+.multiview-workspace .mv-toolbar [data-add-panel]:hover { background: #e6e6e6; }
+.multiview-workspace .mv-toolbar [data-add-panel] > svg { color: #1119; }
+.multiview-workspace .mv-grid { gap: 16px; }
+.multiview-workspace .mv-panel {
+  border-radius: 20px;
+  border-color: #ffffff1a;
+  background: color-mix(in srgb, var(--theme-background-main, #050505) 80%, transparent);
+  backdrop-filter: blur(24px) saturate(1.25);
+}
+.multiview-workspace .mv-panel-bar {
+  min-height: 52px;
+  padding: 7px 12px;
+  gap: 8px;
+  background: #ffffff05;
+  border-color: #ffffff12;
+}
+.multiview-workspace .mv-panel-number { display: none; }
+.multiview-workspace .mv-panel-bar strong { font-size: 12px; font-weight: 500; }
+.multiview-workspace .mv-panel-bar button {
+  border-radius: 999px;
+  color: #ffffff99;
+  width: 32px;
+  min-height: 32px;
+}
+.multiview-workspace .mv-panel-bar button:hover { background: #ffffff12; color: #fff; }
+.multiview-workspace .mv-panel-bar [data-kind] {
+  width: auto;
+  min-width: 88px;
+  max-width: 118px;
+  height: 34px;
+  padding: 6px 12px;
+  background: #ffffff0d;
+  border-color: #ffffff1a;
+  color: #ffffffe6;
+}
+.multiview-workspace .mv-panel-bar [data-kind] .filter-label { font-size: 11px; max-width: none; }
+.multiview-workspace .mv-panel-bar [data-move-panel] { width: 18px; padding: 2px; color: #ffffff55; }
+.multiview-workspace .mv-footer { min-height: 34px; font-size: 11px; color: #ffffff80; }
+.multiview-workspace .mv-footer button { min-height: 34px; font-size: 11px; padding: 6px 12px; }
+.multiview-workspace > .discovery-options {
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--theme-dropdown-background, #1a1a1a) 88%, transparent);
+  border-color: #ffffff1a;
+  backdrop-filter: blur(24px) saturate(1.4);
+}
+.multiview-workspace .mv-audio-active { border-color: color-mix(in srgb, var(--outlaw-accent) 55%, transparent); }
+.multiview-workspace:fullscreen { padding: 20px 24px 12px; }
+@media (max-width: 1500px) {
+  .multiview-workspace .mv-heading h1 { font-size: 40px; }
+}
+@media (max-width: 1100px) {
+  .multiview-open .multiview-workspace { padding-inline: 32px; }
+  .multiview-workspace .mv-toolbar { align-items: flex-start; flex-wrap: wrap; gap: 18px; }
+}
+@container (max-width: 510px) {
+  .multiview-workspace .mv-panel-bar { gap: 5px; padding-inline: 8px; }
+  .multiview-workspace .mv-panel-tools { gap: 0; }
+  .multiview-workspace .mv-panel-tools button { width: 28px; min-height: 32px; }
+  .multiview-workspace .mv-panel-bar [data-kind] { min-width: 78px; padding-inline: 9px; }
+}
+@container (max-width: 350px) {
+  .multiview-workspace .mv-panel-bar [data-browse-panel] { display: none; }
+  .multiview-workspace .mv-panel-bar [data-kind] { min-width: 74px; max-width: 88px; }
+}
+@media (max-width: 700px) {
+  .multiview-open .multiview-workspace { padding: 104px 16px 12px; gap: 18px; }
+  .multiview-workspace .mv-heading h1 { font-size: 30px; }
+  .multiview-workspace .mv-heading > div { gap: 10px; }
+  .multiview-workspace .mv-heading [data-panel-count] { font-size: 11px; }
+  .multiview-workspace .mv-toolbar { min-height: 0; gap: 20px; }
+  .multiview-workspace .mv-workspace-actions { gap: 8px !important; }
+  .multiview-workspace .mv-toolbar [data-layout] { min-width: 0; padding-inline: 12px; }
+  .multiview-workspace .mv-toolbar [data-share],
+  .multiview-workspace .mv-toolbar [data-fullscreen] { width: 38px; min-height: 38px; padding: 9px; }
+  .multiview-workspace .mv-toolbar [data-add-panel] { min-width: 110px; padding-inline: 14px; font-size: 12px; }
+  .multiview-workspace .mv-toolbar [data-restore] { top: 100px; right: 16px; padding: 8px; }
+  .multiview-workspace .mv-toolbar [data-restore] > span { display: none; }
+  .multiview-workspace .mv-panel { border-radius: 16px; }
+  .multiview-workspace .mv-grid { gap: 16px; }
+  .multiview-workspace:fullscreen { padding: 16px; }
+  .multiview-workspace:fullscreen .mv-toolbar [data-restore] { top: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .multiview-workspace .mv-toolbar button,
+  .multiview-workspace .mv-footer button { transition: none; }
+}
+html[data-motion="off"] .multiview-workspace .mv-toolbar button,
+html[data-motion="off"] .multiview-workspace .mv-footer button { transition: none; }
