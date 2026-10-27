@@ -1,7 +1,7 @@
-import {sportsRisk,riskMarkup} from './source-insights.mjs?v=20261027-sources1';
-import {mountSportsChat} from './sports-chat.mjs?v=20261027-sources1';
-import {createFilterMenu} from './filter-menu.mjs?v=20261027-sources1';
-import {installSportsFavorites} from './sports-favorites.mjs?v=20261027-sources1';
+import {sportsRisk,riskMarkup} from './source-insights.mjs?v=20261027-tested2';
+import {mountSportsChat} from './sports-chat.mjs?v=20261027-tested2';
+import {createFilterMenu} from './filter-menu.mjs?v=20261027-tested2';
+import {installSportsFavorites} from './sports-favorites.mjs?v=20261027-tested2';
 const STREAMED='https://streamed.pk';
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const safeURL=value=>{try{const u=new URL(value);return u.protocol==='https:'&&!u.username&&!u.password?u.href:''}catch{return ''}};
