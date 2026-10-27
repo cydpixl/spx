@@ -1,6 +1,6 @@
 {
-  "version": "2026.10.25.66",
-  "date": "2026-10-25",
+  "version": "2026.10.27.67",
+  "date": "2026-10-27",
   "sources": [
     "CineSrc",
     "MoviesAPI",
@@ -30,7 +30,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Multiview: up to six independent movie, TV, sports and reading panels, adjustable layouts, split resizing, focus and saved workspaces.",
+  "notes": "Multiview workspace refinement: theme-aware panels, main + side layout, preserved playback during focus and arrangement, loading/retry, shareable workspaces, single-player audio, source auto-ranking with mode-aware observations and local playback events, live theme sync and visual theme previews.",
   "name": "Spex",
   "sports": {
     "route": "/sports",
@@ -49,5 +49,21 @@
       "Matchora"
     ],
     "playbackEvidence": "Bounded decoded playback: BINTV sandbox and Streamed Golf SD standard. Sampled PPV and Matchora streams stalled; feed availability is not playback verification."
+  },
+  "multiview": {
+    "maxPanels": 6,
+    "layouts": [
+      "auto",
+      "feature",
+      "columns",
+      "stack"
+    ],
+    "sharedWorkspaces": true,
+    "audio": [
+      "all",
+      "single",
+      "muted"
+    ],
+    "basePathAware": true
   }
 }

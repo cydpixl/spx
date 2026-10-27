@@ -1,5 +1,5 @@
-import {audioSpectrum} from './audio-spectrum.mjs?v=20261024-spex66';
-import {createFilterMenu} from './filter-menu.mjs?v=20261024-spex66';
+import {audioSpectrum} from './audio-spectrum.mjs?v=20261027-polish1';
+import {createFilterMenu} from './filter-menu.mjs?v=20261027-polish1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const time=n=>Number.isFinite(n)&&n>0?Math.floor(n/60)+':'+String(Math.floor(n%60)).padStart(2,'0'):'';
 let youtubeAPI;

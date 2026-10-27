@@ -1,6 +1,6 @@
-import {mountBookExtras} from './book-collections.mjs?v=20261024-spex66';
-import {showReaderDialog} from './reader-dialog.mjs?v=20261024-spex66';
-import {createFilterMenu} from './filter-menu.mjs?v=20261024-spex66';
+import {mountBookExtras} from './book-collections.mjs?v=20261027-polish1';
+import {showReaderDialog} from './reader-dialog.mjs?v=20261027-polish1';
+import {createFilterMenu} from './filter-menu.mjs?v=20261027-polish1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
 const save=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value))}catch{}};

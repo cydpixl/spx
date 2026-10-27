@@ -1,0 +1,6 @@
+.wrangler/
+node_modules/
+.env
+.env.*
+*.private.json
+catalog-worker/worker-configuration.d.ts

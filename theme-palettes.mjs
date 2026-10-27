@@ -1225,5 +1225,16 @@ export function applyTheme(settings){
  root.style.setProperty('--outlaw-accent',custom?settings.accent:palette['--theme-themePreview-primary']);
  root.style.setProperty('--outlaw-secondary',custom?settings.secondary:palette['--theme-themePreview-secondary']);
  root.style.setProperty('--outlaw-background',custom?settings.background:palette['--theme-root-bg']||palette['--theme-background-main']);
+ const accents={Default:'#b7ed74',Surface:'#b7ed74',Aero:'#83c9f3',Blue:'#a7afff',Teal:'#8cddbc',Forest:'#a5cea2',Mocha:'#dfbc8c',Red:'#f0a3ab',Pink:'#eeb1dc',Dark:'#d3d8e0',AMOLED:'#b7ed74'};
+ const accent=custom?settings.accent:accents[settings.theme]||accents.Default,bg=custom?settings.background:settings.theme==='Default'?'#090b0e':settings.theme==='Surface'?'#101418':palette['--theme-root-bg']||'#080a0d';
+ root.style.setProperty('--ui-bg',bg);root.style.setProperty('--ui-accent',accent);
+ root.style.setProperty('--ui-surface','color-mix(in srgb, '+bg+' 90%, white)');
+ root.style.setProperty('--ui-raised','color-mix(in srgb, '+bg+' 84%, white)');
+ root.style.setProperty('--ui-border','color-mix(in srgb, white 12%, transparent)');
+ const rgb=/^#([\da-f]{6})$/i.exec(bg),luma=rgb?[0,2,4].reduce((sum,offset,index)=>sum+parseInt(rgb[1].slice(offset,offset+2),16)*[.2126,.7152,.0722][index],0):0;
+ root.style.setProperty('--ui-text',luma>160?'#15171b':'#f3f4f6');root.style.setProperty('--ui-muted',luma>160?'#4e5663':'#a0a6b0');
+ if(luma>160){root.style.setProperty('--ui-surface','color-mix(in srgb, '+bg+' 94%, black)');root.style.setProperty('--ui-raised','color-mix(in srgb, '+bg+' 86%, black)');root.style.setProperty('--ui-border','#00000024')}
+ const a=/^#([\da-f]{6})$/i.exec(accent),al=a?[0,2,4].reduce((sum,offset,index)=>sum+parseInt(a[1].slice(offset,offset+2),16)*[.2126,.7152,.0722][index],0):200;root.style.setProperty('--ui-on-accent',al>145?'#101318':'#ffffff');
+ document.querySelector('meta[name="theme-color"]')?.setAttribute('content',bg);
  if(custom){root.style.setProperty('--theme-root-bg',settings.background);root.style.setProperty('--theme-background-main',settings.background);root.style.setProperty('--theme-themePreview-primary',settings.accent);root.style.setProperty('--theme-themePreview-secondary',settings.secondary)}
 }

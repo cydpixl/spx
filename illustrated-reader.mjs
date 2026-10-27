@@ -1,5 +1,5 @@
-import {showReaderDialog} from './reader-dialog.mjs?v=20261024-spex66';
-import {createFilterMenu} from './filter-menu.mjs?v=20261024-spex66';
+import {showReaderDialog} from './reader-dialog.mjs?v=20261027-polish1';
+import {createFilterMenu} from './filter-menu.mjs?v=20261027-polish1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const get=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
 const put=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
