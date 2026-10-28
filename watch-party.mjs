@@ -7,6 +7,7 @@ export function installWatchParty(ctx){
  const player=ctx.streamPlayer;
  const badge=document.createElement('button');badge.className='party-badge';badge.hidden=true;badge.type='button';badge.setAttribute('aria-label','Open watch party');
  document.body.append(badge);
+ const launch=document.createElement('button');launch.type='button';launch.className='party-launch';launch.hidden=true;launch.setAttribute('aria-label','Watch together');launch.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 5a3 3 0 0 1 0 6M21 21v-3a6 6 0 0 0-4-5"/></svg><span>Watch together</span>';document.body.append(launch);launch.onclick=()=>badge.click();
  const getState=()=>state&&{...state,position:native?ctx.video.currentTime:state.position+(state.playing?Math.max(0,Math.min(4,(Date.now()-state.at)/1000))*(state.rate||1):0),rate:native?ctx.video.playbackRate:state.rate||1};
  const status=message=>{notice=message;if(!sync.role&&message&&!ui?.isConnected)ctx.notify(message);paint();};
  function paint(){
@@ -14,6 +15,8 @@ export function installWatchParty(ctx){
   const label=notice||s.error||(s.role?(!s.connected?'Connecting to party…':s.role==='guest'&&!s.hostOnline?'Host disconnected · Playback paused':!s.ready?'Waiting for video playback data…':s.role==='host'?'Hosting · '+members.length+' viewer'+(members.length===1?'':'s'):Number.isFinite(s.drift)?'Following host · '+Math.abs(s.drift).toFixed(2)+'s apart':'Following host · Waiting for timeline'):'Start a party or paste an invite link.');
   badge.hidden=!s.role;badge.textContent=s.role==='host'?'Watch party · '+members.length+' viewers':'Watch party · '+(!s.hostOnline?'Waiting for host':!s.ready?'Loading':'Following host');
   const active=player.dialog||ctx.player.open&&ctx.player;if(active&&badge.parentElement!==active)active.append(badge);else if(!active&&badge.parentElement!==document.body)document.body.append(badge);
+  launch.hidden=!active||!!s.role;if(active&&launch.parentElement!==active)active.append(launch);else if(!active&&launch.parentElement!==document.body)document.body.append(launch);
+  if(active&&new URLSearchParams(location.search).get('together')==='1'){const url=new URL(location.href);url.searchParams.delete('together');history.replaceState(history.state,'',url);queueMicrotask(()=>launch.click());}
   if(!ui?.isConnected||!ui.querySelector('[data-party-status]'))return;
   ui.querySelector('[data-party-status]').textContent=label;
   ui.querySelector('[data-party-room]').textContent=s.room||'';

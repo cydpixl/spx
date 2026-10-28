@@ -1,5 +1,5 @@
 {
-  "version": "2026.10.27.70",
+  "version": "2026.10.27.71",
   "date": "2026-10-27",
   "sources": [
     "CineSrc",
@@ -30,7 +30,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Multiview workspace refinement: theme-aware panels, main + side layout, preserved playback during focus and arrangement, loading/retry, shareable workspaces, single-player audio, source auto-ranking with mode-aware observations and local playback events, live theme sync and visual theme previews. Multiview styling now matches Spex browsing: shared glass pills, white primary action, heading scale, gutters and theme backdrop. All domains directory lists 4 current and 6 older Spex addresses, with search, copy and open actions. Server-backed synced watch parties with invite links, up to 12 viewers, host playback controls and reconnect handling.",
+  "notes": "Multiview workspace refinement: theme-aware panels, main + side layout, preserved playback during focus and arrangement, loading/retry, shareable workspaces, single-player audio, source auto-ranking with mode-aware observations and local playback events, live theme sync and visual theme previews. Multiview styling now matches Spex browsing: shared glass pills, white primary action, heading scale, gutters and theme backdrop. All domains directory lists 4 current and 6 older Spex addresses, with search, copy and open actions. Server-backed synced watch parties with invite links, up to 12 viewers, host playback controls and reconnect handling. Cinejoy design parity: measured shared navigation, hero, typography, catalog and title proportions; matching Sports, Read, Music, Multiview and party surfaces; accessible extras menu, English availability filtering, direct watch-together access and consolidated stylesheet delivery.",
   "name": "Spex",
   "sports": {
     "route": "/sports",
@@ -78,6 +78,22 @@
       "cinesrc",
       "moviesapi",
       "aniembed"
+    ]
+  },
+  "design": {
+    "reference": "https://cinejoy.pk",
+    "stylesheets": 1,
+    "preservedFeatures": [
+      "sports",
+      "reading",
+      "music",
+      "multiview",
+      "watch-parties",
+      "themes",
+      "lists",
+      "uploads",
+      "accounts",
+      "domains"
     ]
   }
 }
