@@ -1,6 +1,6 @@
 import {renderDomains,domainsLink} from './domains.mjs?v=20261027-domains1';
 import {rankSources,sourceScore} from './source-ranking.mjs?v=20261027-polish1';
-import {createExplore} from './explore.mjs?v=20261027-polish1';
+import {createExplore} from './explore.mjs?v=20261028-cinejoy2';
 import {installVoiceSearch} from './voice-search.mjs?v=20261027-polish1';
 import {createSports} from './sports.mjs?v=20261027-polish1';
 import {createCatalogPages} from './catalog-pages.mjs?v=20261027-polish1';
@@ -14,7 +14,7 @@ import {renderSourceDirectory} from './source-directory.mjs?v=20261027-polish1';
 import {renderPerson} from './person.mjs?v=20261027-polish1';
 import {installCommunity} from './community.mjs?v=20261027-polish1';
 import {playerIcon} from './player-icons.mjs?v=20261027-polish1';
-import {installWatchParty} from './watch-party.mjs?v=20261027-party1';
+import {installWatchParty} from './watch-party.mjs?v=20261028-cinejoy2';
 import {providers,readAds,setAds} from './provider-player.mjs?v=20261027-polish1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>crypto.randomUUID();
