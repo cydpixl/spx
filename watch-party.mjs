@@ -1,4 +1,4 @@
-import {SyncRoom} from './watch-party-sync.mjs?v=20261027-party1';
+import {SyncRoom} from './watch-party-sync.mjs?v=20261028-refine1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const supported=['native','cinesrc','moviesapi','aniembed'];
 const same=(a,b)=>a?.source===b?.source&&a?.media===b?.media&&a?.audio===b?.audio;
@@ -13,7 +13,7 @@ export function installWatchParty(ctx){
  function paint(){
   const s=lastStatus,members=s.members||[];
   const label=notice||s.error||(s.role?(!s.connected?'Connecting to party…':s.role==='guest'&&!s.hostOnline?'Host disconnected · Playback paused':!s.ready?'Waiting for video playback data…':s.role==='host'?'Hosting · '+members.length+' viewer'+(members.length===1?'':'s'):Number.isFinite(s.drift)?'Following host · '+Math.abs(s.drift).toFixed(2)+'s apart':'Following host · Waiting for timeline'):'Start a party or paste an invite link.');
-  badge.hidden=!s.role;badge.textContent=s.role==='host'?'Watch party · '+members.length+' viewers':'Watch party · '+(!s.hostOnline?'Waiting for host':!s.ready?'Loading':'Following host');
+  badge.hidden=!s.role;badge.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4h16v12H8l-4 4Z"/></svg><span>'+members.length+'</span>';badge.title='Watch party · '+members.length+' viewers';
   const active=player.dialog||ctx.player.open&&ctx.player;if(active&&badge.parentElement!==active)active.append(badge);else if(!active&&badge.parentElement!==document.body)document.body.append(badge);
   launch.hidden=!active||!!s.role;if(active&&launch.parentElement!==active)active.append(launch);else if(!active&&launch.parentElement!==document.body)document.body.append(launch);
   if(active&&new URLSearchParams(location.search).get('together')==='1'){const url=new URL(location.href);url.searchParams.delete('together');history.replaceState(history.state,'',url);queueMicrotask(()=>launch.click());}
@@ -21,6 +21,11 @@ export function installWatchParty(ctx){
   ui.querySelector('[data-party-status]').textContent=label;
   ui.querySelector('[data-party-room]').textContent=s.room||'';
   ui.querySelector('[data-party-members]').innerHTML=members.map(m=>'<li><span>'+esc(m.name)+(m.role==='host'?' · Host':'')+'</span><small>'+(m.ready?'Ready':'Loading video')+'</small></li>').join('');
+  ui.classList.toggle('is-joined',!!s.role);const chat=ui.querySelector('[data-party-chat]');chat.hidden=!s.role;
+  const log=ui.querySelector('[data-party-chat-log]'),messages=s.chat||[],chatKey=messages.map(m=>m.id).join(',');
+  if(log.dataset.messages!==chatKey){const atBottom=log.scrollHeight-log.scrollTop-log.clientHeight<48;log.dataset.messages=chatKey;log.innerHTML=messages.map(m=>'<li><strong>'+esc(m.name)+'</strong><time>'+new Date(m.at).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})+'</time><p>'+esc(m.text)+'</p></li>').join('')||'<li class="party-chat-empty">Say hello to your room.</li>';if(atBottom)log.scrollTop=log.scrollHeight;}
+  ui.querySelector('[data-party-chat-status]').textContent=s.chatError||(!s.connected&&s.role?'Reconnecting…':'');
+  ui.querySelector('[data-party-chat-send]').disabled=!s.connected;
   for(const key of ['copy','leave','resync','enable'])ui.querySelector('[data-party-'+key+']').hidden=!s.role;
   for(const key of ['name','code'])ui.querySelector('[data-party-'+key+']').closest('label').hidden=!!s.role;
   for(const key of ['start','join'])ui.querySelector('[data-party-'+key+']').hidden=!!s.role;
@@ -75,7 +80,7 @@ export function installWatchParty(ctx){
  function invite(){const url=new URL((session?.media||'/').replace(/^\//,''),document.baseURI);url.searchParams.set('party',sync.room);return url.href;}
  function open(container){
   ui=container;container.classList.add('party-panel');const heading=container.querySelector(':scope>header');
-  container.innerHTML='<div class="party-intro"><small>WATCH TOGETHER</small><p>The host controls playback. Everyone watches on their own device.</p></div><label>Your name<input data-party-name maxlength="40" autocomplete="nickname" value="'+esc(ctx.read('outlaw.party-name','Viewer'))+'"></label><button class="stream-menu-row party-primary" data-party-start>Start a watch party</button><label>Invite link or room code<input data-party-code autocomplete="off" spellcheck="false" placeholder="Paste an invite link or code"></label><button class="stream-menu-row" data-party-join>Join party</button><p data-party-status role="status" aria-live="polite"></p><code data-party-room class="party-room-code"></code><ul data-party-members class="party-members"></ul><button class="stream-menu-row" data-party-copy hidden>Copy invite link</button><button class="stream-menu-row" data-party-enable hidden>Enable playback on this device</button><button class="stream-menu-row" data-party-resync hidden>Resync with host</button><button class="stream-menu-row" data-party-leave hidden>Leave party</button><p class="stream-menu-description">Sync supports Original videos, CineSrc, MoviesAPI and AniEmbed. Other sources do not expose the controls needed for sync. Rooms hold up to 12 viewers and expire after 12 hours.</p>';
+  container.innerHTML='<div class="party-intro"><small>WATCH TOGETHER</small><p>The host controls playback. Everyone watches on their own device.</p></div><label>Your name<input data-party-name maxlength="40" autocomplete="nickname" value="'+esc(ctx.read('outlaw.party-name','Viewer'))+'"></label><button class="stream-menu-row party-primary" data-party-start>Start a watch party</button><label>Invite link or room code<input data-party-code autocomplete="off" spellcheck="false" placeholder="Paste an invite link or code"></label><button class="stream-menu-row" data-party-join>Join party</button><p data-party-status role="status" aria-live="polite"></p><code data-party-room class="party-room-code"></code><ul data-party-members class="party-members"></ul><div class="party-controls"><button class="stream-menu-row" data-party-copy hidden>Copy invite link</button><button class="stream-menu-row" data-party-enable hidden>Enable playback on this device</button><button class="stream-menu-row" data-party-resync hidden>Resync with host</button><button class="stream-menu-row" data-party-leave hidden>Leave party</button></div><section class="party-chat" data-party-chat hidden aria-label="Room chat"><h3>Room chat</h3><ol data-party-chat-log role="log" aria-live="polite" aria-relevant="additions" tabindex="0"></ol><form data-party-chat-form><input data-party-chat-input aria-label="Message the room" placeholder="Message the room…" maxlength="500" autocomplete="off" required><button data-party-chat-send aria-label="Send message">Send</button></form><p data-party-chat-status role="status"></p></section><p class="stream-menu-description">Up to 12 viewers · Room and chat expire after 12 hours.</p>';
   if(heading)container.prepend(heading);
   container.querySelector('[data-party-name]').oninput=e=>ctx.write('outlaw.party-name',e.target.value.trim().slice(0,40)||'Viewer');
   container.querySelector('[data-party-start]').onclick=()=>start('host');
@@ -84,6 +89,7 @@ export function installWatchParty(ctx){
   container.querySelector('[data-party-leave]').onclick=()=>{sync.leave();sync.expected=null;notice='You left the party.';paint();};
   container.querySelector('[data-party-resync]').onclick=()=>{notice='';lastSeek=0;sync.resync();};
   container.querySelector('[data-party-enable]').onclick=()=>{notice='';lastPlay=0;if(native)ctx.video.play().catch(()=>status('Press Play in the video to enable playback.'));else player.command('play');sync.resync();};
+  const form=container.querySelector('[data-party-chat-form]');form.onkeydown=e=>e.stopPropagation();form.onsubmit=e=>{e.preventDefault();e.stopPropagation();const input=form.querySelector('input'),text=input.value.trim();if(!text)return;if(sync.sendChat(text)){input.value='';form.querySelector('button').disabled=true;setTimeout(()=>{if(form.isConnected)form.querySelector('button').disabled=!sync.connected},1000);}else container.querySelector('[data-party-chat-status]').textContent='Please wait for the room to be ready.';};
   paint();
  }
  badge.onclick=()=>{const active=player.dialog||ctx.player.open&&ctx.player||document.body;let panel=active.querySelector('.party-floating');if(panel){panel.remove();return;}panel=document.createElement('section');panel.className='party-floating native-menu';panel.innerHTML='<header><strong>Watch party</strong><button aria-label="Close watch party">×</button></header>';active.append(panel);panel.querySelector('button').onclick=()=>panel.remove();open(panel);};

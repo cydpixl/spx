@@ -1,4 +1,4 @@
-import {uiIcon} from './reference-ui.mjs?v=20261027-polish1';
+import {uiIcon} from './reference-ui.mjs?v=20261028-refine1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 export function createCatalogPages(ctx){

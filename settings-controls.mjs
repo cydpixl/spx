@@ -1,5 +1,5 @@
-import {themePalettes} from './theme-palettes.mjs?v=20261027-polish1';
-import {playerIcon} from './player-icons.mjs?v=20261027-polish1';
+import {themePalettes} from './theme-palettes.mjs?v=20261028-refine1';
+import {playerIcon} from './player-icons.mjs?v=20261028-refine1';
 let openChoice=null,sequence=0;
 const closeChoice=()=>{if(!openChoice)return;openChoice.menu.hidden=true;openChoice.button.setAttribute('aria-expanded','false');openChoice=null};
 document.addEventListener('pointerdown',event=>{if(openChoice&&!openChoice.root.contains(event.target))closeChoice()});
@@ -13,11 +13,6 @@ export function enhanceSettingsControls(host){
  for(const select of host.querySelectorAll('select[data-pref]')){
   if(select.dataset.enhanced)continue;select.dataset.enhanced='true';
   if(select.dataset.pref==='theme'){const custom=[...select.options].find(o=>o.value==='Custom');if(custom)select.prepend(custom)}
-  if(select.dataset.pref==='theme'){
-   const gallery=document.createElement('div');gallery.className='theme-gallery';gallery.setAttribute('role','group');gallery.setAttribute('aria-label','Color theme');select.closest('.setting-row').after(gallery);select.classList.add('choice-native');select.tabIndex=-1;select.setAttribute('aria-hidden','true');
-   const tiles=[...select.options].map(option=>{const palette=themePalettes[option.value]||themePalettes.Default,button=document.createElement('button');button.type='button';button.className='theme-tile';button.dataset.theme=option.value;button.setAttribute('aria-label',option.value+' theme');button.style.setProperty('--preview-bg',option.value==='Default'?'#090b0e':option.value==='Surface'?'#101418':palette['--theme-root-bg']||'#080a0d');button.style.setProperty('--preview-panel',palette['--theme-settings-card-background']||'#25282e');button.style.setProperty('--preview-accent',option.value==='Dark'?'#c4cedd':palette['--theme-themePreview-primary']||'#b7e75a');button.innerHTML='<span class="theme-miniature" aria-hidden="true"></span><span>'+option.textContent+playerIcon('check')+'</span>';button.onclick=()=>{select.value=option.value;select.dispatchEvent(new Event('change',{bubbles:true}))};gallery.append(button);return button});
-   const update=()=>{tiles.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.theme===select.value)));const tile=tiles.find(b=>b.dataset.theme==='Custom');if(tile){tile.style.setProperty('--preview-bg',host.querySelector('[data-pref=background]')?.value||'#08070d');tile.style.setProperty('--preview-accent',host.querySelector('[data-pref=accent]')?.value||'#95ff50');tile.style.setProperty('--preview-panel',host.querySelector('[data-pref=secondary]')?.value||'#7c5cff')}};host.querySelector('.custom-colors')?.addEventListener('change',update);select.addEventListener('change',update);update();continue;
-  }
 
   const key=select.dataset.pref,label=select.getAttribute('aria-label')||select.closest('.setting-row')?.querySelector('span')?.textContent||key;
   const root=document.createElement('div');root.className='preference-choice';root.dataset.preference=key;select.before(root);root.append(select);select.classList.add('choice-native');select.tabIndex=-1;select.setAttribute('aria-hidden','true');

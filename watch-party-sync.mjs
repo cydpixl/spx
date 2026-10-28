@@ -2,7 +2,7 @@
 export class SyncRoom {
  constructor(options){Object.assign(this,options);this.role=null;this.ready=false;this.members=[];this.offset=0;this.samples=[];this.revision=0;this.timer=setInterval(()=>this.tick(),1000);this.online=()=>{if(this.role&&!this.connected)this.connect()?.catch(()=>{})};window.addEventListener('online',this.online);}
  get connected(){return this.socket?.readyState===1&&this.joined;}
- snapshot(extra={}){this.update({role:this.role,connected:this.connected,ready:this.ready,room:this.room,members:this.members,hostOnline:this.members.some(m=>m.role==='host'),...extra});}
+ snapshot(extra={}){this.update({role:this.role,connected:this.connected,ready:this.ready,room:this.room,members:this.members,hostOnline:this.members.some(m=>m.role==='host'),chat:this.chat||[],...extra});}
  async start(role,room){
   this.leave();this.clientId=crypto.randomUUID();this.role=role;
   try{
@@ -22,7 +22,7 @@ export class SyncRoom {
    socket.onopen=()=>{this.lastReceived=Date.now();this.send({type:'hello',id:this.clientId,name:this.getName?.()||'Viewer',token:this.token});};
    socket.onmessage=event=>{
     if(this.socket!==socket)return;this.lastReceived=Date.now();let d;try{d=JSON.parse(event.data);}catch{return;}
-    if(d.type==='welcome'){clearTimeout(timeout);this.joined=true;this.attempt=0;this.connecting=null;this.role=d.role;this.receiveSession(d,true);this.snapshot({error:null});this.send({type:'ready',ready:this.ready});resolve();}
+    if(d.type==='welcome'){clearTimeout(timeout);this.joined=true;this.attempt=0;this.connecting=null;this.role=d.role;this.chat=Array.isArray(d.chat)?d.chat.slice(-100):[];this.receiveSession(d,true);this.snapshot({error:null});this.send({type:'ready',ready:this.ready});resolve();}
     else this.receive(d);
    };
    socket.onerror=()=>{};
@@ -41,6 +41,8 @@ export class SyncRoom {
   if(this.role==='host'&&!welcome&&changed&&this.getState())this.markReady(true);
  }
  receive(d){
+  if(d.type==='chat'&&d.message?.id&&typeof d.message.text==='string'){this.chat=[...(this.chat||[]).filter(m=>m.id!==d.message.id),d.message].slice(-100);this.snapshot({chatError:null});}
+  if(d.type==='chat-error')this.snapshot({chatError:d.message});
   if(d.type==='session'){this.receiveSession(d);this.snapshot();}
   if(d.type==='presence'){this.members=d.members||[];if(this.role==='guest'&&!this.members.some(m=>m.role==='host'&&m.ready)){this.target=null;this.onDisconnect?.();}this.snapshot();}
   if(d.type==='pong'&&Number.isFinite(d.sent)&&Number.isFinite(d.now)){
@@ -56,9 +58,10 @@ export class SyncRoom {
  sessionChanged(){this.ready=false;this.target=null;this.send({type:'ready',ready:false});this.send({type:'session',session:this.getSession()});this.snapshot();}
  broadcast(force=false){if(this.role!=='host'||!this.connected||!this.ready)return;const state=this.getState();if(!state||Date.now()-state.at>4000)return;const now=Date.now();if(!force&&now-(this.lastBroadcast||0)<900)return;this.lastBroadcast=now;this.send({type:'state',...state,session:this.getSession(),revision:this.revision,force});}
  tick(){if(!this.connected)return;if(Date.now()-this.lastReceived>20000){this.socket.close();return;}if(Date.now()-(this.lastPing||0)>5000){this.lastPing=Date.now();this.send({type:'ping',sent:Date.now()});}if(this.role==='host')this.broadcast();}
+ sendChat(text){if(!this.connected)return false;if(Date.now()-(this.lastChatSent||0)<1000){this.snapshot({chatError:'Please wait a moment before sending again.'});return false;}this.lastChatSent=Date.now();this.send({type:'chat',text,nonce:crypto.randomUUID()});return true;}
  resync(){this.send({type:'resync'});}
  remember(){try{sessionStorage.setItem('spex.party.session',JSON.stringify({role:this.role,room:this.room,token:this.token,clientId:this.clientId}));}catch{}}
  async resume(){let saved;try{saved=JSON.parse(sessionStorage.getItem('spex.party.session'));}catch{}if(!saved||!['host','guest'].includes(saved.role)||!/^[a-f0-9]{24}$/.test(saved.room))return;Object.assign(this,saved);this.snapshot();try{await this.connect();}catch{this.snapshot({error:'Reconnecting to your party…'});}}
- leave(){try{sessionStorage.removeItem('spex.party.session');}catch{}clearTimeout(this.retry);const socket=this.socket;this.socket=null;this.role=null;this.room=null;this.token=null;this.expected=null;this.restoring=false;this.joined=false;this.connecting=null;this.ready=false;this.target=null;this.members=[];this.revision=0;this.samples=[];this.offset=0;socket?.close(1000,'Left party');this.snapshot({drift:null,error:null});}
+ leave(){try{sessionStorage.removeItem('spex.party.session');}catch{}clearTimeout(this.retry);const socket=this.socket;this.socket=null;this.role=null;this.room=null;this.token=null;this.expected=null;this.restoring=false;this.joined=false;this.connecting=null;this.ready=false;this.target=null;this.members=[];this.chat=[];this.revision=0;this.samples=[];this.offset=0;socket?.close(1000,'Left party');this.snapshot({drift:null,error:null});}
  destroy(){let saved;try{saved=sessionStorage.getItem('spex.party.session');}catch{}this.leave();if(saved)try{sessionStorage.setItem('spex.party.session',saved);}catch{}clearInterval(this.timer);window.removeEventListener('online',this.online);}
 }

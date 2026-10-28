@@ -1,3 +1,5 @@
+import {domainHealth} from './domain-health.mjs';
+import {chatMessage} from './chat.mjs';
 import {DurableObject} from 'cloudflare:workers';
 
 const TTL = 12 * 60 * 60 * 1000;
@@ -7,12 +9,13 @@ const same = (a,b) => a?.source === b?.source && a?.media === b?.media && a?.aud
 const allowed = origin => /^https:\/\/(?:[a-z0-9-]+\.)?(?:spx7|bogart|spx-1fa|spex-dzd)\.pages\.dev$/.test(origin) || ['https://spx7.web.app','https://spx7.firebaseapp.com','https://spex-pixl.web.app','https://spex-pixl.firebaseapp.com','https://cydpixl.github.io'].includes(origin) || /^http:\/\/(?:localhost|127\.0\.0\.1):\d+$/.test(origin);
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url), origin = request.headers.get('Origin') || '';
     const headers = {'Access-Control-Allow-Origin': allowed(origin) ? origin : 'null', 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type', 'Vary': 'Origin', 'Cache-Control': 'no-store'};
     const reply = (error, status) => Response.json({error}, {status, headers});
-    if (url.pathname === '/health') return Response.json({ok:true, version:1}, {headers});
+    if (url.pathname === '/health') return Response.json({ok:true, version:2, chat:true}, {headers});
     if (!allowed(origin)) return reply('Origin not allowed.',403);
+    if(url.pathname==='/domains/health'&&request.method==='GET')return domainHealth(request,headers,ctx);
     if (request.method === 'OPTIONS') return new Response(null,{status:204,headers});
     if (url.pathname === '/rooms' && request.method === 'POST') {
       if (Number(request.headers.get('Content-Length')) > 2048) return reply('Request too large.',413);
@@ -69,7 +72,7 @@ export class WatchRoom extends DurableObject {
       }
       Object.assign(m,{joined:true,id:d.id,name:String(d.name||'Viewer').slice(0,40),role,ready:false});
       ws.serializeAttachment(m);
-      this.send(ws,{type:'welcome',role,session:room.session,revision:room.revision,state:room.state,now:Date.now()});
+      this.send(ws,{type:'welcome',role,session:room.session,revision:room.revision,state:room.state,chat:await this.ctx.storage.get('chat')||[],now:Date.now()});
       this.presence();return;
     }
     if(!m.joined){ws.close(1008,'Join the room first');return;}
@@ -78,6 +81,14 @@ export class WatchRoom extends DurableObject {
     if(d.type==='ack'){m.drift=Number.isFinite(d.drift)?Math.max(-86400,Math.min(86400,d.drift)):null;ws.serializeAttachment(m);return;}
     if(d.type==='resync'){if(room.state)this.send(ws,{...room.state,type:'state',force:true});return;}
     if(d.type==='leave'){ws.close(1000,'Left party');return;}
+    if(d.type==='chat'){
+      const message=chatMessage(d,m);if(!message)return;
+      if(Date.now()-(m.lastChat||0)<1000){this.send(ws,{type:'chat-error',message:'Please wait a moment before sending again.'});return;}
+      m.lastChat=Date.now();ws.serializeAttachment(m);
+      let duplicate=false;
+      await this.ctx.storage.transaction(async txn=>{const history=await txn.get('chat')||[];duplicate=history.some(x=>x.author===m.id&&x.nonce===d.nonce);if(!duplicate)await txn.put('chat',[...history,message].slice(-100));});
+      if(!duplicate)this.broadcast({type:'chat',message});return;
+    }
     if(m.role!=='host')return;
     if(d.type==='session'&&validSession(d.session)) {
       room.session=d.session;room.revision++;room.state=null;
@@ -91,7 +102,7 @@ export class WatchRoom extends DurableObject {
       this.broadcast(room.state);
     }
   }
-  webSocketClose(ws,code,reason) {ws.close(code,reason);this.presence();}
-  webSocketError(ws) {ws.close(1011,'Connection lost');this.presence();}
+  webSocketClose(ws) {try{ws.close(1000,'Connection closed')}catch{}this.presence();}
+  webSocketError(ws) {try{ws.close(1011,'Connection lost')}catch{}this.presence();}
   async alarm(){for(const ws of this.sockets())ws.close(4004,'Party expired');await this.ctx.storage.deleteAll();}
 }
