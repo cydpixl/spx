@@ -37,7 +37,7 @@ export function createExplore(ctx){
  }
  function play(item,library=[]){playingId=item.id;queue=library.length?library.flatMap(b=>b.tracks.map(t=>({...t,author:b.author,id:b.id}))):item.tracks.map(t=>({...t,author:item.author}));void playTrack(library.length?Math.max(0,queue.findIndex(t=>t.id===item.id)):0)}
  async function render(parts){
-  leave();musicHub.stop();stop();if(!['manga','books'].includes(parts[1])){ctx.navigate('/explore/manga',{replace:true});return}const currentRoute=++routeStamp;if(parts[1]==='music'){await musicHub.render();return}
+  leave();musicHub.stop();stop();if(!['manga','books','music'].includes(parts[1])){ctx.navigate('/explore/manga',{replace:true});return}const currentRoute=++routeStamp;if(parts[1]==='music'){await musicHub.render();return}
   if(parts[1]==='manga'&&parts[2]==='character'){let disposed=false;cleanup=()=>{disposed=true};await renderCharacterPage(ctx,parts[3]||'',()=>!disposed&&currentRoute===routeStamp);return}
   if(parts[1]==='books'&&parts[2]){
    let disposed=false;cleanup=()=>{disposed=true};ctx.app.innerHTML='<section class="book-detail-page"><p role="status">Loading book…</p></section>';
