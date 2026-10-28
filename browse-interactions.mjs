@@ -1,4 +1,4 @@
-import {uiIcon} from './reference-ui.mjs?v=20261028-refine1';
+import {uiIcon} from './reference-ui.mjs?v=20261028-refine2';
 // Shared navigation geometry survives route changes, resizing and font loading.
 export function installNavigation(){
  const nav=document.querySelector('.nav-pill');

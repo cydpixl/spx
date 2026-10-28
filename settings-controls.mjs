@@ -1,5 +1,5 @@
-import {themePalettes} from './theme-palettes.mjs?v=20261028-refine1';
-import {playerIcon} from './player-icons.mjs?v=20261028-refine1';
+import {themePalettes} from './theme-palettes.mjs?v=20261028-refine2';
+import {playerIcon} from './player-icons.mjs?v=20261028-refine2';
 let openChoice=null,sequence=0;
 const closeChoice=()=>{if(!openChoice)return;openChoice.menu.hidden=true;openChoice.button.setAttribute('aria-expanded','false');openChoice=null};
 document.addEventListener('pointerdown',event=>{if(openChoice&&!openChoice.root.contains(event.target))closeChoice()});

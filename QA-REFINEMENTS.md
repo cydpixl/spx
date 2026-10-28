@@ -1,6 +1,6 @@
 # Spex refinement verification
 
-Release 2026.10.28.73. Music stays removed.
+Release 2026.10.28.74. Music stays removed.
 
 Cinejoy Settings was inspected live. Its cards use rgba(20,20,20,.6) with blur(20px); Spex now uses that material and restores full silk visibility. The theme picker is a compact dropdown, with the existing choices preserved. Source ranking is absent from settings; source rows use names, signal bars and accessible hover/focus/tap details. File inputs have styled picker controls. A clipped mobile party shortcut was found and fixed.
 
@@ -13,3 +13,5 @@ Watch-party chat passed local and live WebSocket tests: host/guest delivery, his
 Seven existing ranking/player-evidence regression tests passed. All 49 root JavaScript modules passed syntax checks. Worker build/dry run passed; startup measured 1-2 ms. 390x844 browser QA showed no horizontal overflow on settings, sources and Shorts. Source picker rows inside the player were visually checked at this width. Full playback across every external provider/title is not claimed.
 
 Deploy targets: spx7.pages.dev, spx7.web.app, spx7.firebaseapp.com, cydpixl.github.io/spx/, bogart.pages.dev. Final runtime-asset and browser evidence is retained in the task outputs. Original source changes are synchronized separately after checking for concurrent edits.
+
+Final trailer follow-up: captions are separate from the video, next/previous controls stay in the header, and the feed uses dedicated component classes to avoid legacy layout overrides. Privacy-enhanced embeds and a bounded initialization timeout are included. Trailer playback advanced beyond 70 seconds in the in-app browser at 390x844, with no overflow. One automated Chrome session did not initialize embedded trailers; it displays Retry rather than an indefinite spinner. The same official trailer played on YouTube itself in that session. No browser privacy or extension settings were changed.
