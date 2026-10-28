@@ -1,4 +1,4 @@
-import './cinejoy-ui.mjs?v=20261027-cinejoy1';
+import './cinejoy-ui.mjs?v=20261028-cinejoy2';
 import {installDomainLinks} from './domains.mjs?v=20261027-domains1';
 import {installMultiview} from './multiview.mjs?v=20261027-domains1';
 import {installInterfacePolish} from './interface-polish.mjs?v=20261027-polish1';

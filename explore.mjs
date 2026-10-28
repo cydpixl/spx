@@ -1,6 +1,5 @@
 import {renderCharacterPage} from './character-page.mjs?v=20261027-polish1';
 import {catalogBook,searchSeries,mountBookExtras,libraryBook} from './book-collections.mjs?v=20261027-polish1';
-import {createMusicHub} from './music-hub.mjs?v=20261027-polish1';
 import {createBookReader} from './book-reader.mjs?v=20261027-polish1';
 import {createFilterMenu} from './filter-menu.mjs?v=20261027-polish1';
 import {createMangaReader,mangaLanguage} from './manga-reader.mjs?v=20261027-polish1';
@@ -9,13 +8,12 @@ const API='https://spex-library.cydpixl7.workers.dev';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function createExplore(ctx){
  let cleanup=()=>{},dock,audio,queue=[],queueIndex=0,playingId='',audioContext,analyser,frame=0,loadTicket=0;
- const musicHub=createMusicHub(ctx,API,stop);
  const bookReader=createBookReader(API,ctx),knownBooks=new Map();
  const mangaReader=createMangaReader(API),mangaAccess=new Map(),knownManga=new Map();let routeStamp=0;
- const leave=()=>{cleanup();musicHub.leave();mangaReader.close();bookReader.close();document.querySelector('.explore-reader')?.close()};
+ const leave=()=>{cleanup();mangaReader.close();bookReader.close();document.querySelector('.explore-reader')?.close()};
  const originalOpen=ctx.streamPlayer.onOpen;
- ctx.streamPlayer.onOpen=function(...args){stop();musicHub.stop();return originalOpen.apply(this,args)};
- document.addEventListener('play',event=>{if(event.target instanceof HTMLVideoElement){audio?.pause();musicHub.stop()}},true);
+ ctx.streamPlayer.onOpen=function(...args){stop();return originalOpen.apply(this,args)};
+ document.addEventListener('play',event=>{if(event.target instanceof HTMLVideoElement){audio?.pause();}},true);
  function stop(){++loadTicket;audio?.pause();if(audio){audio.removeAttribute('src');audio.load()}cancelAnimationFrame(frame);dock?.remove();dock=null;audio=null;playingId='';document.body.classList.remove('has-audio-dock');if(audioContext)void audioContext.close();audioContext=null;analyser=null}
  function makeDock(){
   if(dock)return;dock=document.createElement('section');dock.className='explore-audio-dock';dock.setAttribute('aria-label','Audio player');
@@ -28,7 +26,7 @@ export function createExplore(ctx){
   audio.onpause=()=>cancelAnimationFrame(frame);
  }
  async function playTrack(index){
-  musicHub.stop();
+  
   if(index<0||index>=queue.length)return;makeDock();queueIndex=index;const track=queue[index],ticket=++loadTicket;
   dock.querySelector('.audio-identity strong').textContent=track.title;dock.querySelector('.audio-identity small').textContent=track.author||'';dock.querySelector('[role=status]').textContent='Loading audio…';dock.querySelector('[data-prev-track]').disabled=index===0;dock.querySelector('[data-next-track]').disabled=index===queue.length-1;
   if(!audioContext&&window.AudioContext){try{audioContext=new AudioContext();analyser=audioContext.createAnalyser();analyser.fftSize=256;audioContext.createMediaElementSource(audio).connect(analyser);analyser.connect(audioContext.destination)}catch{analyser=null}}
@@ -37,7 +35,7 @@ export function createExplore(ctx){
  }
  function play(item,library=[]){playingId=item.id;queue=library.length?library.flatMap(b=>b.tracks.map(t=>({...t,author:b.author,id:b.id}))):item.tracks.map(t=>({...t,author:item.author}));void playTrack(library.length?Math.max(0,queue.findIndex(t=>t.id===item.id)):0)}
  async function render(parts){
-  leave();musicHub.stop();stop();if(!['manga','books','music'].includes(parts[1])){ctx.navigate('/explore/manga',{replace:true});return}const currentRoute=++routeStamp;if(parts[1]==='music'){await musicHub.render();return}
+  leave();stop();if(parts[1]==='music'){ctx.navigate('/',{replace:true});return}if(!['manga','books'].includes(parts[1])){ctx.navigate('/explore/manga',{replace:true});return}const currentRoute=++routeStamp;
   if(parts[1]==='manga'&&parts[2]==='character'){let disposed=false;cleanup=()=>{disposed=true};await renderCharacterPage(ctx,parts[3]||'',()=>!disposed&&currentRoute===routeStamp);return}
   if(parts[1]==='books'&&parts[2]){
    let disposed=false;cleanup=()=>{disposed=true};ctx.app.innerHTML='<section class="book-detail-page"><p role="status">Loading book…</p></section>';
