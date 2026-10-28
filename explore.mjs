@@ -26,7 +26,7 @@ export function createExplore(ctx){
   audio.onpause=()=>cancelAnimationFrame(frame);
  }
  async function playTrack(index){
-  
+
   if(index<0||index>=queue.length)return;makeDock();queueIndex=index;const track=queue[index],ticket=++loadTicket;
   dock.querySelector('.audio-identity strong').textContent=track.title;dock.querySelector('.audio-identity small').textContent=track.author||'';dock.querySelector('[role=status]').textContent='Loading audio…';dock.querySelector('[data-prev-track]').disabled=index===0;dock.querySelector('[data-next-track]').disabled=index===queue.length-1;
   if(!audioContext&&window.AudioContext){try{audioContext=new AudioContext();analyser=audioContext.createAnalyser();analyser.fftSize=256;audioContext.createMediaElementSource(audio).connect(analyser);analyser.connect(audioContext.destination)}catch{analyser=null}}
