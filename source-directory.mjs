@@ -1,6 +1,6 @@
-import {providers,readAds} from './provider-player.mjs?v=20261029-ui75';
-import {movieRisk,riskMarkup} from './source-insights.mjs?v=20261029-ui75';
-import {createFilterMenu} from './filter-menu.mjs?v=20261029-ui75';
+import {providers,readAds} from './provider-player.mjs?v=20261028-refine2';
+import {movieRisk,riskMarkup} from './source-insights.mjs?v=20261028-refine2';
+import {createFilterMenu} from './filter-menu.mjs?v=20261028-refine2';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function renderSourceDirectory({app,normalizeLinks,notify}){
  document.title='Sources · Spex';app.innerHTML='<section class="browse-page source-directory"><header class="browse-heading"><h1>Sources</h1><a class="subtle-pill" href="/settings">Settings</a></header><div class="source-filters"><input type="search" aria-label="Search sources" placeholder="Search sources"><button data-source-filter></button></div><div class="source-ranking"></div></section>';

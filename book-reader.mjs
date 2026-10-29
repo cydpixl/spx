@@ -1,11 +1,11 @@
-import {mountBookExtras} from './book-collections.mjs?v=20261029-ui75';
-import {showReaderDialog} from './reader-dialog.mjs?v=20261029-ui75';
-import {createFilterMenu} from './filter-menu.mjs?v=20261029-ui75';
+import {mountBookExtras} from './book-collections.mjs?v=20261028-refine2';
+import {showReaderDialog} from './reader-dialog.mjs?v=20261028-refine2';
+import {createFilterMenu} from './filter-menu.mjs?v=20261028-refine2';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
 const save=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value))}catch{}};
 let engine;
-async function pdfEngine(){if(!engine)engine=(async()=>{const pdf=await import('./vendor/pdfjs/pdf.min.mjs?v=20261029-ui75');globalThis.pdfjsLib=pdf;pdf.GlobalWorkerOptions.workerSrc=new URL('./vendor/pdfjs/pdf.worker.min.mjs?v=20261029-ui75',import.meta.url).href;const viewer=await import('./vendor/pdfjs/pdf_viewer.mjs?v=20261029-ui75');return {...pdf,...viewer}})().catch(error=>{engine=null;throw error});return engine}
+async function pdfEngine(){if(!engine)engine=(async()=>{const pdf=await import('./vendor/pdfjs/pdf.min.mjs?v=20261028-refine2');globalThis.pdfjsLib=pdf;pdf.GlobalWorkerOptions.workerSrc=new URL('./vendor/pdfjs/pdf.worker.min.mjs?v=20261028-refine2',import.meta.url).href;const viewer=await import('./vendor/pdfjs/pdf_viewer.mjs?v=20261028-refine2');return {...pdf,...viewer}})().catch(error=>{engine=null;throw error});return engine}
 export function createBookReader(api,ctx){
  let root,reader,stamp=0,abort,dispose=()=>{};
  function close(){++stamp;abort?.abort();const active=reader;if(active?.open)active.close();dispose();active?.remove();reader=null;dispose=()=>{};root?.remove();root=null}
