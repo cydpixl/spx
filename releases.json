@@ -47,8 +47,7 @@
             "Added this searchable release timeline at /updates, linked from Explore, Settings, and the footer.",
             "Documented previous source releases from Git history and earlier release notes with source commit links.",
             "Added retry and empty-search states, release permalinks, version labels, and responsive layouts.",
-            "Updated the build to retain the current release metadata and include the shared interface stylesheet.",
-            "Preserved clean direct-link routing on Cloudflare and Firebase while keeping the separate GitHub Pages fallback."
+            "Updated the build to retain the current release metadata and include the shared interface stylesheet."
           ]
         }
       ]
@@ -162,31 +161,17 @@
       ]
     },
     {
-      "version": "2026.10.21.30",
-      "date": "2026-10-21",
-      "title": "Spex release",
+      "version": "2026.10.15.3",
+      "date": "2026-10-15",
+      "title": "Spex Movies release",
       "summary": "Archived release notes from the project documentation. These describe behavior at the time of that release.",
       "sections": [
         {
           "title": "Documented changes and limitations",
           "changes": [
-            "Visible branding is now Spex; original artwork, routes, account storage, library keys, uploads and APIs are retained. Sports uses the existing catalog filter classes with custom keyboard-accessible listboxes. Favorite sports and teams are saved in this browser and sorted before other events. The Favorites dialog manages them and the in-app alert preference. The notification bell shows live and starting-soon alerts while the site is open, with persistent unread state and duplicate prevention; this is not closed-app push notification delivery.",
-            "Search adds a small microphone using the browser SpeechRecognition/webkitSpeechRecognition API. Interim/final speech results feed the existing live search, speech end/silence stops recognition, listening/speaking uses the current accent, and navigation aborts capture. Unsupported browsers disable the microphone while retaining typed search; permission, device and network failures receive explicit messages. Speech lifecycle and result wiring were tested with simulated browser events; a real Chrome permission denial was tested. Acoustic transcription from a physical microphone remains unverified. No audio was generated."
-          ]
-        }
-      ]
-    },
-    {
-      "version": "2026.10.21.29",
-      "date": "2026-10-21",
-      "title": "Sports release",
-      "summary": "Archived release notes from the project documentation. These describe behavior at the time of that release.",
-      "sections": [
-        {
-          "title": "Documented changes and limitations",
-          "changes": [
-            "/sports adds live/upcoming events and sports channels, team search, sport/provider filters, merged event sources, a responsive embedded player and manual next-source switching. Uses the public Streamed, BINTV, PPV and Matchora JSON feeds; no API key is needed. The event feeds refresh every 90 seconds while visible and provide explicit outage and expired-event states.",
-            "BINTV is preferred and sandboxed; NBA playback decoded inside the integrated app. Streamed Golf SD decoded in standard mode. Streamed, PPV and Matchora reject iframe sandboxing and use standard frames. Sampled PPV and Matchora playback stalled and are not represented as verified sources. Third-party ads/pop-ups and provider-native controls apply. See ../../work/sports-research/sports-audit.md for the browser inventory, sandbox matrix and exact limits. Movies, shows, anime audio controls, R2 URLs and account data are preserved."
+            "The existing URLs are unchanged. No account is required. Includes named browser-local lists with JSON import/export and share links; history editing; watched episode/season marks and episode ratings; appearance themes, episode grid/carousel, page/modal details, spoiler mode, reduced motion; native SRT/WebVTT subtitles with size/color/timing; speed, video adjustments and sleep timer menus; trailer Shorts; optional PeerJS two-device watch-party interface. Cross-device party playback requires an available signaling service and source playback API.",
+            "VidRift is intentionally unsandboxed and available only with advertisements enabled. A user observed the sandboxed provider become a white screen and request sandbox removal after initially playing.",
+            "Separate Spex account storage, public community lists/comments/votes, Trakt/Simkl OAuth and integrated person filmographies are not included in this release. Personal data is browser-local; export a backup to transfer it. Cast opens a biography link. External subtitles/audio/quality use the selected source's controls. No third-party controls are represented as working cross-origin APIs when unsupported."
           ]
         }
       ]
@@ -207,17 +192,31 @@
       ]
     },
     {
-      "version": "2026.10.15.3",
-      "date": "2026-10-15",
-      "title": "Spex Movies release",
+      "version": "2026.10.21.29",
+      "date": "2026-10-21",
+      "title": "Sports release",
       "summary": "Archived release notes from the project documentation. These describe behavior at the time of that release.",
       "sections": [
         {
           "title": "Documented changes and limitations",
           "changes": [
-            "The existing URLs are unchanged. No account is required. Includes named browser-local lists with JSON import/export and share links; history editing; watched episode/season marks and episode ratings; appearance themes, episode grid/carousel, page/modal details, spoiler mode, reduced motion; native SRT/WebVTT subtitles with size/color/timing; speed, video adjustments and sleep timer menus; trailer Shorts; optional PeerJS two-device watch-party interface. Cross-device party playback requires an available signaling service and source playback API.",
-            "VidRift is intentionally unsandboxed and available only with advertisements enabled. A user observed the sandboxed provider become a white screen and request sandbox removal after initially playing.",
-            "Separate Spex account storage, public community lists/comments/votes, Trakt/Simkl OAuth and integrated person filmographies are not included in this release. Personal data is browser-local; export a backup to transfer it. Cast opens a biography link. External subtitles/audio/quality use the selected source's controls. No third-party controls are represented as working cross-origin APIs when unsupported."
+            "/sports adds live/upcoming events and sports channels, team search, sport/provider filters, merged event sources, a responsive embedded player and manual next-source switching. Uses the public Streamed, BINTV, PPV and Matchora JSON feeds; no API key is needed. The event feeds refresh every 90 seconds while visible and provide explicit outage and expired-event states.",
+            "BINTV is preferred and sandboxed; NBA playback decoded inside the integrated app. Streamed Golf SD decoded in standard mode. Streamed, PPV and Matchora reject iframe sandboxing and use standard frames. Sampled PPV and Matchora playback stalled and are not represented as verified sources. Third-party ads/pop-ups and provider-native controls apply. See ../../work/sports-research/sports-audit.md for the browser inventory, sandbox matrix and exact limits. Movies, shows, anime audio controls, R2 URLs and account data are preserved."
+          ]
+        }
+      ]
+    },
+    {
+      "version": "2026.10.21.30",
+      "date": "2026-10-21",
+      "title": "Spex release",
+      "summary": "Archived release notes from the project documentation. These describe behavior at the time of that release.",
+      "sections": [
+        {
+          "title": "Documented changes and limitations",
+          "changes": [
+            "Visible branding is now Spex; original artwork, routes, account storage, library keys, uploads and APIs are retained. Sports uses the existing catalog filter classes with custom keyboard-accessible listboxes. Favorite sports and teams are saved in this browser and sorted before other events. The Favorites dialog manages them and the in-app alert preference. The notification bell shows live and starting-soon alerts while the site is open, with persistent unread state and duplicate prevention; this is not closed-app push notification delivery.",
+            "Search adds a small microphone using the browser SpeechRecognition/webkitSpeechRecognition API. Interim/final speech results feed the existing live search, speech end/silence stops recognition, listening/speaking uses the current accent, and navigation aborts capture. Unsupported browsers disable the microphone while retaining typed search; permission, device and network failures receive explicit messages. Speech lifecycle and result wiring were tested with simulated browser events; a real Chrome permission denial was tested. Acoustic transcription from a physical microphone remains unverified. No audio was generated."
           ]
         }
       ]
