@@ -1,15 +1,15 @@
-import './surface-controls.mjs?v=20261028-refine2';
-import './cinejoy-ui.mjs?v=20261028-refine2';
-import {installDomainLinks} from './domains.mjs?v=20261028-refine2';
-import {installMultiview} from './multiview.mjs?v=20261028-refine2';
-import {installInterfacePolish} from './interface-polish.mjs?v=20261028-refine2';
-import {installTrailerPreviews} from './trailer-previews.mjs?v=20261028-refine2';
-import {personPlaceholder} from './reference-ui.mjs?v=20261028-refine2';
-import {installHomeExperience} from './home-experience.mjs?v=20261028-refine2';
-import {installAmbientSilk} from './ambient-silk.mjs?v=20261028-refine2';
-import {playerIcon} from './player-icons.mjs?v=20261028-refine2';
-import {installOutlaw} from './outlaw.mjs?v=20261028-refine2';
-import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261028-refine2';
+import './surface-controls.mjs?v=20261029-cinejoy76';
+import './cinejoy-ui.mjs?v=20261029-cinejoy76';
+import {installDomainLinks} from './domains.mjs?v=20261029-cinejoy76';
+import {installMultiview} from './multiview.mjs?v=20261029-cinejoy76';
+import {installInterfacePolish} from './interface-polish.mjs?v=20261029-cinejoy76';
+import {installTrailerPreviews} from './trailer-previews.mjs?v=20261029-cinejoy76';
+import {personPlaceholder} from './reference-ui.mjs?v=20261029-cinejoy76';
+import {installHomeExperience} from './home-experience.mjs?v=20261029-cinejoy76';
+import {installAmbientSilk} from './ambient-silk.mjs?v=20261029-cinejoy76';
+import {playerIcon} from './player-icons.mjs?v=20261029-cinejoy76';
+import {installOutlaw} from './outlaw.mjs?v=20261029-cinejoy76';
+import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261029-cinejoy76';
 (() => {
   "use strict";
   installAmbientSilk();
@@ -77,7 +77,7 @@ import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261028-re
   function continueRow(){return homeExperience?.renderContinue()||''}
   function heroMeta(item){const svg=path=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">'+path+'</svg>',genre=item.genres?.split(' · ')[0]||'',genreIcon=genre==='Comedy'?'<path d="M2 10s3-2 6-2 6 2 6 2v4a6 6 0 0 1-12 0Z"/><path d="M5 12h.01M11 12h.01M5 15s1 2 3 2 3-2 3-2M10 4s3-2 6-2 6 2 6 2v4a6 6 0 0 1-5 5M14 5h.01M20 5h.01M15 10s1-2 3-2"/>':genre==='Drama'?'<path d="M2 10s3-2 6-2 6 2 6 2v4a6 6 0 0 1-12 0Z"/><path d="M5 12h.01M11 12h.01M5 15s1 2 3 2 3-2 3-2M10 4s3-2 6-2 6 2 6 2v4a6 6 0 0 1-5 5"/>':genre==='Science Fiction'?'<path d="m12 3 5 2 4 7-9 9-5-5 5-13ZM8 16l-5 5m1-8 4 3m5 4 3-4"/><circle cx="15" cy="9" r="2"/>':genre==='Romance'?'<path d="M12 21 3 12a5.5 5.5 0 0 1 9-7 5.5 5.5 0 0 1 9 7Z"/>':'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18m10-18v18M3 8h4m10 0h4M3 16h4m10 0h4"/>';return '<span>'+svg('<path d="m12 2 3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1Z" fill="currentColor"/>')+'<strong>'+escape(item.score)+'/10</strong></span><i>•</i><span>'+svg('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 2v6m8-6v6M3 11h18"/>')+escape(item.year)+'</span>'+(genre?'<i>•</i><span>'+svg(genreIcon)+escape(genre)+'</span>':'')}
   function heroSummary(item){return escape(item.overview.length>200?item.overview.slice(0,200)+'…':item.overview)}
-  function heroMarkup(){return `<section class="hero-carousel" aria-label="Featured titles">${featured.map((item,i)=>`<article class="hero-slide ${i===slideIndex?'active':''}" ${i===slideIndex?'':'inert'} aria-hidden="${i!==slideIndex}"><img class="hero-backdrop" src="${item.backdrop}" alt="" ${i===0?'fetchpriority="high"':'loading="eager"'}><div class="hero-vignette"></div><div class="hero-content">${logo(item)}<p class="hero-meta">${heroMeta(item)}</p><p class="hero-overview">${heroSummary(item)}</p>${actions(item,true)}</div></article>`).join('')}<div class="carousel-controls"><button class="icon-button" data-slide="prev" aria-label="Previous featured title">${icon('left')}</button><div class="carousel-dots">${featured.map((c,i)=>`<button class="slide-dot ${i===slideIndex?'active':''}" data-slide="${i}" aria-label="Show ${c.title}" aria-pressed="${i===slideIndex}"><span aria-hidden="true"></span></button>`).join('')}</div><button class="icon-button" data-slide="next" aria-label="Next featured title">${icon('right')}</button><button class="icon-button carousel-toggle" data-carousel-toggle aria-label="${prefs.rotate?'Pause':'Start'} featured rotation">${prefs.rotate?'Ⅱ':'▶'}</button></div></section>`;}
+  function heroMarkup(){return `<section class="hero-carousel" aria-label="Featured titles">${featured.map((item,i)=>`<article class="hero-slide ${i===slideIndex?'active':''}" ${i===slideIndex?'':'inert'} aria-hidden="${i!==slideIndex}"><img class="hero-backdrop" src="${item.backdrop}" alt="" ${i===0?'fetchpriority="high"':'loading="eager"'}><div class="hero-vignette"></div><div class="hero-content">${logo(item)}<p class="hero-meta">${heroMeta(item)}</p><p class="hero-overview">${heroSummary(item)}</p>${actions(item,true)}</div></article>`).join('')}<div class="carousel-controls"><div class="carousel-dots">${featured.map((c,i)=>`<button class="slide-dot ${i===slideIndex?'active':''}" data-slide="${i}" aria-label="Show ${c.title}" aria-pressed="${i===slideIndex}"><span aria-hidden="true"></span></button>`).join('')}</div></div></section>`;}
   function renderHome(){featured=[];slideIndex=0;app.innerHTML='<section class="hero-carousel hero-loading" aria-label="Loading home" role="status"><div class="home-hero-skeleton" aria-hidden="true"><div class="home-skeleton-title"></div><div class="home-skeleton-line"></div><div class="home-skeleton-line short"></div><div class="home-skeleton-action"></div></div></section>'+`<div class="home-catalog">${continueRow()}<div id="providerShelf"></div><div id="publicShelves"></div></div>`;homeExperience?.mount();if(prefs.browseAll===false){featured=catalog.filter(p=>p.backdrop&&p.overview).slice(0,7);const hero=$('.hero-loading');if(hero&&featured.length)hero.outerHTML=heroMarkup();}if(featured.length)setupCarousel();}
   function mountCatalogHero(items){const slot=app.querySelector('.catalog-hero-slot');if(!slot||!items.length)return;featured=items;slideIndex=0;slot.innerHTML=heroMarkup();homeExperience.mount();setupCarousel();normalizeLinks()}
   function setSlide(index){carouselElapsed=0;document.querySelector('.hero-carousel')?.style.setProperty('--hero-progress','0%');slideIndex=(index+featured.length)%featured.length;document.querySelectorAll('.hero-slide').forEach((el,i)=>{const active=i===slideIndex;el.classList.toggle('active',active);el.inert=!active;el.setAttribute('aria-hidden',String(!active));});document.querySelectorAll('.slide-dot').forEach((el,i)=>{el.classList.toggle('active',i===slideIndex);el.classList.toggle('complete',i<slideIndex);el.setAttribute('aria-pressed',String(i===slideIndex));});homeExperience?.updateHero(featured[slideIndex]);}

@@ -1,4 +1,4 @@
-import {SyncRoom} from './watch-party-sync.mjs?v=20261028-refine2';
+import {SyncRoom} from './watch-party-sync.mjs?v=20261029-cinejoy76';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const supported=['native','cinesrc','moviesapi','aniembed'];
 const same=(a,b)=>a?.source===b?.source&&a?.media===b?.media&&a?.audio===b?.audio;

@@ -1,6 +1,6 @@
 {
-  "version": "2026.10.28.74",
-  "date": "2026-10-28",
+  "version": "2026.10.29.76",
+  "date": "2026-10-29",
   "sources": [
     "CineSrc",
     "MoviesAPI",
@@ -30,7 +30,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Multiview workspace refinement: theme-aware panels, main + side layout, preserved playback during focus and arrangement, loading/retry, shareable workspaces, single-player audio, source auto-ranking with mode-aware observations and local playback events, live theme sync and visual theme previews. Multiview styling now matches Spex browsing: shared glass pills, white primary action, heading scale, gutters and theme backdrop. All domains directory lists 4 current and 6 older Spex addresses, with search, copy and open actions. Server-backed synced watch parties with invite links, up to 12 viewers, host playback controls and reconnect handling. Cinejoy design parity: restored translucent glass settings and controls; compact source signals; Sports identity and real event calendar; server-checked domain availability; official trailer Shorts; editable starter lists; contextual Multiview controls; synchronized watch-party room chat. Music remains removed.",
+  "notes": "Reverted the 2026.10.29.75 interface changes. Restored shared Cinejoy-style controls and original artwork; fixed collapsed SVG title logos; retained only carousel progress dots; replaced the Sports month grid with a date filter styled like the reference glass menus.",
   "name": "Spex",
   "sports": {
     "route": "/sports",

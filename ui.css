@@ -7475,4 +7475,36 @@ html{scroll-padding-top:112px}body{font-family:var(--spex-font)}button,input,sel
 .trailer-shorts .short-entry,.trailer-shorts .shorts-media,.trailer-shorts .shorts-meta{width:100%!important;max-width:none!important;box-sizing:border-box}.trailer-shorts .shorts-media{align-self:stretch}
 
 
+/* cinejoy-corrections.css */
+/* Match the reference hero without replacing the title artwork or shared icons. */
+.home-view .hero-content .title-logo{width:min(500px,100%);flex:none}
+.home-view .hero-content .title-logo img{width:100%;height:auto;max-width:100%;max-height:192px;object-fit:contain;object-position:left bottom}
+.home-view .hero-carousel .carousel-controls{height:8px;min-height:0;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none}
+/* A Sports-only date picker using the reference's filter and glass-menu materials. */
+.sports-filters>.sports-calendar{position:relative;display:block;flex:none;padding:0;margin:0;border:0!important;border-radius:0;background:transparent!important;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none}
+.sports-filters>.sports-calendar[hidden]{display:none!important}.sports-calendar .calendar-trigger{display:flex;align-items:center;gap:8px;padding:0 14px;min-height:38px;color:#ffffffb3}.calendar-trigger svg{width:14px;height:14px;flex:none}.calendar-trigger svg:last-child{margin-left:7px;opacity:.65}.calendar-trigger.has-selection{color:#fff}
+.sports-date-popover{position:fixed;inset:auto;margin:0;box-sizing:border-box;width:320px;max-width:calc(100vw - 24px);max-height:calc(100dvh - 120px);padding:16px;border:1px solid #ffffff1a;border-radius:12px;background:#141414e8;color:#fff;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 20px 45px #0005;overflow:auto;font:500 13px/20px var(--spex-font);overscroll-behavior:contain}.sports-date-popover::backdrop{background:transparent}.sports-date-popover[open]{animation:date-picker-in .15s ease-out}
+.date-month-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.date-month-heading h2{font:600 14px/20px var(--spex-font);margin:0}.date-month-heading button{display:grid;place-items:center;width:32px;height:32px;border:0;border-radius:50%;background:transparent;color:#ffffff99;padding:6px}.date-month-heading button:hover:not(:disabled){background:#ffffff14;color:#fff}.date-month-heading button:disabled{opacity:.2;cursor:default}.date-month-heading svg{width:16px;height:16px}
+.date-month-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.date-weekday{display:grid;place-items:center;height:28px;color:#ffffff60;font-size:11px}.date-month-grid button{position:relative;display:grid;place-items:center;width:100%;height:36px;min-height:36px;border:1px solid transparent;border-radius:50%;padding:0;background:transparent;color:#ffffffb3;font:500 12px/18px var(--spex-font)}.date-month-grid button:hover:not(:disabled){background:#ffffff14;color:white}.date-month-grid button:disabled{opacity:.22;cursor:default}.date-month-grid button[aria-current=date]{border-color:#ffffff33;color:white}.date-month-grid button[aria-pressed=true]{background:#fff;color:#080808}.date-month-grid button i{position:absolute;bottom:3px;left:calc(50% - 1.5px);width:3px;height:3px;border-radius:50%;background:currentColor}.sports-date-popover button:focus-visible{outline:2px solid #fff;outline-offset:2px}.date-event-count{margin:14px 0;color:#ffffff70;text-align:center;font-size:11px}.sports-date-popover footer{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #ffffff12;padding-top:12px}.sports-date-popover .subtle-pill{min-height:32px;padding:5px 14px;font-size:12px;border:1px solid #ffffff1a;background:#ffffff08;color:#ffffffb3}.sports-date-popover .subtle-pill:hover{background:#ffffff14;color:#fff}.date-timezone{text-align:center;font:400 10px/16px var(--spex-font);color:#ffffff50;margin:12px 0 0}
+@keyframes date-picker-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media(max-width:1023px){.home-view .hero-content .title-logo{max-width:min(500px,100%)}.home-view .hero-content .title-logo img{max-height:112px;object-position:center bottom}}
+@media(prefers-reduced-motion:reduce){.sports-date-popover[open]{animation:none}}
+:root{--spex-font:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+@media(max-width:1023px){
+.home-view .hero-carousel,.home-view .catalog-hero{height:85svh;min-height:0}
+.home-view .hero-content{bottom:80px;gap:16px;align-items:center;text-align:center}
+.home-view .hero-meta{font:600 14px/20px var(--spex-font);gap:8px;justify-content:center}
+.home-view .hero-overview{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font:500 14px/20px var(--spex-font)}
+.home-view .hero-content .title-actions{gap:12px;justify-content:center}
+.home-view .hero-content .play-action{height:52px;min-height:52px;min-width:130px;padding:0 24px;font:600 18px/28px var(--spex-font)}
+.home-view .hero-content .secondary-actions{height:52px;padding:0}
+.home-view .hero-content .secondary-actions .round-button{width:64px;height:50px}
+.home-view .hero-content .secondary-actions .round-button:last-child:before{top:13px}
+.home-view .hero-carousel .carousel-controls{display:none}
+.site-header .brand-mark,.site-header .brand-mark img{width:auto;height:36px}
+.home-view .hero-content .title-logo:not(:has(img)){font-size:36px;line-height:1.1}
+}
+@media(max-width:1023px){.site-header{left:24px;right:24px}.site-header .brand-group{gap:12px}.site-header .back-button{display:grid;width:24px;height:40px;padding:0}}
+
+
 .spex-english-hidden{display:none!important}

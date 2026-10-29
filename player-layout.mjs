@@ -1,4 +1,4 @@
-import {playerIcon as icon} from './player-icons.mjs?v=20261028-refine2';
+import {playerIcon as icon} from './player-icons.mjs?v=20261029-cinejoy76';
 
 const actions={play:['Play / Pause','play'],rewind:['Rewind','rewind'],forward:['Forward','forward'],volume:['Volume','volume'],time:['Time elapsed','clock'],episodes:['Episodes','episodes'],pip:['Picture in picture','pip'],servers:['Servers','servers'],subtitles:['Subtitles','captions'],settings:['Settings','settings'],fullscreen:['Fullscreen','fullscreen'],next:['Next episode','next']};
 const zones={top:'Top bar',left:'Bottom bar left',right:'Bottom bar right',available:'Available Actions'};

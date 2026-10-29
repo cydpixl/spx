@@ -1,4 +1,4 @@
-import {movieRisk,sportsRisk} from './source-insights.mjs?v=20261028-refine2';
+import {movieRisk,sportsRisk} from './source-insights.mjs?v=20261029-cinejoy76';
 
 const KEY='spex.source-performance.v1',TTL=7*86400000;
 function read(){try{const data=JSON.parse(localStorage.getItem(KEY)||'{}');return data&&typeof data==='object'&&!Array.isArray(data)?data:{}}catch{return {}}}

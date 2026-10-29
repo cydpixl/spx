@@ -1,4 +1,4 @@
-import {mountTrailer,trailerKind} from './trailer-player.mjs?v=20261028-refine2';
+import {mountTrailer,trailerKind} from './trailer-player.mjs?v=20261029-cinejoy76';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export async function renderTrailerShorts(ctx){
  const {app,metadata,remember,normalizeLinks,watchPath,onSave}=ctx;

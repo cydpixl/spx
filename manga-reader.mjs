@@ -1,6 +1,6 @@
-import {openIllustratedReader} from './illustrated-reader.mjs?v=20261028-refine2';
-import {showReaderDialog} from './reader-dialog.mjs?v=20261028-refine2';
-import {createFilterMenu} from './filter-menu.mjs?v=20261028-refine2';
+import {openIllustratedReader} from './illustrated-reader.mjs?v=20261029-cinejoy76';
+import {showReaderDialog} from './reader-dialog.mjs?v=20261029-cinejoy76';
+import {createFilterMenu} from './filter-menu.mjs?v=20261029-cinejoy76';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const display=new Intl.DisplayNames(['en'],{type:'language'});
 export const mangaLanguage=code=>{try{return ({'pt-br':'Portuguese (Brazil)','es-la':'Spanish (Latin America)','zh-hk':'Chinese (Traditional)'})[code]||display.of(code)||code}catch{return code}};
