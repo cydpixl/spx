@@ -1,9 +1,9 @@
-import {renderCharacterPage} from './character-page.mjs?v=20261028-refine2';
-import {catalogBook,searchSeries,mountBookExtras,libraryBook} from './book-collections.mjs?v=20261028-refine2';
-import {createBookReader} from './book-reader.mjs?v=20261028-refine2';
-import {createFilterMenu} from './filter-menu.mjs?v=20261028-refine2';
-import {createMangaReader,mangaLanguage} from './manga-reader.mjs?v=20261028-refine2';
-import {animeEpisode} from './anime-mapping.mjs?v=20261028-refine2';
+import {renderCharacterPage} from './character-page.mjs?v=20261029-ui75';
+import {catalogBook,searchSeries,mountBookExtras,libraryBook} from './book-collections.mjs?v=20261029-ui75';
+import {createBookReader} from './book-reader.mjs?v=20261029-ui75';
+import {createFilterMenu} from './filter-menu.mjs?v=20261029-ui75';
+import {createMangaReader,mangaLanguage} from './manga-reader.mjs?v=20261029-ui75';
+import {animeEpisode} from './anime-mapping.mjs?v=20261029-ui75';
 const API='https://spex-library.cydpixl7.workers.dev';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function createExplore(ctx){

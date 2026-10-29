@@ -4,14 +4,14 @@ export class SyncRoom {
  get connected(){return this.socket?.readyState===1&&this.joined;}
  snapshot(extra={}){this.update({role:this.role,connected:this.connected,ready:this.ready,room:this.room,members:this.members,hostOnline:this.members.some(m=>m.role==='host'),chat:this.chat||[],...extra});}
  async start(role,room){
-  this.leave();this.clientId=crypto.randomUUID();this.role=role;
+  this.leave();const generation=this.generation;this.clientId=crypto.randomUUID();this.role=role;
   try{
    if(role==='host'){
-    const response=await fetch(this.endpoint+'/rooms',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:this.getSession()})});
-    const data=await response.json();if(!response.ok)throw Error(data.error||'Could not create party.');this.room=data.room;this.token=data.token;
+    const response=await fetch(this.endpoint+'/rooms',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:this.getSession()}),signal:AbortSignal.timeout(12000)});
+    const data=await response.json();if(this.generation!==generation)return;if(!response.ok)throw Error(data.error||'Could not create party.');this.room=data.room;this.token=data.token;
    }else{if(!/^[a-f0-9]{24}$/.test(room))throw Error('Enter a valid party code or invite link.');this.room=room;}
-   this.snapshot({error:null});await this.connect();this.remember();
-  }catch(error){this.leave();throw error;}
+   this.snapshot({error:null,chatError:null,drift:null});await this.connect();if(this.generation===generation)this.remember();
+  }catch(error){if(this.generation!==generation)return;this.leave();throw error;}
  }
  connect(){
   if(!this.role||this.connecting)return this.connecting;
@@ -19,15 +19,16 @@ export class SyncRoom {
   const socket=this.socket=new WebSocket(this.endpoint.replace(/^http/,'ws')+'/rooms/'+this.room);
   this.connecting=new Promise((resolve,reject)=>{
    const timeout=setTimeout(()=>{reject(Error('Connection timed out. Please try again.'));socket.close();},15000);
-   socket.onopen=()=>{this.lastReceived=Date.now();this.send({type:'hello',id:this.clientId,name:this.getName?.()||'Viewer',token:this.token});};
+   this.cancelConnect=()=>{clearTimeout(timeout);reject(Error('Connection cancelled.'))};
+   socket.onopen=()=>{if(this.socket!==socket){socket.close();return}this.lastReceived=Date.now();this.send({type:'hello',id:this.clientId,name:this.getName?.()||'Viewer',token:this.token});};
    socket.onmessage=event=>{
     if(this.socket!==socket)return;this.lastReceived=Date.now();let d;try{d=JSON.parse(event.data);}catch{return;}
-    if(d.type==='welcome'){clearTimeout(timeout);this.joined=true;this.attempt=0;this.connecting=null;this.role=d.role;this.chat=Array.isArray(d.chat)?d.chat.slice(-100):[];this.receiveSession(d,true);this.snapshot({error:null});this.send({type:'ready',ready:this.ready});resolve();}
+    if(d.type==='welcome'){clearTimeout(timeout);this.joined=true;this.attempt=0;this.connecting=null;this.cancelConnect=null;this.role=d.role;this.chat=Array.isArray(d.chat)?d.chat.slice(-100):[];this.receiveSession(d,true);this.snapshot({error:null});this.send({type:'ready',ready:this.ready});resolve();}
     else this.receive(d);
    };
    socket.onerror=()=>{};
    socket.onclose=event=>{
-    clearTimeout(timeout);if(this.socket!==socket)return;this.connecting=null;this.joined=false;this.members=[];this.target=null;this.onDisconnect?.();
+    clearTimeout(timeout);if(this.socket!==socket)return;this.connecting=null;this.cancelConnect=null;this.joined=false;this.members=[];this.target=null;this.onDisconnect?.();
     if([1008,4001,4004].includes(event.code)){this.leave();this.snapshot({error:event.reason||'Party ended.'});reject(Error(event.reason||'Party ended.'));return;}
     this.snapshot({error:'Connection lost. Reconnecting…'});reject(Error('Could not connect. The room may have expired or be full.'));
     if(this.role)this.retry=setTimeout(()=>this.connect()?.catch(()=>{}),Math.min(15000,800*2**Math.min(this.attempt=(this.attempt||0)+1,4)));
@@ -62,6 +63,6 @@ export class SyncRoom {
  resync(){this.send({type:'resync'});}
  remember(){try{sessionStorage.setItem('spex.party.session',JSON.stringify({role:this.role,room:this.room,token:this.token,clientId:this.clientId}));}catch{}}
  async resume(){let saved;try{saved=JSON.parse(sessionStorage.getItem('spex.party.session'));}catch{}if(!saved||!['host','guest'].includes(saved.role)||!/^[a-f0-9]{24}$/.test(saved.room))return;Object.assign(this,saved);this.snapshot();try{await this.connect();}catch{this.snapshot({error:'Reconnecting to your party…'});}}
- leave(){try{sessionStorage.removeItem('spex.party.session');}catch{}clearTimeout(this.retry);const socket=this.socket;this.socket=null;this.role=null;this.room=null;this.token=null;this.expected=null;this.restoring=false;this.joined=false;this.connecting=null;this.ready=false;this.target=null;this.members=[];this.chat=[];this.revision=0;this.samples=[];this.offset=0;socket?.close(1000,'Left party');this.snapshot({drift:null,error:null});}
+ leave(){this.generation=(this.generation||0)+1;this.cancelConnect?.();this.cancelConnect=null;this.attempt=0;this.lastChatSent=0;this.lastBroadcast=0;this.lastPing=0;try{sessionStorage.removeItem('spex.party.session');}catch{}clearTimeout(this.retry);const socket=this.socket;this.socket=null;this.role=null;this.room=null;this.token=null;this.expected=null;this.restoring=false;this.joined=false;this.connecting=null;this.ready=false;this.target=null;this.members=[];this.chat=[];this.revision=0;this.samples=[];this.offset=0;socket?.close(1000,'Left party');this.snapshot({drift:null,error:null,chatError:null});}
  destroy(){let saved;try{saved=sessionStorage.getItem('spex.party.session');}catch{}this.leave();if(saved)try{sessionStorage.setItem('spex.party.session',saved);}catch{}clearInterval(this.timer);window.removeEventListener('online',this.online);}
 }

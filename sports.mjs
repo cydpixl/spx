@@ -1,9 +1,9 @@
-import {createSportsCalendar,localDay} from './sports-calendar.mjs?v=20261028-refine2';
-import {rankSources,sourceScore} from './source-ranking.mjs?v=20261028-refine2';
-import {sportsRisk,riskMarkup} from './source-insights.mjs?v=20261028-refine2';
-import {mountSportsChat} from './sports-chat.mjs?v=20261028-refine2';
-import {createFilterMenu} from './filter-menu.mjs?v=20261028-refine2';
-import {installSportsFavorites} from './sports-favorites.mjs?v=20261028-refine2';
+import {createSportsCalendar,localDay} from './sports-calendar.mjs?v=20261029-ui75';
+import {rankSources,sourceScore} from './source-ranking.mjs?v=20261029-ui75';
+import {sportsRisk,riskMarkup} from './source-insights.mjs?v=20261029-ui75';
+import {mountSportsChat} from './sports-chat.mjs?v=20261029-ui75';
+import {createFilterMenu} from './filter-menu.mjs?v=20261029-ui75';
+import {installSportsFavorites} from './sports-favorites.mjs?v=20261029-ui75';
 const STREAMED='https://streamed.pk';
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const safeURL=value=>{try{const u=new URL(value);return u.protocol==='https:'&&!u.username&&!u.password?u.href:''}catch{return ''}};

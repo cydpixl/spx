@@ -1,6 +1,6 @@
-import {domainsLink} from './domains.mjs?v=20261028-refine2';
-import {createFilterMenu} from './filter-menu.mjs?v=20261028-refine2';
-import {playerIcon as icon} from './player-icons.mjs?v=20261028-refine2';
+import {domainsLink} from './domains.mjs?v=20261029-ui75';
+import {createFilterMenu} from './filter-menu.mjs?v=20261029-ui75';
+import {playerIcon as icon} from './player-icons.mjs?v=20261029-ui75';
 const KEY='spex.multiview.v1',MAX=6;
 const choices=[['movies','Movies'],['series','Shows'],['sports','Sports'],['manga','Manga'],['books','Books'],['search','Search']];
 const routes={movies:'/movies',series:'/series',sports:'/sports',manga:'/explore/manga',books:'/explore/books',search:'/search'};
