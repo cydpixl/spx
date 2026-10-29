@@ -1,4 +1,4 @@
-import {personPlaceholder,uiIcon} from './reference-ui.mjs?v=20261029-cinejoy76';
+import {personPlaceholder,uiIcon} from './reference-ui.mjs?v=20261029-access77';
 // Keep rail navigation and image recovery consistent as routes and lazy images arrive.
 export function installInterfacePolish({app}){
  const rows=new Map();let frame;

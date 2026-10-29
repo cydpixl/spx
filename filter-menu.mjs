@@ -1,4 +1,4 @@
-import {uiIcon} from './reference-ui.mjs?v=20261029-cinejoy76';
+import {uiIcon} from './reference-ui.mjs?v=20261029-access77';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 // Uses the same filter and popover classes as the Movies and Shows catalogs.
 export function createFilterMenu({button,label,options,value,onChange,container=document.body}) {

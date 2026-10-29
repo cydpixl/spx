@@ -1,5 +1,5 @@
 {
-  "version": "2026.10.29.76",
+  "version": "2026.10.29.77",
   "date": "2026-10-29",
   "sources": [
     "CineSrc",
@@ -30,7 +30,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Reverted the 2026.10.29.75 interface changes. Restored shared Cinejoy-style controls and original artwork; fixed collapsed SVG title logos; retained only carousel progress dots; replaced the Sports month grid with a date filter styled like the reference glass menus.",
+  "notes": "Restored the detailed searchable devlog and added direct Calendar and Devlog menu links. The /calendar route opens the upcoming schedule and date picker. Original controls, artwork, and Cinejoy styling are retained.",
   "name": "Spex",
   "sports": {
     "route": "/sports",
@@ -101,5 +101,6 @@
     "domainStatus": "live-http",
     "shorts": "official-trailers",
     "starterLists": 4
-  }
+  },
+  "changelog": "/updates"
 }

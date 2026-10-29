@@ -1,0 +1,264 @@
+{
+  "releases": [
+    {
+      "version": "2026.10.29.77",
+      "date": "2026-10-29",
+      "title": "Restore the devlog and make the calendar easy to find",
+      "summary": "The devlog remains available independently of visual rollbacks.",
+      "sections": [
+        {
+          "title": "Devlog and navigation",
+          "changes": [
+            "Restored the searchable release history at /updates and the /devlog alias.",
+            "Added a named Devlog entry to Explore Spex, Settings, and the footer.",
+            "Restored historical release notes and explicitly marked release 75 as reverted.",
+            "Added a direct Calendar entry in Explore Spex and the footer.",
+            "The /calendar route opens the upcoming schedule and date picker directly, without requiring users to find it under Sports."
+          ]
+        }
+      ]
+    },
+    {
+      "version": "2026.10.29.76",
+      "date": "2026-10-29",
+      "title": "Restore the original controls and title artwork",
+      "commit": "d784eca",
+      "summary": "Restored the existing Spex interface and compared the hero directly with Cinejoy.",
+      "sections": [
+        {
+          "title": "Restored and corrected",
+          "changes": [
+            "Reverted the broad control conversion and styling from release 75.",
+            "Restored the original shared Play, Add, and Info pill; removed the extra carousel arrows and pause button.",
+            "Fixed SVG title artwork collapsing to zero width while preserving the original artwork.",
+            "Matched mobile hero height, typography, spacing, and action sizes to the live reference.",
+            "Replaced the large Sports month grid with a compact date filter using the reference glass-menu styling.",
+            "Verified all seven featured logos, date counts, keyboard navigation, selection persistence, and mobile overflow."
+          ]
+        }
+      ]
+    },
+    {
+      "version": "2026.10.29.75",
+      "date": "2026-10-29",
+      "title": "Consistent controls, a better calendar, and watch parties (reverted)",
+      "summary": "This release was reverted in 2026.10.29.76 after feedback about changed controls and missing title artwork. The entries below document what was attempted, not the current interface.",
+      "sections": [
+        {
+          "title": "Interface and controls",
+          "changes": [
+            "Replaced font-based navigation arrows, close marks, reload symbols, and play indicators with a consistent SVG icon family across settings, readers, Shorts, sports, episode navigation, and player menus.",
+            "Standardized icon control size, round surfaces, hover states, disabled states, and visible keyboard focus.",
+            "Matched native selects and text inputs to Spex menus and settings, including custom dropdown indicators.",
+            "Preserved text labels and accessible names while keeping playback speed and video dimensions readable."
+          ]
+        },
+        {
+          "title": "Event calendar",
+          "changes": [
+            "Rebuilt the full-width boxed calendar as a compact month with an upcoming-event agenda.",
+            "Removed empty-day dashes and repeated event-count labels; small event dots identify scheduled days.",
+            "Added Today and All dates actions, local time zone information, and a preview of upcoming events.",
+            "Kept the selected date filter when browsing other months.",
+            "Added keyboard date navigation across month boundaries, week Home and End, and Page Up and Page Down month navigation.",
+            "Disabled past dates and refreshed event indicators when live status or dates change.",
+            "Added explicit empty-date and empty-month messages."
+          ]
+        },
+        {
+          "title": "Watch parties",
+          "changes": [
+            "Added a clearer lobby and connected room layout with a selectable invite link and copy action.",
+            "Added member avatars, host labels, viewer counts, and stable ready/loading indicators.",
+            "Limited resync and playback recovery actions to guests.",
+            "Prevented chat input shortcuts from reaching player controls and retained chat draft text while room status updates.",
+            "Added explicit compatibility guidance, connection status, and message cooldown feedback.",
+            "Cleared stale errors, drift, retry counters, and chat state when starting another room.",
+            "Preserved reconnect and same-tab reload behavior while guarding against callbacks from old connections.",
+            "Fixed stretched copy controls, compact member-list collisions, and the Add to multiview button overlapping the player title.",
+            "Updated the native player clock as soon as video metadata loads."
+          ]
+        },
+        {
+          "title": "Release history",
+          "changes": [
+            "Added this searchable release timeline at /updates, linked from Explore, Settings, and the footer.",
+            "Documented previous source releases from Git history and earlier release notes with source commit links.",
+            "Added retry and empty-search states, release permalinks, version labels, and responsive layouts.",
+            "Updated the build to retain the current release metadata and include the shared interface stylesheet.",
+            "Preserved clean direct-link routing on Cloudflare and Firebase while keeping the separate GitHub Pages fallback."
+          ]
+        }
+      ]
+    },
+    {
+      "version": "2026.10.28.74",
+      "date": "2026-10-28",
+      "title": "Fix trailer composition, loading recovery and dialog tooltips",
+      "commit": "1c1480d0f765446e8e6fa9406f23c26b28c46f0e",
+      "summary": "Recorded changes from this source release. Publication across hosts may have happened at different times.",
+      "sections": [
+        {
+          "title": "Trailer fixes",
+          "changes": [
+            "Moved trailer captions and metadata below the media stage so they no longer cover the video.",
+            "Moved previous and next trailer controls into the Shorts header.",
+            "Added a bounded initialization timeout and Retry trailer recovery.",
+            "Switched YouTube embeds to the privacy-enhanced host while retaining the player API, origin, and referrer policy.",
+            "Deferred poster loading and fixed tooltip placement inside open dialogs."
+          ]
+        },
+        {
+          "title": "Other fixes",
+          "changes": [
+            "Respected hidden sports categories in event filtering.",
+            "Clarified source-risk labels.",
+            "Separated Shorts CSS class names from legacy preview styles to prevent layout collisions."
+          ]
+        }
+      ]
+    },
+    {
+      "version": "2026.10.28.73",
+      "date": "2026-10-28",
+      "title": "Restore glass UI and refine sports, trailers, sources, domains and party chat",
+      "commit": "1f507b368813e1daa3db336112f3ecb2971cb876",
+      "summary": "Recorded changes from this source release. Publication across hosts may have happened at different times.",
+      "sections": [
+        {
+          "title": "Interface",
+          "changes": [
+            "Restored translucent glass settings, menus, and shared controls.",
+            "Consolidated the stylesheet bundle and matched navigation, headings, gutters, and theme materials across feature surfaces.",
+            "Added a Sports identity, month calendar, source signals with tooltips, and file-picker controls."
+          ]
+        },
+        {
+          "title": "Features and fixes",
+          "changes": [
+            "Added server-checked domain availability for the address directory.",
+            "Used official trailer metadata for Shorts.",
+            "Added editable starter lists and contextual Multiview controls.",
+            "Added synchronized room chat to watch parties.",
+            "Kept Music removed from Spex."
+          ]
+        }
+      ]
+    },
+    {
+      "version": "2026.10.28.72",
+      "date": "2026-10-28",
+      "title": "Remove Music and clean up navigation",
+      "commit": "bb6823ae70eb9cbfff7e1bc399f936ebd355e87d",
+      "summary": "Recorded changes from this source release. Publication across hosts may have happened at different times.",
+      "sections": [
+        {
+          "title": "Changes and fixes",
+          "changes": [
+            "Removed Music from the app and feature navigation.",
+            "Redirected old Music routes to Home.",
+            "Removed the obsolete Music hook and refreshed module imports so the application starts with the updated dependency graph."
+          ]
+        }
+      ]
+    },
+    {
+      "version": "2026.10.27.71",
+      "date": "2026-10-27",
+      "title": "Restore Music route and match its navigation to supported categories",
+      "commit": "43b21964ae82930ab8a3e0bb5ccdae65c66ba3fd",
+      "summary": "Recorded changes from this source release. Publication across hosts may have happened at different times.",
+      "sections": [
+        {
+          "title": "Changes and fixes",
+          "changes": [
+            "Multiview workspace refinement: theme-aware panels, main + side layout, preserved playback during focus and arrangement, loading/retry, shareable workspaces, single-player audio, source auto-ranking with mode-aware observations and local playback events, live theme sync and visual theme previews.",
+            "Multiview styling now matches Spex browsing: shared glass pills, white primary action, heading scale, gutters and theme backdrop.",
+            "All domains directory lists 4 current and 6 older Spex addresses, with search, copy and open actions.",
+            "Server-backed synced watch parties with invite links, up to 12 viewers, host playback controls and reconnect handling.",
+            "Cinejoy design parity: measured shared navigation, hero, typography, catalog and title proportions; matching Sports, Read, Music, Multiview and party surfaces; accessible extras menu, English availability filtering, direct watch-together access and consolidated stylesheet delivery."
+          ]
+        }
+      ]
+    },
+    {
+      "version": "2026.10.27.70",
+      "date": "2026-10-27",
+      "title": "Add server-backed synced watch parties with invite links and recovery",
+      "commit": "0318cfc873af5f7d92f8c3d2b51a63c4df360559",
+      "summary": "Recorded changes from this source release. Publication across hosts may have happened at different times.",
+      "sections": [
+        {
+          "title": "Changes and fixes",
+          "changes": [
+            "Multiview workspace refinement: theme-aware panels, main + side layout, preserved playback during focus and arrangement, loading/retry, shareable workspaces, single-player audio, source auto-ranking with mode-aware observations and local playback events, live theme sync and visual theme previews.",
+            "Multiview styling now matches Spex browsing: shared glass pills, white primary action, heading scale, gutters and theme backdrop.",
+            "All domains directory lists 4 current and 6 older Spex addresses, with search, copy and open actions.",
+            "Server-backed synced watch parties with invite links, up to 12 viewers, host playback controls and reconnect handling."
+          ]
+        }
+      ]
+    },
+    {
+      "version": "2026.10.21.30",
+      "date": "2026-10-21",
+      "title": "Spex release",
+      "summary": "Archived release notes from the project documentation. These describe behavior at the time of that release.",
+      "sections": [
+        {
+          "title": "Documented changes and limitations",
+          "changes": [
+            "Visible branding is now Spex; original artwork, routes, account storage, library keys, uploads and APIs are retained. Sports uses the existing catalog filter classes with custom keyboard-accessible listboxes. Favorite sports and teams are saved in this browser and sorted before other events. The Favorites dialog manages them and the in-app alert preference. The notification bell shows live and starting-soon alerts while the site is open, with persistent unread state and duplicate prevention; this is not closed-app push notification delivery.",
+            "Search adds a small microphone using the browser SpeechRecognition/webkitSpeechRecognition API. Interim/final speech results feed the existing live search, speech end/silence stops recognition, listening/speaking uses the current accent, and navigation aborts capture. Unsupported browsers disable the microphone while retaining typed search; permission, device and network failures receive explicit messages. Speech lifecycle and result wiring were tested with simulated browser events; a real Chrome permission denial was tested. Acoustic transcription from a physical microphone remains unverified. No audio was generated."
+          ]
+        }
+      ]
+    },
+    {
+      "version": "2026.10.21.29",
+      "date": "2026-10-21",
+      "title": "Sports release",
+      "summary": "Archived release notes from the project documentation. These describe behavior at the time of that release.",
+      "sections": [
+        {
+          "title": "Documented changes and limitations",
+          "changes": [
+            "/sports adds live/upcoming events and sports channels, team search, sport/provider filters, merged event sources, a responsive embedded player and manual next-source switching. Uses the public Streamed, BINTV, PPV and Matchora JSON feeds; no API key is needed. The event feeds refresh every 90 seconds while visible and provide explicit outage and expired-event states.",
+            "BINTV is preferred and sandboxed; NBA playback decoded inside the integrated app. Streamed Golf SD decoded in standard mode. Streamed, PPV and Matchora reject iframe sandboxing and use standard frames. Sampled PPV and Matchora playback stalled and are not represented as verified sources. Third-party ads/pop-ups and provider-native controls apply. See ../../work/sports-research/sports-audit.md for the browser inventory, sandbox matrix and exact limits. Movies, shows, anime audio controls, R2 URLs and account data are preserved."
+          ]
+        }
+      ]
+    },
+    {
+      "version": "2026.10.19.19",
+      "date": "2026-10-19",
+      "title": "October 19 reference UI update",
+      "summary": "Archived release notes from the project documentation. These describe behavior at the time of that release.",
+      "sections": [
+        {
+          "title": "Documented changes and limitations",
+          "changes": [
+            "Movies and Shows each have seven featured titles, real TMDB image logos, upcoming/airing-season cards, country/genre/year/provider/sort menus, progressive loading and a floating filter bar that returns to the page when scrolling up. All 31 reference country choices are supported by the metadata gateway. Search is seven across on desktop with 50 initial trending titles and Show more batches that preserve the movie/show balance and exclude duplicates.",
+            "Settings keeps every section on one scrolling page and docks its section controls. Existing settings, provider order, subtitles, Febbox, backup/restore, local and cloud accounts, uploads and playback are retained. Trakt and Simkl linking are intentionally excluded at the user's request. My Lists gains inline creation and public discovery while retaining import/export, sharing, publishing, rename and list management. Cast portraits use a person silhouette when unavailable. Continue Watching has animated opening and closing; only featured hero selection changes the ambient backdrop."
+          ]
+        }
+      ]
+    },
+    {
+      "version": "2026.10.15.3",
+      "date": "2026-10-15",
+      "title": "Spex Movies release",
+      "summary": "Archived release notes from the project documentation. These describe behavior at the time of that release.",
+      "sections": [
+        {
+          "title": "Documented changes and limitations",
+          "changes": [
+            "The existing URLs are unchanged. No account is required. Includes named browser-local lists with JSON import/export and share links; history editing; watched episode/season marks and episode ratings; appearance themes, episode grid/carousel, page/modal details, spoiler mode, reduced motion; native SRT/WebVTT subtitles with size/color/timing; speed, video adjustments and sleep timer menus; trailer Shorts; optional PeerJS two-device watch-party interface. Cross-device party playback requires an available signaling service and source playback API.",
+            "VidRift is intentionally unsandboxed and available only with advertisements enabled. A user observed the sandboxed provider become a white screen and request sandbox removal after initially playing.",
+            "Separate Spex account storage, public community lists/comments/votes, Trakt/Simkl OAuth and integrated person filmographies are not included in this release. Personal data is browser-local; export a backup to transfer it. Cast opens a biography link. External subtitles/audio/quality use the selected source's controls. No third-party controls are represented as working cross-origin APIs when unsupported."
+          ]
+        }
+      ]
+    }
+  ]
+}

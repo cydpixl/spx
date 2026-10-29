@@ -1,4 +1,4 @@
-import {uiIcon} from './reference-ui.mjs?v=20261029-cinejoy76';
+import {uiIcon} from './reference-ui.mjs?v=20261029-access77';
 export const localDay=value=>{const d=new Date(value);return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
 export function monthDays(year,month){const first=new Date(year,month,1),last=new Date(year,month+1,0);return {offset:(first.getDay()+6)%7,days:last.getDate()}}
 const parseDay=key=>new Date(key+'T12:00:00');
@@ -27,5 +27,5 @@ export function createSportsCalendar(host,onSelect){
  dialog.addEventListener('close',()=>{trigger.setAttribute('aria-expanded','false');if(!destroyed&&trigger.isConnected)trigger.focus({preventScroll:true})});
  dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)close()});
  window.addEventListener('resize',position);
- return {update(items,visible){host.hidden=!visible;if(!visible)close();events=items;const next=Math.floor(Date.now()/60000)+'|'+items.map(e=>[e.id,e.date,e.live,e.channel].join(':')).join('|');if(next!==signature){signature=next;if(dialog.open){const focused=document.activeElement?.dataset?.eventDate;draw();position();if(focused)dialog.querySelector('[data-event-date="'+focused+'"]')?.focus({preventScroll:true})}}},get selected(){return selected},destroy(){destroyed=true;close();window.removeEventListener('resize',position);dialog.remove()}};
+ return {update(items,visible){host.hidden=!visible;if(!visible)close();events=items;const next=Math.floor(Date.now()/60000)+'|'+items.map(e=>[e.id,e.date,e.live,e.channel].join(':')).join('|');if(next!==signature){signature=next;if(dialog.open){const focused=document.activeElement?.dataset?.eventDate;draw();position();if(focused)dialog.querySelector('[data-event-date="'+focused+'"]')?.focus({preventScroll:true})}}},open(){if(!host.hidden&&!dialog.open)trigger.click()},get selected(){return selected},destroy(){destroyed=true;close();window.removeEventListener('resize',position);dialog.remove()}};
 }
