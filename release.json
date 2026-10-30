@@ -1,5 +1,5 @@
 {
-  "version": "2026.10.29.78",
+  "version": "2026.10.29.79",
   "date": "2026-10-29",
   "sources": [
     "CineSrc",
@@ -30,7 +30,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Full-size month, week and agenda sports calendar with team schedules across 14 leagues, sport/provider/search filters, expanded PPV alternate broadcasts, wrapping source controls, and a blurred live-chat warning matching the reference.",
+  "notes": "Calendar navigation now uses the existing catalog SVG chevrons and transparent icon-button styling.",
   "name": "Spex",
   "sports": {
     "route": "/sports",

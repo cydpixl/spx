@@ -38,3 +38,6 @@
 .schedule-mobile-hint{display:none}@media(max-width:700px){.schedule-mobile-hint{display:block;color:#999;font-size:11px;line-height:1.6}}
 
 .sports-chat{background:#050505}.sports-alternative-sites{display:flex;gap:18px;flex-wrap:wrap;margin:18px 0}.sports-alternative-sites a{color:inherit}
+
+/* Reuse the same SVG chevrons and transparent icon buttons as the catalog. */
+.schedule-navigation .calendar-arrow{display:grid;place-items:center;width:40px;height:40px;min-height:40px;padding:8px;border:0;border-radius:50%;background:transparent;color:#ddd;flex:none}.schedule-navigation .calendar-arrow:hover{background:#ffffff18;color:#fff}.schedule-navigation .calendar-arrow svg{display:block;width:24px;height:24px;flex:none}

@@ -10,10 +10,10 @@ for(const file of [...styles,'cinejoy.css','surface-polish.css','cinejoy-correct
 bundle+='\n.spex-english-hidden{display:none!important}\n';
 fs.writeFileSync('ui.css',bundle);
 let updated=html.replace(/<link\b[^>]*rel="stylesheet"[^>]*>/g,'');
-updated=updated.replace('</head>','<link rel="stylesheet" href="ui.css?v=20261029-sports78"></head>');
-updated=updated.replace(/app\.js\?v=[^"']+/g,'app.js?v=20261029-sports78');
+updated=updated.replace('</head>','<link rel="stylesheet" href="ui.css?v=20261029-arrows79"></head>');
+updated=updated.replace(/app\.js\?v=[^"']+/g,'app.js?v=20261029-arrows79');
 fs.writeFileSync('index.html',updated);
-const app=fs.readFileSync('app.js','utf8');if(!app.includes("import './cinejoy-ui.mjs"))fs.writeFileSync('app.js',"import './cinejoy-ui.mjs?v=20261029-sports78';\n"+app);
-const release=JSON.parse(fs.readFileSync('release.json','utf8'));release.version='2026.10.29.78';release.date='2026-10-29';release.notes='Full-size month, week and agenda sports calendar with team schedules across 14 leagues, sport/provider/search filters, expanded PPV alternate broadcasts, wrapping source controls, and a blurred live-chat warning matching the reference.';release.changelog='/updates';release.design={reference:'https://cinejoy.pk',stylesheets:1,preservedFeatures:['sports','reading','multiview','watch-parties','themes','lists','uploads','accounts','domains']};release.watchParty.chat=true;release.polish={sportsCalendar:true,domainStatus:'live-http',shorts:'official-trailers',starterLists:4};fs.writeFileSync('release.json',JSON.stringify(release,null,2)+'\n');
-fs.writeFileSync('_redirects','/* /index.html 200\n');fs.writeFileSync('_headers','/*\n  Cache-Control: no-cache, max-age=0, must-revalidate\n  X-Spex-Release: 2026.10.29.78\n/release.json\n  Cache-Control: no-store\n');
+const app=fs.readFileSync('app.js','utf8');if(!app.includes("import './cinejoy-ui.mjs"))fs.writeFileSync('app.js',"import './cinejoy-ui.mjs?v=20261029-arrows79';\n"+app);
+const release=JSON.parse(fs.readFileSync('release.json','utf8'));release.version='2026.10.29.79';release.date='2026-10-29';release.notes='Calendar navigation now uses the existing catalog SVG chevrons and transparent icon-button styling.';release.changelog='/updates';release.design={reference:'https://cinejoy.pk',stylesheets:1,preservedFeatures:['sports','reading','multiview','watch-parties','themes','lists','uploads','accounts','domains']};release.watchParty.chat=true;release.polish={sportsCalendar:true,domainStatus:'live-http',shorts:'official-trailers',starterLists:4};fs.writeFileSync('release.json',JSON.stringify(release,null,2)+'\n');
+fs.writeFileSync('_redirects','/* /index.html 200\n');fs.writeFileSync('_headers','/*\n  Cache-Control: no-cache, max-age=0, must-revalidate\n  X-Spex-Release: 2026.10.29.79\n/release.json\n  Cache-Control: no-store\n');
 console.log(`Consolidated ${styles.length} source stylesheets; bundle ${Math.round(bundle.length/1024)} KiB.`);

@@ -1,6 +1,21 @@
 {
   "releases": [
     {
+      "version": "2026.10.29.79",
+      "date": "2026-10-29",
+      "title": "Match calendar arrows to existing Spex controls",
+      "summary": "Replaced text arrows with the shared SVG chevrons and transparent icon buttons used elsewhere in Spex.",
+      "sections": [
+        {
+          "title": "Calendar controls",
+          "changes": [
+            "Previous and next controls now use the existing arrow icons, with 24px SVGs and 40px buttons.",
+            "Retained Today, calendar views, filters and navigation behavior."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.10.29.78",
       "date": "2026-10-29",
       "title": "Full sports calendar, source layouts and chat gate",

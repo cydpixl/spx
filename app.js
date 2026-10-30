@@ -8,7 +8,7 @@ import {personPlaceholder} from './reference-ui.mjs?v=20261029-access77';
 import {installHomeExperience} from './home-experience.mjs?v=20261029-access77';
 import {installAmbientSilk} from './ambient-silk.mjs?v=20261029-access77';
 import {playerIcon} from './player-icons.mjs?v=20261029-access77';
-import {installOutlaw} from './outlaw.mjs?v=20261029-sports78';
+import {installOutlaw} from './outlaw.mjs?v=20261029-arrows79';
 import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261029-access77';
 (() => {
   "use strict";

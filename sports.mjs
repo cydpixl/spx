@@ -1,5 +1,5 @@
 import {loadTeamSchedules,ppvSources,normalizeStreamFree,SPORTS_DATA} from './sports-data.mjs?v=20261029-sports78';
-import {createSportsCalendar,localDay} from './sports-calendar.mjs?v=20261029-sports78';
+import {createSportsCalendar,localDay} from './sports-calendar.mjs?v=20261029-arrows79';
 import {rankSources,sourceScore} from './source-ranking.mjs?v=20261029-sports78';
 import {sportsRisk,riskMarkup} from './source-insights.mjs?v=20261029-sports78';
 import {mountSportsChat} from './sports-chat.mjs?v=20261029-sports78';
