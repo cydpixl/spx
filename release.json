@@ -1,5 +1,5 @@
 {
-  "version": "2026.10.30.80",
+  "version": "2026.10.30.81",
   "date": "2026-10-30",
   "sources": [
     "CineSrc",
@@ -142,5 +142,18 @@
       "dialogue alignment",
       "automatic reference subtitle offset"
     ]
+  },
+  "keyboard": {
+    "back": [
+      "ArrowLeft",
+      "I",
+      "J"
+    ],
+    "forward": [
+      "ArrowRight",
+      "K",
+      "L"
+    ],
+    "usesConfiguredSeek": true
   }
 }

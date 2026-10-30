@@ -1,9 +1,9 @@
-import {sourceScore} from './source-ranking.mjs?v=20261030-subs80';
-import {playbackLabel,movieRisk,riskMarkup} from './source-insights.mjs?v=20261030-subs80';
-import {installSubtitleBrowser} from './subtitle-browser.mjs?v=20261030-subs80';
-import {applyControlLayout} from './player-layout.mjs?v=20261030-subs80';
-import {installAdvancedPlayer} from './player-advanced.mjs?v=20261030-subs80';
-import {playerIcon as icon} from './player-icons.mjs?v=20261030-subs80';
+import {sourceScore} from './source-ranking.mjs?v=20261030-keys81';
+import {playbackLabel,movieRisk,riskMarkup} from './source-insights.mjs?v=20261030-keys81';
+import {installSubtitleBrowser} from './subtitle-browser.mjs?v=20261030-keys81';
+import {applyControlLayout} from './player-layout.mjs?v=20261030-keys81';
+import {installAdvancedPlayer} from './player-advanced.mjs?v=20261030-keys81';
+import {playerIcon as icon} from './player-icons.mjs?v=20261030-keys81';
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function installPlayerChrome(player,dialog){
  const $=s=>dialog.querySelector(s), make=(name,label,action)=>{const b=document.createElement('button');b.type='button';b.innerHTML=icon(name);b.setAttribute('aria-label',label);b.title=label;b.onclick=action;return b};
@@ -49,5 +49,5 @@ export function installPlayerChrome(player,dialog){
  const update=()=>{if(!dialog.isConnected)return;if(player.state.playing)dialog.classList.remove('chrome-paused');play.innerHTML=icon(player.state.playing?'pause':'play');hit.hidden=player.nativeControls||!player.state.duration;mute.innerHTML=icon(player.muted?'muted':'volume');mute.setAttribute('aria-label',player.muted?'Unmute':'Mute');if(document.activeElement!==$('[data-volume]'))$('[data-volume]').value=player.muted?0:player.volume;dialog.classList.toggle('has-native-controls',player.nativeControls);nativeBar.hidden=!player.nativeControls;nativeBack.hidden=!player.provider.hideControls;if(audioChoice)for(const button of audioChoice.querySelectorAll('button'))button.setAttribute('aria-pressed',String(!!player.provider.anime&&button.dataset.animeAudio===player.animeAudio));dialog.classList.toggle('chrome-paused',!player.state.playing);};player.chromeUpdate=update;update();
  player.subtitleController=installSubtitleBrowser({player,dialog});
  function wake(){dialog.classList.remove('chrome-idle');clearTimeout(hideTimer);hideTimer=setTimeout(()=>{if(player.state.playing&&!active&&!dialog.contains(document.activeElement?.closest('input,select'))&&!dialog.querySelector('.stream-controller:hover,.stream-volume-group:hover')&&!dialog.classList.contains('volume-open'))dialog.classList.add('chrome-idle')},3000)}
- dialog.addEventListener('pointermove',wake);dialog.addEventListener('pointerleave',()=>{if(player.state.playing&&!active)dialog.classList.add('chrome-idle')});dialog.addEventListener('focusin',wake);dialog.addEventListener('keydown',e=>{wake();if(e.key==='Escape'&&active){e.preventDefault();e.stopImmediatePropagation();closeMenu();lastFocus?.focus()}});dialog.addEventListener('close',()=>{clearTimeout(hideTimer);clearTimeout(volumeTimer);if(player.dialog===dialog||!player.dialog)player.chromeUpdate=null},{once:true});wake();
+ for(const [selector,keys] of [['[data-skip="-10"]','ArrowLeft I J'],['[data-skip="10"]','ArrowRight K L']]){const button=dialog.querySelector(selector);if(button){button.setAttribute('aria-keyshortcuts',keys);button.title=(keys.includes('Left')?'Back':'Forward')+' · '+keys.replaceAll(' ',' / ')}} dialog.addEventListener('pointermove',wake);dialog.addEventListener('pointerleave',()=>{if(player.state.playing&&!active)dialog.classList.add('chrome-idle')});dialog.addEventListener('focusin',wake);dialog.addEventListener('keydown',e=>{wake();if(e.key==='Escape'&&active){e.preventDefault();e.stopImmediatePropagation();closeMenu();lastFocus?.focus()}});dialog.addEventListener('close',()=>{clearTimeout(hideTimer);clearTimeout(volumeTimer);if(player.dialog===dialog||!player.dialog)player.chromeUpdate=null},{once:true});wake();
 }

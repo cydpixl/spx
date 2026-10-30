@@ -1,15 +1,16 @@
-import './surface-controls.mjs?v=20261030-subs80';
-import './cinejoy-ui.mjs?v=20261030-subs80';
-import {installDomainLinks} from './domains.mjs?v=20261030-subs80';
-import {installMultiview} from './multiview.mjs?v=20261030-subs80';
-import {installInterfacePolish} from './interface-polish.mjs?v=20261030-subs80';
-import {installTrailerPreviews} from './trailer-previews.mjs?v=20261030-subs80';
-import {personPlaceholder} from './reference-ui.mjs?v=20261030-subs80';
-import {installHomeExperience} from './home-experience.mjs?v=20261030-subs80';
-import {installAmbientSilk} from './ambient-silk.mjs?v=20261030-subs80';
-import {playerIcon} from './player-icons.mjs?v=20261030-subs80';
+import {playerShortcut} from './player-shortcuts.mjs?v=20261030-keys81';
+import './surface-controls.mjs?v=20261030-keys81';
+import './cinejoy-ui.mjs?v=20261030-keys81';
+import {installDomainLinks} from './domains.mjs?v=20261030-keys81';
+import {installMultiview} from './multiview.mjs?v=20261030-keys81';
+import {installInterfacePolish} from './interface-polish.mjs?v=20261030-keys81';
+import {installTrailerPreviews} from './trailer-previews.mjs?v=20261030-keys81';
+import {personPlaceholder} from './reference-ui.mjs?v=20261030-keys81';
+import {installHomeExperience} from './home-experience.mjs?v=20261030-keys81';
+import {installAmbientSilk} from './ambient-silk.mjs?v=20261030-keys81';
+import {playerIcon} from './player-icons.mjs?v=20261030-keys81';
 import {installOutlaw} from './outlaw.mjs?v=20261029-arrows79';
-import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261030-subs80';
+import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261030-keys81';
 (() => {
   "use strict";
   installAmbientSilk();
@@ -111,7 +112,7 @@ import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261030-su
   $('#fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else video.webkitEnterFullscreen?.();}catch{notify('Fullscreen is unavailable in this browser.');}});
   $('#mute').innerHTML=icon('volume');$('#mute').addEventListener('click',()=>{video.muted=!video.muted;});$('#volume').addEventListener('input',e=>{video.volume=Number(e.target.value);video.muted=video.volume===0;});video.addEventListener('volumechange',()=>{$('#mute').innerHTML=icon(video.muted?'muted':'volume');$('#mute').setAttribute('aria-label',video.muted?'Unmute':'Mute');$('#volume').value=video.muted?'0':String(video.volume);});
   video.addEventListener('loadedmetadata',()=>{if(resumeAt>0&&resumeAt<video.duration-20)video.currentTime=resumeAt;resumeAt=0;updateTimeline();state.textContent=video.paused?'READY':'PLAYING';});video.addEventListener('timeupdate',()=>{updateTimeline();saveProgress();});video.addEventListener('durationchange',updateTimeline);video.addEventListener('play',()=>{screen.classList.add('is-playing');toggle.setAttribute('aria-label','Pause');bigPlay.setAttribute('aria-label','Pause video');state.textContent='PLAYING';message.hidden=true;});video.addEventListener('pause',()=>{screen.classList.remove('is-playing');toggle.setAttribute('aria-label','Play');bigPlay.setAttribute('aria-label','Play video');state.textContent=video.ended?'FINISHED':'PAUSED';saveProgress(true);});video.addEventListener('waiting',()=>state.textContent='LOADING');video.addEventListener('playing',()=>state.textContent='PLAYING');video.addEventListener('ended',()=>{state.textContent='FINISHED';saveProgress(true);if(outlaw?.settings.autoplay&&video.dataset.sleepEnd!=='true'&&currentMedia?.ep)$('#nextEpisode').click();});video.addEventListener('error',()=>{state.textContent='UNAVAILABLE';showMessage('This video could not be loaded. Check your connection and press play to retry.');});
-  document.addEventListener('keydown',e=>{if(!player.open||e.ctrlKey||e.altKey||e.metaKey||/INPUT|SELECT|TEXTAREA/.test(document.activeElement?.tagName))return;if(e.code==='Space'){e.preventDefault();togglePlayback();}else if(e.key==='ArrowLeft'){e.preventDefault();skip(-(outlaw?.settings.seek||10));}else if(e.key==='ArrowRight'){e.preventDefault();skip(outlaw?.settings.seek||10);}else if(e.key.toLowerCase()==='f')$('#fullscreen').click();else if(e.key.toLowerCase()==='m')$('#mute').click();});document.addEventListener('fullscreenchange',()=>$('#fullscreen').setAttribute('aria-label',document.fullscreenElement?'Exit fullscreen':'Enter fullscreen'));window.addEventListener('pagehide',()=>saveProgress(true));  const metadataCache=new Map();
+  document.addEventListener('keydown',e=>{if(!player.open)return;const action=playerShortcut(e);if(!action)return;e.preventDefault();if(action==='toggle')togglePlayback();else if(action==='back'||action==='forward')skip((action==='back'?-1:1)*(outlaw?.settings.seek||10));else if(action==='fullscreen')$('#fullscreen').click();else if(action==='mute')$('#mute').click();});document.addEventListener('fullscreenchange',()=>$('#fullscreen').setAttribute('aria-label',document.fullscreenElement?'Exit fullscreen':'Enter fullscreen'));window.addEventListener('pagehide',()=>saveProgress(true));  const metadataCache=new Map();
   for(const item of catalog)item.tmdbId=Number(item.tmdb.match(/\/(?:movie|tv)\/(\d+)/)?.[1])||0;
   async function metadata(path,params={}){const url=new URL(path,metadataOrigin);url.searchParams.set('_v','20261027-polish1');for(const [key,value]of Object.entries(params))url.searchParams.set(key,String(value));const known=metadataCache.get(url.href);if(known&&known.at>Date.now()-300000)return known.promise;const promise=fetch(url,{signal:AbortSignal.timeout(18000)}).then(async response=>{if(!response.ok)throw Error('Catalog unavailable. Please retry.');return response.json()}).catch(error=>{metadataCache.delete(url.href);throw error});metadataCache.set(url.href,{at:Date.now(),promise});if(metadataCache.size>100)metadataCache.delete(metadataCache.keys().next().value);return promise}
   function remember(data){const type=data.type==='tv'||data.type==='series'?'series':'movie',id=Number(data.tmdbId||data.id);const owned=catalog.find(p=>p.tmdbId===id&&p.type===type);if(owned)return owned;const key='tmdb-'+(type==='series'?'tv':'movie')+'-'+id;const previous=publicTitles.get(key);const item={...previous,...data,id:key,tmdbId:id,type,remote:true,title:data.title||previous?.title||'Untitled',year:data.year||'',rating:data.certification||previous?.rating||'',genres:Array.isArray(data.genres)?data.genres.map(g=>g.name).join(' · '):previous?.genres||'',runtime:data.runtime?Math.floor(data.runtime/60)+'h '+data.runtime%60+'m':previous?.runtime||'',poster:art(data.poster||previous?.poster),backdrop:art(data.backdrop||previous?.backdrop),logo:art(data.logo||previous?.logo),score:Number(data.rating||data.score||previous?.score||0).toFixed(1),overview:data.description||data.overview||previous?.overview||'',tmdb:'https://www.themoviedb.org/'+(type==='series'?'tv':'movie')+'/'+id};publicTitles.set(key,item);if(publicTitles.size>500)publicTitles.delete(publicTitles.keys().next().value);write('bogart.catalog-cache.v1',[...publicTitles.values()].filter(p=>isSaved(p.id)).concat([...publicTitles.values()].slice(-150)).slice(-250));return item}

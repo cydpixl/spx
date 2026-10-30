@@ -1,7 +1,8 @@
-import {rankSources,recordSourceResult} from './source-ranking.mjs?v=20261030-subs80';
-import {playbackLabel,movieRisk,riskMarkup} from './source-insights.mjs?v=20261030-subs80';
-import {animeEpisode} from './anime-mapping.mjs?v=20261030-subs80';
-import {installPlayerChrome} from './player-chrome.mjs?v=20261030-subs80';
+import {playerShortcut} from './player-shortcuts.mjs?v=20261030-keys81';
+import {rankSources,recordSourceResult} from './source-ranking.mjs?v=20261030-keys81';
+import {playbackLabel,movieRisk,riskMarkup} from './source-insights.mjs?v=20261030-keys81';
+import {animeEpisode} from './anime-mapping.mjs?v=20261030-keys81';
+import {installPlayerChrome} from './player-chrome.mjs?v=20261030-keys81';
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const providers=[
  {id:'yapgrid',name:'YapGrid',origin:'https://yapgrid.com',moviesOnly:true,path:item=>`/embed/movie/${item.id}?autoplay=0`},
@@ -70,5 +71,13 @@ export class ProviderPlayer {
  }
  paint(){if(!this.dialog)return;const s=this.state,timeline=this.dialog.querySelector('[data-timeline]');timeline.max=s.duration||10860;if(document.activeElement!==timeline)timeline.value=s.position;timeline.style.setProperty('--progress',s.duration?(s.position/s.duration*100)+'%':'0%');this.dialog.querySelector('[data-time]').textContent=time(s.position)+' / '+(s.duration?time(s.duration):'--:--');const toggle=this.dialog.querySelector('[data-toggle]');toggle.innerHTML=s.playing?'Ⅱ':playSVG;toggle.setAttribute('aria-label',s.playing?'Pause':'Play');this.chromeUpdate?.()}
  persist(force=false){if(!this.item||this.state.duration<=0||this.state.position<1)return;const now=Date.now();if(!force&&now-this.lastSave<5000)return;this.lastSave=now;try{localStorage.setItem(this.mediaKey,JSON.stringify({...this.state,at:now}))}catch{}this.onProgress(this.item,{currentTime:this.state.position,duration:this.state.duration,playing:this.state.playing})}
- keys(event){if(!this.dialog?.open||event.ctrlKey||event.metaKey||event.altKey||/INPUT|SELECT|TEXTAREA|BUTTON/.test(document.activeElement?.tagName))return;if(event.code==='Space'){event.preventDefault();this.command(this.state.playing?'pause':'play')}if(event.key==='ArrowRight'){event.preventDefault();this.skip(this.controlSettings?.seek||10)}if(event.key==='ArrowLeft'){event.preventDefault();this.skip(-(this.controlSettings?.seek||10))}if(event.key.toLowerCase()==='f')this.dialog.querySelector('[data-fullscreen]').click()}
+ keys(event){
+  if(!this.dialog?.open)return;const action=playerShortcut(event);if(!action)return;
+  if(['back','forward','toggle','mute'].includes(action)&&!this.provider.controls)return;
+  event.preventDefault();
+  if(action==='back'||action==='forward')this.skip((action==='back'?-1:1)*(this.controlSettings?.seek||10));
+  else if(action==='toggle')this.command(this.state.playing?'pause':'play');
+  else if(action==='fullscreen')this.dialog.querySelector('[data-fullscreen]').click();
+  else if(action==='mute')this.setVolume(this.muted?(this.previousVolume||1):(this.previousVolume=this.volume||1,0));
+ }
 }
