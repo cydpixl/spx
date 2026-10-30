@@ -1,6 +1,6 @@
 {
-  "version": "2026.10.29.79",
-  "date": "2026-10-29",
+  "version": "2026.10.30.80",
+  "date": "2026-10-30",
   "sources": [
     "CineSrc",
     "MoviesAPI",
@@ -121,5 +121,26 @@
     "shorts": "official-trailers",
     "starterLists": 4
   },
-  "changelog": "/updates"
+  "changelog": "/updates",
+  "subtitles": {
+    "formats": [
+      "srt",
+      "vtt",
+      "ass",
+      "ssa",
+      "zip",
+      "gzip",
+      "utf16"
+    ],
+    "sources": [
+      "OpenSubtitles v3",
+      "OpenSubtitles legacy",
+      "custom Stremio addon"
+    ],
+    "sync": [
+      "playback clock and speed",
+      "dialogue alignment",
+      "automatic reference subtitle offset"
+    ]
+  }
 }

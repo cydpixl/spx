@@ -1,15 +1,15 @@
-import './surface-controls.mjs?v=20261029-access77';
-import './cinejoy-ui.mjs?v=20261029-access77';
-import {installDomainLinks} from './domains.mjs?v=20261029-access77';
-import {installMultiview} from './multiview.mjs?v=20261029-access77';
-import {installInterfacePolish} from './interface-polish.mjs?v=20261029-access77';
-import {installTrailerPreviews} from './trailer-previews.mjs?v=20261029-access77';
-import {personPlaceholder} from './reference-ui.mjs?v=20261029-access77';
-import {installHomeExperience} from './home-experience.mjs?v=20261029-access77';
-import {installAmbientSilk} from './ambient-silk.mjs?v=20261029-access77';
-import {playerIcon} from './player-icons.mjs?v=20261029-access77';
+import './surface-controls.mjs?v=20261030-subs80';
+import './cinejoy-ui.mjs?v=20261030-subs80';
+import {installDomainLinks} from './domains.mjs?v=20261030-subs80';
+import {installMultiview} from './multiview.mjs?v=20261030-subs80';
+import {installInterfacePolish} from './interface-polish.mjs?v=20261030-subs80';
+import {installTrailerPreviews} from './trailer-previews.mjs?v=20261030-subs80';
+import {personPlaceholder} from './reference-ui.mjs?v=20261030-subs80';
+import {installHomeExperience} from './home-experience.mjs?v=20261030-subs80';
+import {installAmbientSilk} from './ambient-silk.mjs?v=20261030-subs80';
+import {playerIcon} from './player-icons.mjs?v=20261030-subs80';
 import {installOutlaw} from './outlaw.mjs?v=20261029-arrows79';
-import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261029-access77';
+import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261030-subs80';
 (() => {
   "use strict";
   installAmbientSilk();
