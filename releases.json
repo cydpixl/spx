@@ -1,6 +1,31 @@
 {
   "releases": [
     {
+      "version": "2026.10.29.78",
+      "date": "2026-10-29",
+      "title": "Full sports calendar, source layouts and chat gate",
+      "summary": "Browse complete published team schedules alongside live stream listings.",
+      "sections": [
+        {
+          "title": "Sports calendar",
+          "changes": [
+            "Full-width month, week and agenda views with matchups and local start times.",
+            "Sport, league, team, provider and text filters. All games for a selected date remain accessible.",
+            "Public schedule coverage for NBA, WNBA, NCAA basketball/football, NFL, MLB, NHL and seven soccer competitions. Games remain visible before stream sources are listed."
+          ]
+        },
+        {
+          "title": "Sources and chat",
+          "changes": [
+            "Replaced horizontally clipped sources with readable, wrapping rows and source/language search.",
+            "Included PPV alternate broadcasts and languages. Added StreamFree listings and on-demand sources.",
+            "Matched the requested blurred chat warning, blue Enter button and visible connection status.",
+            "Bounded shared menus and fixed long-label wrapping across sports, settings and player controls."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.10.29.77",
       "date": "2026-10-29",
       "title": "Restore the devlog and make the calendar easy to find",

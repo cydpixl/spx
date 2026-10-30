@@ -4,3 +4,4 @@ node_modules/
 .env.*
 *.private.json
 catalog-worker/worker-configuration.d.ts
+.playwright-cli/

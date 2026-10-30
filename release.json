@@ -1,5 +1,5 @@
 {
-  "version": "2026.10.29.77",
+  "version": "2026.10.29.78",
   "date": "2026-10-29",
   "sources": [
     "CineSrc",
@@ -30,7 +30,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Restored the detailed searchable devlog and added direct Calendar and Devlog menu links. The /calendar route opens the upcoming schedule and date picker. Original controls, artwork, and Cinejoy styling are retained.",
+  "notes": "Full-size month, week and agenda sports calendar with team schedules across 14 leagues, sport/provider/search filters, expanded PPV alternate broadcasts, wrapping source controls, and a blurred live-chat warning matching the reference.",
   "name": "Spex",
   "sports": {
     "route": "/sports",
@@ -38,7 +38,8 @@
       "Streamed",
       "BINTV",
       "PPV",
-      "Matchora"
+      "Matchora",
+      "StreamFree"
     ],
     "sandboxed": [
       "BINTV"
@@ -46,9 +47,27 @@
     "standard": [
       "Streamed",
       "PPV",
-      "Matchora"
+      "Matchora",
+      "StreamFree"
     ],
-    "playbackEvidence": "Bounded decoded playback: BINTV sandbox and Streamed Golf SD standard. Sampled PPV and Matchora streams stalled; feed availability is not playback verification."
+    "playbackEvidence": "Bounded decoded playback: BINTV sandbox and Streamed Golf SD standard. Sampled PPV and Matchora streams stalled; feed availability is not playback verification.",
+    "schedule": {
+      "leagues": 14,
+      "views": [
+        "month",
+        "week",
+        "agenda"
+      ],
+      "filters": [
+        "sport",
+        "team",
+        "league",
+        "provider",
+        "search"
+      ],
+      "endpoint": "https://spex-sports-data.cydpixl7.workers.dev",
+      "streamAvailability": "independent of schedule listings"
+    }
   },
   "multiview": {
     "maxPanels": 6,
