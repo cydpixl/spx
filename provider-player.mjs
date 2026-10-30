@@ -1,8 +1,8 @@
-import {playerShortcut} from './player-shortcuts.mjs?v=20261030-keys81';
-import {rankSources,recordSourceResult} from './source-ranking.mjs?v=20261030-keys81';
-import {playbackLabel,movieRisk,riskMarkup} from './source-insights.mjs?v=20261030-keys81';
-import {animeEpisode} from './anime-mapping.mjs?v=20261030-keys81';
-import {installPlayerChrome} from './player-chrome.mjs?v=20261030-keys81';
+import {playerShortcut} from './player-shortcuts.mjs?v=20261030-keys82';
+import {rankSources,recordSourceResult} from './source-ranking.mjs?v=20261030-keys82';
+import {playbackLabel,movieRisk,riskMarkup} from './source-insights.mjs?v=20261030-keys82';
+import {animeEpisode} from './anime-mapping.mjs?v=20261030-keys82';
+import {installPlayerChrome} from './player-chrome.mjs?v=20261030-keys82';
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const providers=[
  {id:'yapgrid',name:'YapGrid',origin:'https://yapgrid.com',moviesOnly:true,path:item=>`/embed/movie/${item.id}?autoplay=0`},

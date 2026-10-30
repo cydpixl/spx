@@ -1,9 +1,9 @@
-import {sourceScore} from './source-ranking.mjs?v=20261030-keys81';
-import {playbackLabel,movieRisk,riskMarkup} from './source-insights.mjs?v=20261030-keys81';
-import {installSubtitleBrowser} from './subtitle-browser.mjs?v=20261030-keys81';
-import {applyControlLayout} from './player-layout.mjs?v=20261030-keys81';
-import {installAdvancedPlayer} from './player-advanced.mjs?v=20261030-keys81';
-import {playerIcon as icon} from './player-icons.mjs?v=20261030-keys81';
+import {sourceScore} from './source-ranking.mjs?v=20261030-keys82';
+import {playbackLabel,movieRisk,riskMarkup} from './source-insights.mjs?v=20261030-keys82';
+import {installSubtitleBrowser} from './subtitle-browser.mjs?v=20261030-keys82';
+import {applyControlLayout} from './player-layout.mjs?v=20261030-keys82';
+import {installAdvancedPlayer} from './player-advanced.mjs?v=20261030-keys82';
+import {playerIcon as icon} from './player-icons.mjs?v=20261030-keys82';
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function installPlayerChrome(player,dialog){
  const $=s=>dialog.querySelector(s), make=(name,label,action)=>{const b=document.createElement('button');b.type='button';b.innerHTML=icon(name);b.setAttribute('aria-label',label);b.title=label;b.onclick=action;return b};

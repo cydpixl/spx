@@ -1,5 +1,5 @@
 {
-  "version": "2026.10.30.81",
+  "version": "2026.10.30.82",
   "date": "2026-10-30",
   "sources": [
     "CineSrc",
@@ -154,6 +154,7 @@
       "K",
       "L"
     ],
-    "usesConfiguredSeek": true
+    "usesConfiguredSeek": true,
+    "seekBarFocus": true
   }
 }

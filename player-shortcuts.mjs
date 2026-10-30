@@ -2,7 +2,7 @@
 export function playerShortcut(event){
  if(event.defaultPrevented||event.isComposing||event.ctrlKey||event.metaKey||event.altKey)return null;
  const path=event.composedPath?.()||[event.target];
- if(path.some(node=>node?.matches?.('input,select,textarea,[contenteditable]:not([contenteditable="false"]),[role="textbox"],[role="slider"],[role="listbox"],[role="menu"],[role="menuitem"]')))return null;
+ if(path.some(node=>node?.matches?.('input:not([data-timeline]):not(#seek),select,textarea,[contenteditable]:not([contenteditable="false"]),[role="textbox"],[role="slider"],[role="listbox"],[role="menu"],[role="menuitem"]')))return null;
  const key=String(event.key||'').toLowerCase();
  if(['arrowleft','i','j'].includes(key))return 'back';
  if(['arrowright','k','l'].includes(key))return 'forward';
