@@ -49,3 +49,7 @@ Following shows selected teams and the teams of followed players; All scores sho
 Basketball setup separates NBA, WNBA and NCAA / College. NBA defaults on; selected leagues constrain basketball team directories and personalized scoreboards. The player step initially requests the current NBA season scoring leaderboard (points per game) from the public ESPN common/v3 statistics endpoint, with 48 players, real headshots and team metadata. A dropdown switches to any loaded team roster; search applies to player names and teams. Following players requires an explicit selection.
 
 Official scoreboard states override contradictory provider live flags for matching games within 18 hours; rematches remain separate. Dated listings older than 12 hours without a current official match expire. Unverified sources may remain available, but do not receive a Live badge. ESPN schedule states can also verify live status. Channels retain their 24/7 behavior.
+
+## Sports explorer release 2026.11.01.86
+
+See SPORTS-REFERENCE.md for the official REAL feature audit, implemented features, validation and explicit remaining gaps. New sports data routes are strictly allowlisted and use current published ESPN data. Local squads, trackers, picks and saved plays use bounded browser storage; existing shared game chat is retained. Player identity normalization uses the actual matching current team record, rather than a short team name.

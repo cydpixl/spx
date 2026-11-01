@@ -1,6 +1,6 @@
 import {playerShortcut} from './player-shortcuts.mjs?v=20261030-keys82';
 import './surface-controls.mjs?v=20261030-keys82';
-import './cinejoy-ui.mjs?v=20261031-controls85';
+import './cinejoy-ui.mjs?v=20261031-hub86';
 import {installDomainLinks} from './domains.mjs?v=20261030-keys82';
 import {installMultiview} from './multiview.mjs?v=20261030-keys82';
 import {installInterfacePolish} from './interface-polish.mjs?v=20261030-keys82';
@@ -9,7 +9,7 @@ import {personPlaceholder} from './reference-ui.mjs?v=20261030-keys82';
 import {installHomeExperience} from './home-experience.mjs?v=20261030-keys82';
 import {installAmbientSilk} from './ambient-silk.mjs?v=20261030-keys82';
 import {playerIcon} from './player-icons.mjs?v=20261030-keys82';
-import {installOutlaw} from './outlaw.mjs?v=20261031-controls85';
+import {installOutlaw} from './outlaw.mjs?v=20261031-hub86';
 import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261030-keys82';
 (() => {
   "use strict";

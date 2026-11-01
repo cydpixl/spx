@@ -48,3 +48,5 @@ Visible branding is now Spex; original artwork, routes, account storage, library
 Search adds a small microphone using the browser SpeechRecognition/webkitSpeechRecognition API. Interim/final speech results feed the existing live search, speech end/silence stops recognition, listening/speaking uses the current accent, and navigation aborts capture. Unsupported browsers disable the microphone while retaining typed search; permission, device and network failures receive explicit messages. Speech lifecycle and result wiring were tested with simulated browser events; a real Chrome permission denial was tested. Acoustic transcription from a physical microphone remains unverified. No audio was generated.
 
 Sports architecture, source names, ratings and chat behavior: see SPORTS.md. In-app About: /updates#sports-about.
+
+REAL feature comparison and sports explorer coverage: SPORTS-REFERENCE.md.

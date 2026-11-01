@@ -1,6 +1,38 @@
 {
   "releases": [
     {
+      "version": "2026.11.01.86",
+      "date": "2026-11-01",
+      "title": "Explore every part of the game",
+      "summary": "Real team identity, player and team profiles, game details and better sports controls.",
+      "sections": [
+        {
+          "title": "Players and teams",
+          "changes": [
+            "Player cards and followed-player rows now show full current team names and actual logos. Team links open rosters and records.",
+            "Player profiles show season/career statistics, game logs and historical game-log seasons.",
+            "Notification preferences use accessible switches rather than native checkbox boxes."
+          ]
+        },
+        {
+          "title": "Inside the game",
+          "changes": [
+            "New game center with team statistics, box scores, searchable play-by-play, published shot charts, shared event chat, game links and available streams.",
+            "Explore real standings, provider news, NBA leaders and team rosters without leaving Sports.",
+            "Create local squads, follow players and teams, track numeric game-stat targets, save real game moments and make personal pregame winner picks."
+          ]
+        },
+        {
+          "title": "Reference audit and limits",
+          "changes": [
+            "Reviewed REAL official feature guides and documented the feature comparison in SPORTS-REFERENCE.md.",
+            "Squads, trackers, saved plays and picks are stored on this browser. Browser alerts require an open Sports page.",
+            "REAL currencies, marketplace, proprietary ratings, social graph, global rewards and closed-app push are not included or simulated."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.10.31.85",
       "date": "2026-10-31",
       "title": "NBA first, accurate game status",

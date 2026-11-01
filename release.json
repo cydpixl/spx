@@ -1,6 +1,6 @@
 {
-  "version": "2026.10.31.85",
-  "date": "2026-10-31",
+  "version": "2026.11.01.86",
+  "date": "2026-11-01",
   "sources": [
     "CineSrc",
     "MoviesAPI",
@@ -30,7 +30,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "NBA-first setup, scoring leaders, league choices, accurate live/final labels and consistent arrow controls.",
+  "notes": "Sports explorer, complete player/team identity, game center, stats, plays, squads, trackers and accessible switches.",
   "name": "Spex",
   "sports": {
     "route": "/sports",
