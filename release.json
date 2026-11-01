@@ -1,5 +1,5 @@
 {
-  "version": "2026.10.31.83",
+  "version": "2026.10.31.84",
   "date": "2026-10-31",
   "sources": [
     "CineSrc",
@@ -30,7 +30,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Redesigned sports browsing, calendar team badges, source aliases and stars, live chat, and native new-tab links.",
+  "notes": "App-first Sports with guided setup, real live scoreboards, team directories, player photos and optional open-app notifications.",
   "name": "Spex",
   "sports": {
     "route": "/sports",

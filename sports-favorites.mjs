@@ -49,5 +49,5 @@ export function installSportsFavorites(ctx){
  launcher.onclick=openAlerts;
  const onStorage=e=>{if(e.key===seenKey){const shared=read(seenKey,{});if(shared&&typeof shared==='object'&&!Array.isArray(shared))delivered=shared;return}if(e.key===key||e.key===inboxKey){prefs=clean(read(key,{}));inbox=read(inboxKey,[]);if(!Array.isArray(inbox))inbox=[];changed()}};
  window.addEventListener('storage',onStorage);document.addEventListener('visibilitychange',()=>{if(!document.hidden)void poll()});setInterval(()=>void poll(),60000);changed();void poll();
- return {get preferences(){return prefs},rank:event=>event.channel?0:eventTeams(event).some(t=>prefs.teams.some(f=>f.id===t.id))?2:prefs.sports.includes(event.category)?1:0,ingest,toggleSport:setSport,openFavorites,openAlerts,close,subscribe(fn){listeners.add(fn);return ()=>listeners.delete(fn)}};
+ return {get preferences(){return prefs},setPreferences(next){prefs=clean({...prefs,...next});save(key,prefs);changed();ingest(events)},rank:event=>event.channel?0:eventTeams(event).some(t=>prefs.teams.some(f=>f.id===t.id))?2:prefs.sports.includes(event.category)?1:0,ingest,toggleSport:setSport,openFavorites,openAlerts,close,subscribe(fn){listeners.add(fn);return ()=>listeners.delete(fn)}};
 }

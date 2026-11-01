@@ -35,3 +35,11 @@ The entry gate preserves the existing opt-in. Sign-in is required to send; messa
 ## Styling and deployment
 
 `sports-redesign.css` is appended after the existing sports workspace rules in the generated `ui.css` bundle. Scoped rules retain shared navigation and other catalog/player pages. Reduced motion and mobile layouts are supported. Avoid running the legacy `build-design.mjs` release mutation unchanged: it currently contains older release constants; packaging should preserve the current index/release metadata.
+
+## App-first experience (2026.10.31.84)
+
+A full-screen, four-step setup chooses sports, searchable teams, roster players, live updates and optional browser notifications. Existing account names are used; no second account is created. Profile data is local to this browser and is editable with Personalize. Team directories cover the 14 configured leagues; tennis, cricket, combat sports and other stream categories can be followed but do not have team/roster directories in this release.
+
+The sports-data gateway now allowlists `/live`, `/teams` and `/roster` routes. ESPN's publicly accessible site API supplies real scores, game clocks/status, logos, teams and athlete headshots. These are public, undocumented endpoints, not a licensed Real app integration; independent failures are surfaced. Scoreboard polling runs every 30 seconds while visible and enabled; the gateway caches scores for 15 seconds and directories for an hour. The feed keeps last-known rows for failed leagues, removes rows from successfully loaded empty leagues, and cancels requests on navigation.
+
+Following shows selected teams and the teams of followed players; All scores shows the supported leagues. Stream links appear only when a matching event has a source. Other cards open real game details. Score changes for followed teams produce in-app alerts and, only after an explicit browser permission choice, optional browser notifications. Notifications require Sports to remain open; no background push or closed-app delivery is implemented.

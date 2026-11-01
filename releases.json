@@ -1,6 +1,31 @@
 {
   "releases": [
     {
+      "version": "2026.10.31.84",
+      "date": "2026-10-31",
+      "title": "Sports, made yours",
+      "summary": "A dedicated Sports app with real live scores and a personal setup.",
+      "sections": [
+        {
+          "title": "Your sports, teams and players",
+          "changes": [
+            "Full-screen animated setup uses your existing account and saves sports, teams, players and update choices on this browser.",
+            "Search team directories across 14 supported leagues and choose players from real rosters, with official team logos and athlete photos.",
+            "Sports stays visible in the main navigation with its icon. Filters use shared pill controls, including With streams and Reset filters."
+          ]
+        },
+        {
+          "title": "Real score updates",
+          "changes": [
+            "ESPN public scoreboards supply real game scores, periods and clocks; visible enabled pages refresh every 30 seconds.",
+            "Following and All scores switch between a personal feed and the supported leagues. Select Personalize to change your choices.",
+            "Optional browser notifications require permission and an open Sports page. Background push is not included.",
+            "Public data endpoints may change; unavailable leagues are labeled and retried."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.10.31.83",
       "date": "2026-10-31",
       "title": "Sports, redesigned",
