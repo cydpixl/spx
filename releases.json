@@ -1,6 +1,29 @@
 {
   "releases": [
     {
+      "version": "2026.10.31.85",
+      "date": "2026-10-31",
+      "title": "NBA first, accurate game status",
+      "summary": "Choose your basketball leagues, start with NBA leaders and see official game status.",
+      "sections": [
+        {
+          "title": "Basketball setup",
+          "changes": [
+            "NBA is selected by default. WNBA and NCAA / College are separate opt-in league choices.",
+            "NBA scoring leaders appear automatically in the player step, ranked by current-season points per game with real photos. Search players or choose a team roster from the dropdown.",
+            "Team directories and personalized basketball scores respect selected leagues."
+          ]
+        },
+        {
+          "title": "Game status and controls",
+          "changes": [
+            "Official final statuses override stream-provider live flags. Old dated listings expire, and unverified streams are labeled Stream rather than Live.",
+            "Middle-click links remain supported. Gray native select arrows and text arrows were replaced with consistent controls."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.10.31.84",
       "date": "2026-10-31",
       "title": "Sports, made yours",

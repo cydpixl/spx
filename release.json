@@ -1,5 +1,5 @@
 {
-  "version": "2026.10.31.84",
+  "version": "2026.10.31.85",
   "date": "2026-10-31",
   "sources": [
     "CineSrc",
@@ -30,7 +30,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "App-first Sports with guided setup, real live scoreboards, team directories, player photos and optional open-app notifications.",
+  "notes": "NBA-first setup, scoring leaders, league choices, accurate live/final labels and consistent arrow controls.",
   "name": "Spex",
   "sports": {
     "route": "/sports",
