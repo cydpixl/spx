@@ -1,6 +1,6 @@
 import {sourceScore} from './source-ranking.mjs?v=20261030-keys82';
 import {playbackLabel,movieRisk,riskMarkup} from './source-insights.mjs?v=20261030-keys82';
-import {installSubtitleBrowser} from './subtitle-browser.mjs?v=20261030-keys82';
+import {installSubtitleBrowser} from './subtitle-browser.mjs?v=20261101-subs87';
 import {applyControlLayout} from './player-layout.mjs?v=20261030-keys82';
 import {installAdvancedPlayer} from './player-advanced.mjs?v=20261030-keys82';
 import {playerIcon as icon} from './player-icons.mjs?v=20261030-keys82';

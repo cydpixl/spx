@@ -1,6 +1,22 @@
 {
   "releases": [
     {
+      "version": "2026.11.01.87",
+      "date": "2026-11-01",
+      "title": "More reliable subtitle timing",
+      "summary": "External subtitles stay in step with reported playback and start fresh when switching subtitle files.",
+      "sections": [
+        {
+          "title": "Subtitle fixes",
+          "changes": [
+            "External captions now use a clock anchored when server timing arrives, including repeated positions, rather than freezing after 2.5 seconds.",
+            "Pause, buffering, seek and playback speed updates re-anchor captions. Captions hide when playback timing becomes unavailable.",
+            "Choosing another subtitle file clears its predecessor’s offset. Dialogue alignment uses the current playback estimate, with clearer earlier/later timing labels."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.11.01.86",
       "date": "2026-11-01",
       "title": "Explore every part of the game",

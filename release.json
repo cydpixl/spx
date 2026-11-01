@@ -1,5 +1,5 @@
 {
-  "version": "2026.11.01.86",
+  "version": "2026.11.01.87",
   "date": "2026-11-01",
   "sources": [
     "CineSrc",
@@ -30,7 +30,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Sports explorer, complete player/team identity, game center, stats, plays, squads, trackers and accessible switches.",
+  "notes": "Subtitle playback clock corrected for sparse reports, pause, buffering, seeks and speed; timing resets when changing subtitle files.",
   "name": "Spex",
   "sports": {
     "route": "/sports",
