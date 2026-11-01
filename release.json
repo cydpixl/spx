@@ -1,6 +1,6 @@
 {
-  "version": "2026.10.30.82",
-  "date": "2026-10-30",
+  "version": "2026.10.31.83",
+  "date": "2026-10-31",
   "sources": [
     "CineSrc",
     "MoviesAPI",
@@ -30,7 +30,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Calendar navigation now uses the existing catalog SVG chevrons and transparent icon-button styling.",
+  "notes": "Redesigned sports browsing, calendar team badges, source aliases and stars, live chat, and native new-tab links.",
   "name": "Spex",
   "sports": {
     "route": "/sports",
@@ -41,10 +41,9 @@
       "Matchora",
       "StreamFree"
     ],
-    "sandboxed": [
-      "BINTV"
-    ],
+    "sandboxed": [],
     "standard": [
+      "BINTV",
       "Streamed",
       "PPV",
       "Matchora",

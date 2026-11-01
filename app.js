@@ -9,7 +9,7 @@ import {personPlaceholder} from './reference-ui.mjs?v=20261030-keys82';
 import {installHomeExperience} from './home-experience.mjs?v=20261030-keys82';
 import {installAmbientSilk} from './ambient-silk.mjs?v=20261030-keys82';
 import {playerIcon} from './player-icons.mjs?v=20261030-keys82';
-import {installOutlaw} from './outlaw.mjs?v=20261029-arrows79';
+import {installOutlaw} from './outlaw.mjs?v=20261031-links83';
 import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261030-keys82';
 (() => {
   "use strict";

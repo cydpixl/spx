@@ -1,6 +1,37 @@
 {
   "releases": [
     {
+      "version": "2026.10.31.83",
+      "date": "2026-10-31",
+      "title": "Sports, redesigned",
+      "summary": "A calmer match browser, a team-focused calendar and a clearer live player.",
+      "sections": [
+        {
+          "title": "Browse & calendar",
+          "changes": [
+            "Replaced the separate sports logo with the shared Spex visual language.",
+            "Top-right sport picker, combined team/league/source/search filters, streams-only toggle and event sorting.",
+            "Team badges in month, week and agenda views, with initials when artwork is missing.",
+            "Native event links support middle-click, modifier-click and the browser new-tab menu."
+          ]
+        },
+        {
+          "title": "Sources & live chat",
+          "changes": [
+            "Alpha, Bravo, Charlie, Delta and Echo replace provider labels in the player. Five actual stars show an advisory rating with local playback feedback.",
+            "Standard sports embeds avoid the forced sandbox rejection on Alpha feeds.",
+            "Refined event chat with readable messages, draft preservation, keyboard sending, connection status and a new-message jump button."
+          ]
+        },
+        {
+          "title": "About sports",
+          "changes": [
+            "The About Spex Sports section above explains source names, rating rules, schedules, player restrictions and chat behavior. Full implementation notes are in SPORTS.md."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.10.29.79",
       "date": "2026-10-29",
       "title": "Match calendar arrows to existing Spex controls",

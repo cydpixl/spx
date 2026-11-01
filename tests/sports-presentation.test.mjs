@@ -1,0 +1,8 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {sportsRating,sourceName,reportPlayback,ratingMarkup} from '../sports-presentation.mjs';
+const store=new Map();globalThis.localStorage={getItem:k=>store.get(k)??null,setItem:(k,v)=>store.set(k,v)};
+test('source labels retain distinct groups and do not expose provider names',()=>{assert.deepEqual(['BINTV','Streamed','PPV','Matchora','StreamFree'].map(provider=>sourceName({provider})),['Alpha','Bravo','Charlie','Delta','Echo'])});
+test('ratings distinguish untested, known advertising concern and exact-stream feedback',()=>{store.clear();const a={provider:'BINTV',url:'https://example.com/a'},b={...a,url:'https://example.com/b'};assert.equal(sportsRating(a).value,2.5);assert.equal(sportsRating({provider:'Matchora'}).value,1.5);reportPlayback(a,'playing');assert.equal(sportsRating(a).value,4);assert.equal(sportsRating(b).value,2.5);reportPlayback(a,'error');assert.equal(sportsRating(a).value,1);assert.equal(sportsRating(a,Date.now()+8*86400000).value,2.5)});
+test('star markup exposes five stars and an accessible numerical explanation',()=>{assert.match(ratingMarkup({provider:'PPV'}),/2.5 out of 5 stars/);assert.match(ratingMarkup({provider:'PPV'}),/★★★★★/);assert.match(ratingMarkup({provider:'PPV'}),/width:50%/)});
+test('unavailable storage and invalid reports never break playback',()=>{globalThis.localStorage={getItem:()=>{throw Error()},setItem:()=>{throw Error()}};assert.doesNotThrow(()=>reportPlayback({url:'https://example.com'},'playing'));assert.equal(sportsRating({}).value,2.5);assert.doesNotThrow(()=>reportPlayback({},'invalid'))});
