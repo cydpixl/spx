@@ -1,6 +1,22 @@
 {
   "releases": [
     {
+      "version": "2026.11.01.89",
+      "date": "2026-11-01",
+      "title": "Keep playback open through fullscreen changes",
+      "summary": "Fullscreen, rotation and native-video transitions preserve the player instead of navigating to the title page.",
+      "sections": [
+        {
+          "title": "Player lifecycle",
+          "changes": [
+            "Unsolicited browser dismissals retain the same video or iframe. Close buttons and deliberate Escape still close normally.",
+            "Safari-prefixed fullscreen is supported, and duplicate same-route history events no longer rebuild an active player.",
+            "Physical phone and TV fullscreen transitions still need device verification."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.11.01.88",
       "date": "2026-11-01",
       "title": "AirPlay controls",

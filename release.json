@@ -1,5 +1,5 @@
 {
-  "version": "2026.11.01.88",
+  "version": "2026.11.01.89",
   "date": "2026-11-01",
   "sources": [
     "CineSrc",
@@ -30,7 +30,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Native Safari AirPlay picker for uploaded videos, connection state and AirPlay guidance for embedded servers.",
+  "notes": "Fullscreen and rotation no longer treat unsolicited player dialog dismissal as navigation back to the title.",
   "name": "Spex",
   "sports": {
     "route": "/sports",
