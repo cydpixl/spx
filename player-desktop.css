@@ -37,3 +37,6 @@
 .has-anime-audio .stream-native-actions{margin-left:auto}.has-anime-audio .stream-native-actions:not([hidden])+.stream-anime-audio{margin-left:4px}
 .stream-anime-audio-menu{display:flex;gap:8px;padding:8px 12px}.stream-anime-audio-menu button{min-width:72px;background:#ffffff12}
 @media(max-width:700px){.has-anime-audio .stream-heading .stream-identity{top:18px;left:60px;right:120px;align-items:flex-start;text-align:left}.has-anime-audio .stream-heading .stream-identity strong{max-width:100%;font-size:12px}.has-anime-audio .stream-heading{padding:12px;min-height:74px;align-items:flex-start}.stream-player .stream-anime-audio button{font-size:11px;min-height:30px;padding:5px 9px}.has-anime-audio .stream-native-actions{position:absolute;right:12px;top:56px}.has-anime-audio .stream-native-actions:not([hidden])+.stream-anime-audio{margin-left:auto}}
+
+/* AirPlay uses the same compact player controls. */
+.is-airplay-connected{color:var(--accent,#b7e75a)!important}

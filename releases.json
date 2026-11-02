@@ -1,6 +1,22 @@
 {
   "releases": [
     {
+      "version": "2026.11.01.88",
+      "date": "2026-11-01",
+      "title": "AirPlay controls",
+      "summary": "Send uploaded videos to an AirPlay receiver from Safari; embedded sources retain their own casting controls.",
+      "sections": [
+        {
+          "title": "Playback",
+          "changes": [
+            "Native uploads have a Safari AirPlay picker with real connected/disconnected state.",
+            "AirPlay is available in the player-control layout editor.",
+            "Embedded sources have AirPlay help and a shortcut to server controls where available. Actual receiver playback still needs an Apple device and AirPlay receiver test."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.11.01.87",
       "date": "2026-11-01",
       "title": "More reliable subtitle timing",
@@ -11,7 +27,7 @@
           "changes": [
             "External captions now use a clock anchored when server timing arrives, including repeated positions, rather than freezing after 2.5 seconds.",
             "Pause, buffering, seek and playback speed updates re-anchor captions. Captions hide when playback timing becomes unavailable.",
-            "Choosing another subtitle file clears its predecessor’s offset. Dialogue alignment uses the current playback estimate, with clearer earlier/later timing labels."
+            "Choosing another subtitle file clears its predecessorï¿½s offset. Dialogue alignment uses the current playback estimate, with clearer earlier/later timing labels."
           ]
         }
       ]

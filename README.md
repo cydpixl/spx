@@ -50,3 +50,7 @@ Search adds a small microphone using the browser SpeechRecognition/webkitSpeechR
 Sports architecture, source names, ratings and chat behavior: see SPORTS.md. In-app About: /updates#sports-about.
 
 REAL feature comparison and sports explorer coverage: SPORTS-REFERENCE.md.
+
+## AirPlay — 2026.11.01.88
+
+Native uploads expose Safari’s real AirPlay picker when the WebKit API is supported. The button uses actual wireless-route events for its connected state and is included in the player-control layout editor. Embedded providers retain their own media elements: their AirPlay help action can reveal server controls, but Spex cannot open a cross-origin video’s picker. An AirPlay-enabled receiver and Safari on an Apple sender are required; Control Center Screen Mirroring is the fallback for unsupported sources. Browser checks used simulated WebKit APIs. Physical iPhone-to-TV routing remains unverified.

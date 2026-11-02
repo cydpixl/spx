@@ -8,9 +8,9 @@ import {installTrailerPreviews} from './trailer-previews.mjs?v=20261030-keys82';
 import {personPlaceholder} from './reference-ui.mjs?v=20261030-keys82';
 import {installHomeExperience} from './home-experience.mjs?v=20261030-keys82';
 import {installAmbientSilk} from './ambient-silk.mjs?v=20261030-keys82';
-import {playerIcon} from './player-icons.mjs?v=20261030-keys82';
-import {installOutlaw} from './outlaw.mjs?v=20261101-subs87';
-import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261101-subs87';
+import {playerIcon} from './player-icons.mjs?v=20261101-airplay88';
+import {installOutlaw} from './outlaw.mjs?v=20261101-airplay88';
+import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261101-airplay88';
 (() => {
   "use strict";
   installAmbientSilk();

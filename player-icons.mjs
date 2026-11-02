@@ -1,4 +1,4 @@
-const paths={
+const paths={airplay:'<path d="M5 17H3V3h18v14h-2M7 21l5-7 5 7Z"/>',
  grid:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>',
  monitor:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
  reset:'<path d="M3 10a9 9 0 1 1 1 7M3 4v6h6"/>',

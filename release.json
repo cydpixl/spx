@@ -1,5 +1,5 @@
 {
-  "version": "2026.11.01.87",
+  "version": "2026.11.01.88",
   "date": "2026-11-01",
   "sources": [
     "CineSrc",
@@ -30,7 +30,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Subtitle playback clock corrected for sparse reports, pause, buffering, seeks and speed; timing resets when changing subtitle files.",
+  "notes": "Native Safari AirPlay picker for uploaded videos, connection state and AirPlay guidance for embedded servers.",
   "name": "Spex",
   "sports": {
     "route": "/sports",
@@ -155,5 +155,10 @@
     ],
     "usesConfiguredSeek": true,
     "seekBarFocus": true
+  },
+  "airPlay": {
+    "native": "Safari WebKit picker",
+    "embedded": "provider controls or Control Center mirroring",
+    "receiverTested": false
   }
 }

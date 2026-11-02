@@ -1,9 +1,10 @@
+import {airPlayHelp} from './airplay.mjs?v=20261101-airplay88';
 import {sourceScore} from './source-ranking.mjs?v=20261030-keys82';
 import {playbackLabel,movieRisk,riskMarkup} from './source-insights.mjs?v=20261030-keys82';
 import {installSubtitleBrowser} from './subtitle-browser.mjs?v=20261101-subs87';
-import {applyControlLayout} from './player-layout.mjs?v=20261030-keys82';
+import {applyControlLayout,controlLayout} from './player-layout.mjs?v=20261101-airplay88';
 import {installAdvancedPlayer} from './player-advanced.mjs?v=20261030-keys82';
-import {playerIcon as icon} from './player-icons.mjs?v=20261030-keys82';
+import {playerIcon as icon} from './player-icons.mjs?v=20261101-airplay88';
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function installPlayerChrome(player,dialog){
  const $=s=>dialog.querySelector(s), make=(name,label,action)=>{const b=document.createElement('button');b.type='button';b.innerHTML=icon(name);b.setAttribute('aria-label',label);b.title=label;b.onclick=action;return b};
@@ -33,12 +34,14 @@ export function installPlayerChrome(player,dialog){
    }catch{if(p.isConnected)body.textContent='Could not load episodes. Close and reopen to retry.'}
   });transport.append(episodes)
  }
- transport.append(servers,captions,settings,$('[data-fullscreen]'));installAdvancedPlayer({player,dialog,panel,settings,servers,captions,closeMenu});$('[data-fullscreen]').innerHTML=icon('fullscreen');
+ const showAirPlay=(button)=>{const p=panel('AirPlay',button);if(!p)return;const text=document.createElement('p');text.className='stream-menu-description';text.textContent=airPlayHelp;p.append(text);if(player.provider.hideControls&&!player.nativeControls){const open=document.createElement('button');open.className='stream-menu-row';open.textContent='Show server controls';open.onclick=()=>{$('[data-captions]').click();closeMenu()};p.append(open)}};
+ const airplay=make('airplay','AirPlay help',()=>showAirPlay(airplay));airplay.setAttribute('aria-haspopup','true');
+ transport.append(airplay,servers,captions,settings,$('[data-fullscreen]'));installAdvancedPlayer({player,dialog,panel,settings,servers,captions,closeMenu});$('[data-fullscreen]').innerHTML=icon('fullscreen');
  const layoutTop=document.createElement('div');layoutTop.className='stream-layout-top';$('.stream-heading').append(layoutTop);
  const layoutLeft=document.createElement('div'),layoutRight=document.createElement('div');layoutLeft.className='stream-layout-left';layoutRight.className='stream-layout-right';transport.append(layoutLeft,layoutRight);spacer.remove();
  const next=player.item.type==='tv'?make('next','Next episode',()=>player.changeEpisode(1)):null;
- applyControlLayout(dialog,player.controlSettings,{play,rewind:$('[data-skip="-10"]'),forward:$('[data-skip="10"]'),volume:volumeGroup,time:$('[data-time]'),episodes:$('button[aria-label="Episodes"]'),servers,captions,subtitles:captions,settings,fullscreen:$('[data-fullscreen]'),next},{top:layoutTop,left:layoutLeft,right:layoutRight});
- $('.stream-footer').hidden=true;const nativeBar=document.createElement('div');nativeBar.className='stream-native-actions';const nativeBack=document.createElement('button');nativeBack.textContent='Spex controls';nativeBack.onclick=()=>{$('[data-captions]').click()};nativeBar.append(nativeBack,make('captions','Browse subtitles',()=>captions.click()),make('servers','Choose server',()=>servers.click()));$('.stream-heading').append(nativeBar);
+ applyControlLayout(dialog,player.controlSettings,{play,rewind:$('[data-skip="-10"]'),forward:$('[data-skip="10"]'),volume:volumeGroup,time:$('[data-time]'),episodes:$('button[aria-label="Episodes"]'),servers,captions,subtitles:captions,airplay,settings,fullscreen:$('[data-fullscreen]'),next},{top:layoutTop,left:layoutLeft,right:layoutRight});
+ $('.stream-footer').hidden=true;const nativeBar=document.createElement('div');nativeBar.className='stream-native-actions';const nativeBack=document.createElement('button');nativeBack.textContent='Spex controls';nativeBack.onclick=()=>{$('[data-captions]').click()};const nativeAirPlay=make('airplay','AirPlay help',()=>showAirPlay(nativeAirPlay));nativeAirPlay.hidden=controlLayout(player.controlSettings).available.includes('airplay');nativeBar.append(nativeAirPlay,nativeBack,make('captions','Browse subtitles',()=>captions.click()),make('servers','Choose server',()=>servers.click()));$('.stream-heading').append(nativeBar);
  let audioChoice;
  if(player.available.some(source=>source.anime)){
   audioChoice=document.createElement('div');audioChoice.className='stream-anime-audio';audioChoice.setAttribute('role','group');audioChoice.setAttribute('aria-label','Anime audio');

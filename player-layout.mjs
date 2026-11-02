@@ -1,11 +1,12 @@
-import {playerIcon as icon} from './player-icons.mjs?v=20261029-access77';
+import {playerIcon as icon} from './player-icons.mjs?v=20261101-airplay88';
 
-const actions={play:['Play / Pause','play'],rewind:['Rewind','rewind'],forward:['Forward','forward'],volume:['Volume','volume'],time:['Time elapsed','clock'],episodes:['Episodes','episodes'],pip:['Picture in picture','pip'],servers:['Servers','servers'],subtitles:['Subtitles','captions'],settings:['Settings','settings'],fullscreen:['Fullscreen','fullscreen'],next:['Next episode','next']};
+const actions={play:['Play / Pause','play'],rewind:['Rewind','rewind'],forward:['Forward','forward'],volume:['Volume','volume'],time:['Time elapsed','clock'],episodes:['Episodes','episodes'],pip:['Picture in picture','pip'],airplay:['AirPlay','airplay'],servers:['Servers','servers'],subtitles:['Subtitles','captions'],settings:['Settings','settings'],fullscreen:['Fullscreen','fullscreen'],next:['Next episode','next']};
 const zones={top:'Top bar',left:'Bottom bar left',right:'Bottom bar right',available:'Available Actions'};
-export const defaultControlLayout={top:[],left:['play','rewind','forward','volume','time'],right:['episodes','pip','servers','subtitles','settings','fullscreen'],available:['next']};
+export const defaultControlLayout={top:[],left:['play','rewind','forward','volume','time'],right:['episodes','pip','airplay','servers','subtitles','settings','fullscreen'],available:['next']};
 export function controlLayout(settings={}){
  const result={top:[],left:[],right:[],available:[]},seen=new Set(),saved=settings.controlLayout;
  for(const zone of Object.keys(result))for(const id of (Array.isArray(saved?.[zone])?saved[zone]:defaultControlLayout[zone]))if(actions[id]&&!seen.has(id)){result[zone].push(id);seen.add(id)}
+ if(saved&&!seen.has('airplay')){const index=result.right.indexOf('pip');result.right.splice(index<0?0:index+1,0,'airplay');seen.add('airplay')}
  for(const id of Object.keys(actions))if(!seen.has(id))result.available.push(id);
  for(const id of settings.hiddenControls||[])if(actions[id]){for(const zone of ['top','left','right'])result[zone]=result[zone].filter(x=>x!==id);if(!result.available.includes(id))result.available.push(id)}
  // Core transport remains reachable, even with a malformed imported preference.
