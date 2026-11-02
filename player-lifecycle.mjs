@@ -21,7 +21,13 @@ export function bindPlayerLifecycle(dialog,{document:doc=dialog.ownerDocument,wi
   if(disposed||!dialog.open||event.defaultPrevented||event.key!=='Escape')return;
   if(dialog.querySelector('.stream-popover,.native-menu:not([hidden])'))return;
   event.preventDefault();
-  if(fullscreen()||now()<transitionUntil)return;
+  if(fullscreen()){
+   transitioning();
+   const exit=doc.exitFullscreen||doc.webkitExitFullscreen,video=dialog.querySelector('video');
+   try{if(exit)Promise.resolve(exit.call(doc)).catch(()=>{});else video?.webkitExitFullscreen?.()}catch{}
+   return;
+  }
+  if(now()<transitionUntil)return;
   dialog.close();
  };
  const transitions=['fullscreenchange','webkitfullscreenchange','webkitbeginfullscreen','webkitendfullscreen'];

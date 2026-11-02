@@ -25,6 +25,11 @@ test('rotation and fullscreen exits do not turn the first Escape into navigation
  f.doc.fullscreenElement=null;f.doc.dispatchEvent(new Event('fullscreenchange'));escape();assert.equal(f.dialog.open,true);
  f.advance(1600);escape();assert.equal(f.dialog.open,false);assert.equal(f.cleanup,1);
 });
+test('deliberate Escape exits fullscreen without closing playback',()=>{
+ const f=fixture();let exits=0;f.doc.fullscreenElement={};f.doc.exitFullscreen=()=>{exits++;f.doc.fullscreenElement=null;return Promise.resolve()};
+ const event=new Event('keydown',{cancelable:true});event.key='Escape';f.doc.dispatchEvent(event);
+ assert.equal(exits,1);assert.equal(f.dialog.open,true);assert.equal(f.cleanup,0);
+});
 test('closing deliberately during rotation still closes; a removed player is never resurrected',()=>{
  const f=fixture();f.win.dispatchEvent(new Event('resize'));f.dialog.close();f.flush();assert.equal(f.dialog.open,false);assert.equal(f.cleanup,1);
  const g=fixture();g.dialog.open=false;g.dialog.dispatchEvent(new Event('close'));g.lifecycle.destroy();g.dialog.isConnected=false;g.flush();assert.equal(g.dialog.open,false);
