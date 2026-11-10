@@ -1,10 +1,10 @@
 import {safeMediaURL} from './wing-client.mjs?v=20261110-wing90';
 export function installVideoContext(player,dialog){
- let menu=null,about=null,previousFocus=null;
+ let menu=null,about=null,previousFocus=null,feedback=null,feedbackTimer;
  const stage=dialog.querySelector('.stream-stage');
- function close(){menu?.remove();about?.remove();menu=about=null;dialog.classList.remove('video-context-open');}
+ function close(){menu?.remove();about?.remove();feedback?.remove();clearTimeout(feedbackTimer);menu=about=feedback=null;dialog.classList.remove('video-context-open');}
  function dismiss(){close();previousFocus?.focus?.();}
- async function copy(){const url=safeMediaURL(player.videoInfo?.playlist);if(!url)return;try{await navigator.clipboard.writeText(url);player.status('Playlist link copied');close()}catch{details('Copy the playlist link below.');}}
+ async function copy(){const url=safeMediaURL(player.videoInfo?.playlist);if(!url)return;try{await navigator.clipboard.writeText(url);player.status('Playlist link copied');close();feedback=document.createElement('div');feedback.className='stream-video-toast';feedback.setAttribute('role','status');feedback.textContent='Playlist link copied';dialog.append(feedback);feedbackTimer=setTimeout(()=>{feedback?.remove();feedback=null},2200)}catch{details('Copy the playlist link below.');}}
  function details(note=''){
   close();dialog.classList.add('video-context-open');about=document.createElement('section');about.className='stream-video-about';about.setAttribute('role','dialog');about.setAttribute('aria-label','About this video');
   const header=document.createElement('header'),heading=document.createElement('strong'),exit=document.createElement('button');heading.textContent='About this video';exit.textContent='×';exit.setAttribute('aria-label','Close video details');exit.onclick=dismiss;header.append(heading,exit);about.append(header);
