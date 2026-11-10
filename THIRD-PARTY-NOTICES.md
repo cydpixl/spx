@@ -134,3 +134,5 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 The white reference logomark was supplied from the user-selected Cinejoy reference at https://cinejoy.pk/brand/logomark-white.svg. Interface icon geometry follows the Lucide icons visible on that reference. Spex Movies retains its existing catalog, account services and media.
 
 Anime identifier and episode-offset mappings: https://github.com/Fribb/anime-lists, retrieved October 21, 2026. Derived from Anime-Lists/anime-lists and anime-offline-database. Ambiguous mappings are excluded at runtime.
+
+HLS.js 1.7.4 (Apache-2.0), https://github.com/video-dev/hls.js. See vendor/hls/LICENSE. Wing playback calls the third-party API at https://api.wing.st using its service-supplied WebAssembly encoder; media and subtitle URLs are resolved at playback time. No Cinejoy application bundle is redistributed.

@@ -1,0 +1,13 @@
+const http=require('http'),fs=require('fs'),path=require('path');
+const root=path.join(__dirname,'..');
+const mime={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.woff2':'font/woff2'};
+(async()=>{const {createMediaHandler}=await import('../wing-worker/index.mjs');const media=createMediaHandler();http.createServer(async(req,res)=>{try{
+ const requestURL=new URL(req.url,'http://127.0.0.1:8790');const pathname=decodeURIComponent(requestURL.pathname).replace(/^\/spx(?=\/|$)/,'');
+ if(pathname==='/wing-config.mjs'){res.writeHead(200,{'content-type':'text/javascript','cache-control':'no-store'});res.end('export const WING_GATEWAY="http://127.0.0.1:8790";');return;}
+ if(pathname.startsWith('/catalog/api/')||pathname.startsWith('/api/')){const target=new URL(pathname.replace(/^\/catalog/,'')+requestURL.search,'https://bogart-catalog.cydpixl7.workers.dev');const response=await fetch(target,{signal:AbortSignal.timeout(15000)});res.writeHead(response.status,{'content-type':response.headers.get('content-type')||'application/json','cache-control':'no-store'});const {Readable}=require('stream');Readable.fromWeb(response.body).pipe(res);return;}
+ if(pathname==='/media'){const response=await media(new Request(requestURL,{method:req.method,headers:req.headers}));res.writeHead(response.status,Object.fromEntries(response.headers));if(response.body){const {Readable}=require('stream');Readable.fromWeb(response.body).pipe(res)}else res.end();return;}
+ let target=pathname==='/qa-wing.html'?path.join(__dirname,'qa-wing.html'):path.resolve(root,'.'+pathname);
+ if(!target.startsWith(root+path.sep)&&target!==root&&target!==path.join(__dirname,'qa-wing.html')){res.writeHead(403);res.end();return;}
+ if(!fs.existsSync(target)||fs.statSync(target).isDirectory())target=path.join(root,'index.html');
+ res.writeHead(200,{'content-type':mime[path.extname(target)]||'application/octet-stream','cache-control':'no-store'});if(path.basename(target)==='app.js'){res.end(fs.readFileSync(target,'utf8').replace("const metadataOrigin='https://bogart-catalog.cydpixl7.workers.dev'","const metadataOrigin='http://127.0.0.1:8790/catalog'").replace("metadataOrigin='https://bogart-catalog.cydpixl7.workers.dev'","metadataOrigin='http://127.0.0.1:8790/catalog'"));return;}fs.createReadStream(target).pipe(res);
+}catch(error){console.error(error.message);if(!res.headersSent)res.writeHead(500);res.end('Local test server failed.');}}).listen(8790,'127.0.0.1',()=>console.log('Spex Wing QA: http://127.0.0.1:8790/qa-wing.html'));})();

@@ -1,4 +1,4 @@
-import {providers,readAds} from './provider-player.mjs?v=20261029-access77';
+import {providers,readAds} from './provider-player.mjs?v=20261110-wing90';
 import {movieRisk,riskMarkup} from './source-insights.mjs?v=20261029-access77';
 import {createFilterMenu} from './filter-menu.mjs?v=20261029-access77';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

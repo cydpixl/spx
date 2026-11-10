@@ -1,0 +1,10 @@
+[build]
+  publish = "public"
+[[edge_functions]]
+  function = "media-edge"
+  path = "/media"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"

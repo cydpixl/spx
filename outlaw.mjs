@@ -19,7 +19,7 @@ import {renderPerson} from './person.mjs?v=20261029-access77';
 import {installCommunity} from './community.mjs?v=20261029-access77';
 import {playerIcon} from './player-icons.mjs?v=20261101-airplay88';
 import {installWatchParty} from './watch-party.mjs?v=20261029-access77';
-import {providers,readAds,setAds} from './provider-player.mjs?v=20261101-airplay88';
+import {providers,readAds,setAds} from './provider-player.mjs?v=20261110-wing90';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>crypto.randomUUID();
 import {applyTheme} from './theme-palettes.mjs?v=20261029-access77';

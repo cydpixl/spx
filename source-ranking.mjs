@@ -16,7 +16,7 @@ export function recordSourceResult(source,result,options={}){
 export function sourceScore(source,{sports=false,restricted=true,now=Date.now(),history=read()}={}){
  const risk=sports?sportsRisk(source):movieRisk(source,restricted);
  // The dated catalog samples were collected in a particular playback mode.
- const sampleMatches=source.id==='vidcore'||source.id==='yapgrid'||source.id==='cinesrc'||source.id==='moviesapi'||source.id==='braflix-dev'||source.id==='screenscape'||source.id==='cinextream'?restricted:!restricted;
+ const sampleMatches=source.wing||source.id==='vidcore'||source.id==='yapgrid'||source.id==='cinesrc'||source.id==='moviesapi'||source.id==='braflix-dev'||source.id==='screenscape'||source.id==='cinextream'?restricted:!restricted;
  const level=sports||sampleMatches?risk.level:'unknown';
  let score=({good:90,unknown:50,caution:35,danger:5})[level]??50;
  const reasons=[level==='good'?'Playback observed in this mode':level==='danger'?'A playback or advertising problem was observed':level==='caution'?'Playback observed with advertising concerns':'No current playback sample for this mode'];

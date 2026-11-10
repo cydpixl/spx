@@ -1,7 +1,12 @@
 {
-  "version": "2026.11.01.89",
-  "date": "2026-11-01",
+  "version": "2026.11.10.90",
+  "date": "2026-11-10",
   "sources": [
+    "Wing Secret",
+    "Wing Nebula",
+    "Wing Lisbon",
+    "Wing Solara",
+    "Wing Athens",
     "CineSrc",
     "MoviesAPI",
     "ScreenScape",
@@ -30,7 +35,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Fullscreen and rotation no longer treat unsolicited player dialog dismissal as navigation back to the title.",
+  "notes": "Wing native HLS playback with an independent edge media gateway, integrated controls, supplied subtitles and video context menu.",
   "name": "Spex",
   "sports": {
     "route": "/sports",
@@ -160,5 +165,11 @@
     "native": "Safari WebKit picker",
     "embedded": "provider controls or Control Center mirroring",
     "receiverTested": false
+  },
+  "wing": {
+    "status": "edge-transport-verification",
+    "publicEnabled": true,
+    "gateway": "https://spex-wing-media.netlify.app",
+    "pcRelay": false
   }
 }

@@ -1,0 +1,5 @@
+{
+ "rewrites":[{"source":"/media","destination":"/api/index"}],
+ "functions":{"api/index.mjs":{"maxDuration":30}},
+ "regions":["iad1"]
+}
