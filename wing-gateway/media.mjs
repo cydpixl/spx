@@ -32,7 +32,8 @@ export function createMediaHandler(fetcher=fetch){
    if(response.headers.get('Content-Encoding'))out.delete('Content-Length');
    out.set('Cache-Control','private, max-age=60');
    if(request.method==='HEAD')return new Response(null,{status:response.status,headers:out});
-   if(upstream.pathname.endsWith('.m3u8')){const body=rewriteManifest(await playlistText(response),upstream.href,url.origin);out.set('Content-Type','application/vnd.apple.mpegurl');out.delete('Content-Length');out.set('Cache-Control','private, max-age=20');return new Response(body,{status:200,headers:out})}
+   const manifest=upstream.pathname.endsWith('.m3u8')||/\/(?:playlist|index|master)\.(?:jpe?g|png)$/i.test(upstream.pathname)||/mpegurl/i.test(response.headers.get('Content-Type')||'');
+   if(manifest){const body=rewriteManifest(await playlistText(response),upstream.href,url.origin);out.set('Content-Type','application/vnd.apple.mpegurl');out.delete('Content-Length');out.set('Cache-Control','private, max-age=20');return new Response(body,{status:200,headers:out})}
    // Binary video, audio, keys and subtitles are streamed without buffering.
    return new Response(response.body,{status:response.status,headers:out});
   }catch{return error('Wing media gateway could not reach this stream.',502)}

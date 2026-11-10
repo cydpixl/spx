@@ -35,6 +35,13 @@ test('Wing encoder failures are surfaced without attempting an unverified stream
  let calls=0;const client=createWingClient({fetcher:async()=>{calls++;return new Response('unavailable',{status:503})}});
  await assert.rejects(client.resolve({id:1368337},'secret'),/encoder is unavailable/);assert.equal(calls,1);
 });
+test('Nebula playlists with image extensions rewrite their nested segment and init URLs',async()=>{
+ const handler=createMediaHandler(async()=>new Response('#EXTM3U\n#EXT-X-MAP:URI="init.mp4"\nplaylist_000.jpg\n',{headers:{'Content-Type':'image/jpeg'}}));
+ const source='https://nebula.bright67.online/hls/e54477ca-315f-481b-adfd-81571ca97033/1080p/playlist.jpg';
+ const response=await handler(new Request('https://gateway.example/media?url='+encodeURIComponent(source),{headers:{Origin:'https://spx7.pages.dev'}}));
+ assert.equal(response.status,200);assert.equal(response.headers.get('content-type'),'application/vnd.apple.mpegurl');
+ const body=await response.text();assert.match(body,/https:\/\/gateway.example\/media\?url=/);assert.match(body,/1080p%2Finit.mp4/);assert.match(body,/1080p%2Fplaylist_000.jpg/);
+});
 test('changing Wing sources forces a document navigation and rejects stale sessions',()=>{
  const node={style:{setProperty(){}},hidden:false};
  const player={provider:{id:'wing-secret',name:'Secret',server:'secret',wing:true,controls:true,origin:'https://example.com'},item:{id:1368337,type:'movie',title:'The Odyssey',season:1,episode:1},dialog:{querySelector:()=>node},frame:{},clock:{reset(){}},readProgress:()=>null,status(){},paint(){}};
