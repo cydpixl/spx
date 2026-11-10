@@ -35,7 +35,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Wing native HLS playback with an independent edge media gateway, integrated controls, supplied subtitles and video context menu.",
+  "notes": "Wing streams now play through an independent edge media gateway, with integrated quality, audio, subtitles, seeking and video context menu.",
   "name": "Spex",
   "sports": {
     "route": "/sports",
@@ -167,7 +167,7 @@
     "receiverTested": false
   },
   "wing": {
-    "status": "edge-transport-verification",
+    "status": "independent-edge-playback-verified",
     "publicEnabled": true,
     "gateway": "https://spex-wing-media.netlify.app",
     "pcRelay": false

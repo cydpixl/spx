@@ -1,6 +1,23 @@
 {
   "releases": [
     {
+      "version": "2026.11.10.90",
+      "date": "2026-11-10",
+      "title": "Wing playback and video details",
+      "summary": "Adds the same Wing server family used by Cinejoy with native Spex playback controls.",
+      "sections": [
+        {
+          "title": "Playback",
+          "changes": [
+            "Secret, Nebula, Lisbon, Solara and Athens are available alongside existing sources. Availability varies by title.",
+            "Independent edge transport supports adaptive HLS, supplied subtitles and audio tracks, manual quality selection, seeking, speed and volume.",
+            "Right-click the video for Copy playlist link or About this video. Diagnostics show actual resolution, buffered time, bandwidth and decoded/dropped frames.",
+            "Automatic quality follows the player size. Existing uploads, fullscreen, AirPlay controls, source choices and the latest sports update are preserved."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.11.01.89",
       "date": "2026-11-01",
       "title": "Keep playback open through fullscreen changes",

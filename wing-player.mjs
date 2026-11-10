@@ -24,7 +24,7 @@ async function load(){
   const safari=/Safari\//.test(navigator.userAgent)&&!/(Chrome|Chromium|CriOS|Edg|Android)\//.test(navigator.userAgent);
   if(result.type==='mp4'||safari&&video.canPlayType('application/vnd.apple.mpegurl'))video.src=mediaURL(result.url);
   else if(globalThis.Hls?.isSupported()){
-   hls=new Hls({maxBufferLength:40,maxMaxBufferLength:90,backBufferLength:30,enableWorker:true});
+   hls=new Hls({maxBufferLength:40,maxMaxBufferLength:90,backBufferLength:30,enableWorker:true,capLevelToPlayerSize:true});
    hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(ticket===generation)notify('tracks',{info:stats()})});
    hls.on(Hls.Events.ERROR,(_event,data)=>{if(ticket!==generation||!data.fatal)return;if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&recoveries++<1)hls.recoverMediaError();else fail('Video stream is unavailable. Retry or choose another server.');});
    hls.loadSource(mediaURL(result.url));hls.attachMedia(video);
