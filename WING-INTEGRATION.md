@@ -38,4 +38,4 @@ Full-catalog availability and every alternate provider are not guaranteed. Physi
 
 For local work, run node tools/serve-wing.cjs. This optional development server binds only to loopback and proxies read-only catalog calls; it is not used by the public site.
 
-Deploy the media gateway from wing-gateway/ with the linked Netlify site spex-wing-media (site ID df651dda-bc31-4511-9b4a-855c0dddf746). Deploy the frontend to the existing Cloudflare Pages project spx7; staging must change the HTML base from /spx/ to /. The repository retains /spx/ for GitHub Pages compatibility. Local Netlify state, tokens and environment files are excluded from source packages.
+Deploy the media gateway from wing-gateway/ with the linked Netlify site spex-wing-media (site ID df651dda-bc31-4511-9b4a-855c0dddf746). Deploy the frontend to the existing Cloudflare Pages project spx7; staging must change the HTML base from /spx/ to /. Omit 404.html from the Cloudflare staging folder so direct app routes return HTTP 200 through the Pages SPA fallback. Keep /spx/ and 404.html in the repository for GitHub Pages. Local Netlify state, tokens and environment files are excluded from source packages.

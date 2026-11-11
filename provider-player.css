@@ -8,3 +8,7 @@
 .stream-heading [data-live-risk]{position:absolute;top:25px;right:76px;margin:0}.stream-source-entry .source-risk-pop{top:100%;right:0;left:auto}@media(max-width:700px){.stream-heading [data-live-risk]{top:15px;right:55px}}
 
 .source-signal{display:inline-flex;align-items:flex-end;gap:2px;height:17px;padding:2px;vertical-align:middle;color:#a4aaa6;cursor:help}.source-signal i{display:block;width:3px;background:currentColor;opacity:.24;border-radius:1px}.source-signal i:nth-child(1){height:4px}.source-signal i:nth-child(2){height:7px}.source-signal i:nth-child(3){height:10px}.source-signal i:nth-child(4){height:13px}.source-signal i.is-on{opacity:1}.source-signal--danger{color:#f36c66}.source-signal--caution{color:#efc35c}.source-signal--good{color:#65d69a}.source-signal--unknown i{opacity:.45}.stream-source-entry>.source-signal{margin:0 12px}.stream-heading [data-live-risk]{display:flex;align-items:center}.sports-source-list .source-signal{align-self:end}
+
+.source-signal.source-signal--premium{color:#ce9aff}
+.source-signal.source-signal--premium i.is-on{background:#ce9aff}
+.source-signal.source-signal--premium i:nth-child(5){height:20px}

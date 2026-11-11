@@ -1,0 +1,59 @@
+/* The poster wall stays behind the scrollable setup panel. */
+.welcome-dialog{position:fixed;inset:0;margin:0;width:100%;height:100dvh;max-width:none;max-height:none;border:0;background:#080a0d;color:#f5f6fa;padding:0;overflow:hidden}
+.welcome-dialog[open]{display:grid;place-items:center}
+.welcome-dialog::backdrop{background:#080a0d}
+.welcome-wall{position:absolute;inset:-12% -19%;display:grid;align-content:center;gap:10px;overflow:hidden;transform:rotate(-9deg) scale(1.05);pointer-events:none}
+.welcome-wall::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,#080a0dca 10%,#080a0d95 62%,#080a0d 96%)}
+.welcome-wall-row{display:flex;gap:10px;width:max-content;animation:welcome-pan 44s linear infinite alternate}
+.welcome-wall-row:nth-child(even){animation-direction:alternate-reverse}
+.welcome-wall-row img{width:clamp(156px,19vw,320px);height:clamp(120px,20dvh,220px);object-fit:cover;display:block;border-radius:6px;background:#171a22}
+@keyframes welcome-pan{from{transform:translateX(-48vw)}to{transform:translateX(-4vw)}}
+.welcome-panel{position:relative;box-sizing:border-box;width:min(680px,calc(100% - 28px));max-height:calc(100dvh - 28px);overflow:auto;overscroll-behavior:contain;margin:0;padding:clamp(18px,4vw,36px);border:1px solid #ffffff28;border-radius:24px;background:#10131bea;backdrop-filter:blur(22px);box-shadow:0 24px 96px #000a}
+.welcome-panel>header{display:flex;align-items:center;gap:9px;color:#fff;font-weight:800;letter-spacing:.14em;margin-bottom:clamp(16px,3vw,28px)}
+.welcome-panel>header img{width:34px;height:34px;border-radius:8px}
+.welcome-panel>header [data-welcome-step]{margin-left:auto;color:#b8becc;font-size:12px;letter-spacing:.05em}
+.welcome-body h1{font-size:clamp(28px,6vw,46px);letter-spacing:-.04em;line-height:1.07;margin:0}
+.welcome-body h1:focus{outline:none}
+.welcome-body>p{font-size:15px;color:#c1c7d3;line-height:1.5;margin:10px 0 20px}
+.welcome-body button{cursor:pointer}
+.welcome-body button:disabled{cursor:default;opacity:.45}
+.welcome-body button:focus-visible,.welcome-body input:focus-visible{outline:2px solid #ce9aff;outline-offset:2px}
+.welcome-body footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid #ffffff1f}
+.welcome-body [data-welcome-back],.welcome-body [data-welcome-skip]{min-height:44px;color:#d0d6e2;border:0;background:none;padding:0 10px}
+.welcome-body .play-action{min-height:44px;min-width:90px;padding:0 17px;border-radius:100px}
+.welcome-themes{display:grid;grid-template-columns:repeat(auto-fit,minmax(102px,1fr));gap:8px}
+.welcome-themes button{border:1px solid #ffffff28;border-radius:11px;background:#ffffff0b;color:#f7f7fa;min-height:45px;text-align:left;padding:8px 9px}
+.welcome-themes button::before{content:"";display:inline-block;width:13px;height:13px;margin-right:6px;vertical-align:-2px;border-radius:50%;background:var(--welcome-swatch,#b6ed76)}
+.welcome-themes button[data-theme-name=Blue]{--welcome-swatch:#a7afff}.welcome-themes button[data-theme-name=Teal]{--welcome-swatch:#8cddbc}
+.welcome-themes button[data-theme-name=Forest]{--welcome-swatch:#93b77b}.welcome-themes button[data-theme-name=Mocha]{--welcome-swatch:#dfbc8c}
+.welcome-themes button[data-theme-name=Red]{--welcome-swatch:#f0a3ab}.welcome-themes button[data-theme-name=Pink]{--welcome-swatch:#eeb1dc}
+.welcome-themes button[data-theme-name=Dark],.welcome-themes button[data-theme-name=AMOLED]{--welcome-swatch:#aeb6c6}
+.welcome-themes button[data-theme-name=Aero]{--welcome-swatch:#83c9f3}
+.welcome-themes button[aria-pressed=true]{background:#ffffff18;border-color:var(--welcome-swatch,#b6ed76)}
+.welcome-search{display:grid;gap:6px;font-size:13px;font-weight:650}
+.welcome-search input{min-width:0;width:100%;height:44px;padding:0 12px;background:#ffffff12;border:1px solid #ffffff30;border-radius:10px;color:#fff;font:inherit}
+.welcome-picked{display:flex;flex-wrap:wrap;align-items:center;gap:6px;min-height:38px;margin:7px 0;color:#dde2ed;font-size:12px}
+.welcome-picked button{border:0;border-radius:20px;color:#f4ebff;background:#b172f140;padding:5px 8px}
+.welcome-results{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;max-height:min(39dvh,340px);overflow:auto;overscroll-behavior:contain;padding:3px}
+.welcome-results>p,.welcome-results>[data-welcome-retry]{grid-column:1/-1}
+.welcome-results>[data-pick]{display:grid;position:relative;min-width:0;min-height:100px;aspect-ratio:2/3;border:1px solid #ffffff24;border-radius:9px;overflow:hidden;background:#202531;padding:0;color:white;text-align:left}
+.welcome-results>[data-pick] img{position:absolute;width:100%;height:100%;object-fit:cover}
+.welcome-results>[data-pick][aria-pressed=true]{border:2px solid #d1a5ff}
+.welcome-title-name{z-index:1;align-self:end;padding:6px;background:#080b12df;font-size:12px;font-weight:650;overflow-wrap:anywhere}
+.welcome-check{display:none;position:absolute;right:5px;top:5px;z-index:1;background:#d1a5ff;color:#221236;border-radius:50%;width:22px;height:22px;text-align:center;font-weight:800;line-height:22px}
+[aria-pressed=true]>.welcome-check{display:block}
+.welcome-features{display:grid;gap:8px}
+.welcome-features label{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:60px;padding:10px 12px;border:1px solid #ffffff22;border-radius:10px;background:#ffffff0b}
+.welcome-features small{display:block;color:#aeb7c8;margin-top:3px}
+.welcome-features input{width:21px;height:21px;accent-color:#ce9aff}
+.welcome-account{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.spex-hide-sports :is([data-feature=sports],[data-feature=calendar],[data-sports-feature]),
+.spex-hide-reading [data-feature=explore],
+.spex-hide-multiview [data-feature=multiview]{display:none!important}
+@media(max-width:520px){
+ .welcome-wall{inset:-14% -40%}
+ .welcome-results{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .welcome-panel{border-radius:18px}
+}
+@media(prefers-reduced-motion:reduce){.welcome-wall-row{animation:none}}
+html[data-motion=off] .welcome-wall-row{animation:none}

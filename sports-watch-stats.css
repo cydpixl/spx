@@ -1,0 +1,29 @@
+.watch-stats{margin:16px 0 28px;padding:clamp(12px,2vw,22px);min-width:0;color:#f4f6fb;background:#111824bb;backdrop-filter:blur(19px);border:1px solid #ffffff21;border-radius:18px;box-shadow:0 12px 36px #0002}
+.watch-stats-heading,.watch-game-header{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.watch-stats-heading h3,.watch-game-header h4{margin:0;font-size:clamp(17px,2vw,23px)}
+.watch-stats small,.watch-stats-heading>span{color:#bcc5d7;font-size:12px}
+.watch-score-strip{display:flex;gap:8px;min-width:0;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;padding:4px 2px 9px;margin:10px 0 14px}
+.watch-score-card{width:188px;flex:0 0 188px;display:grid;gap:7px;padding:10px;text-align:left;background:#ffffff0a;border:1px solid #ffffff23;color:#f3f5fa;border-radius:10px;cursor:pointer}
+.watch-score-card:hover,.watch-score-card[aria-pressed=true]{background:#b975f92a;border-color:#b975f999}
+.watch-score-card>span{display:flex;gap:8px;align-items:center;justify-content:space-between;min-width:0;font-size:12px}
+.watch-team-label{display:inline-flex;align-items:center;gap:7px;min-width:0}
+.watch-team-logo,.watch-player-photo{width:24px;height:24px;object-fit:contain;flex:none}
+.watch-player-photo{width:32px;height:25px;object-fit:cover;border-radius:5px;background:#ffffff11}
+.watch-game-header{border-top:1px solid #ffffff1c;padding:14px 0 10px}
+.watch-game-header>div{min-width:0}
+.watch-game-header h4{margin:4px 0}
+.watch-game-teams{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px}
+.watch-game-teams>span{display:inline-flex;gap:8px;align-items:center}
+.watch-game-header .play-action{min-height:40px}
+.watch-stats-tabs{display:flex;flex-wrap:wrap;gap:5px;border-bottom:1px solid #ffffff24;margin-bottom:10px}
+.watch-stats-tabs button{border:0;border-bottom:2px solid transparent;background:none;min-height:42px;padding:4px 10px;color:#c1ccdf;cursor:pointer}
+.watch-stats-tabs button[aria-pressed=true]{border-color:#ce9aff;color:#fff}
+.watch-stat-group h4{margin:12px 0 6px}
+.watch-stats-table{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin}
+.watch-stats-table table{border-collapse:collapse;width:100%;text-align:left;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.watch-stats-table :is(td,th){padding:8px 9px;border-bottom:1px solid #ffffff16}
+.watch-stats-table thead{background:#ffffff11}
+.watch-stats-table :is(td,thead th):not(:first-child){text-align:right}
+.watch-stats-table tbody th{font-weight:600}
+.watch-stats-message{color:#c1ccdf;font-size:13px;line-height:1.5;margin:14px 0 5px}
+.watch-stats :is(button,[tabindex]):focus-visible{outline:2px solid #ce9aff;outline-offset:-2px}

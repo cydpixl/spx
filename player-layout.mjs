@@ -1,8 +1,8 @@
-import {playerIcon as icon} from './player-icons.mjs?v=20261101-airplay88';
+import {playerIcon as icon} from './player-icons.mjs?v=20261111-ui92';
 
 const actions={play:['Play / Pause','play'],rewind:['Rewind','rewind'],forward:['Forward','forward'],volume:['Volume','volume'],time:['Time elapsed','clock'],episodes:['Episodes','episodes'],pip:['Picture in picture','pip'],airplay:['AirPlay','airplay'],servers:['Servers','servers'],subtitles:['Subtitles','captions'],settings:['Settings','settings'],fullscreen:['Fullscreen','fullscreen'],next:['Next episode','next']};
 const zones={top:'Top bar',left:'Bottom bar left',right:'Bottom bar right',available:'Available Actions'};
-export const defaultControlLayout={top:[],left:['play','rewind','forward','volume','time'],right:['episodes','pip','airplay','servers','subtitles','settings','fullscreen'],available:['next']};
+export const defaultControlLayout={top:[],left:['rewind','play','forward','volume','time'],right:['episodes','pip','airplay','servers','subtitles','settings','fullscreen'],available:['next']};
 export function controlLayout(settings={}){
  const result={top:[],left:[],right:[],available:[]},seen=new Set(),saved=settings.controlLayout;
  for(const zone of Object.keys(result))for(const id of (Array.isArray(saved?.[zone])?saved[zone]:defaultControlLayout[zone]))if(actions[id]&&!seen.has(id)){result[zone].push(id);seen.add(id)}

@@ -5,3 +5,15 @@
 .settings-content input[role=switch]{position:relative;appearance:none;-webkit-appearance:none;width:40px;height:24px;border-radius:20px;border:1px solid #ffffff1a;background:#ffffff20;cursor:pointer;margin:0;transition:background .2s;flex-shrink:0}.settings-content input[role=switch]:after{content:"";position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#aaa;transition:transform .2s,background .2s;box-shadow:0 1px 3px #0003}.settings-content input[role=switch]:checked{background:#fff;border-color:#fff}.settings-content input[role=switch]:checked:after{transform:translateX(16px);background:#151515}.settings-content input[role=switch]:focus-visible{outline:2px solid white;outline-offset:4px}
 @keyframes choice-enter{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}@media(prefers-reduced-motion:reduce){.preference-options{animation:none}.preference-trigger,.preference-trigger svg,.preference-segments>button,.server-order-row,.settings-content input[role=switch],.settings-content input[role=switch]:after{transition:none}}html[data-motion=off] .preference-options{animation:none}@media(max-width:700px){.preference-trigger{min-width:130px}.preference-segments>button{padding:8px 12px}.settings-content .setting-row:has(.preference-segments){flex-wrap:wrap}.preference-options{max-width:calc(100vw - 64px)}.native-menu{right:16px;max-width:calc(100vw - 32px)}}
 .nav-pill>button.active{background:#fff;color:#111;box-shadow:0 0 22px #ffffff12}.native-menu [hidden],.native-extras [hidden],.player-dialog .control-button[hidden],.player-dialog .native-volume-wrap[hidden]{display:none!important}.utility-page .ambient-silk-footer{display:none}.utility-page .site-footer{background:transparent}html[data-motion=off] .preference-trigger,html[data-motion=off] .preference-trigger svg,html[data-motion=off] .preference-segments>button,html[data-motion=off] .settings-content input[role=switch],html[data-motion=off] .settings-content input[role=switch]:after{transition:none}
+
+.settings-content .library-backup{display:grid;justify-items:start;gap:18px;min-width:0;margin-top:18px}
+.settings-content .library-backup .subtle-pill{max-width:100%;height:auto;min-height:44px;white-space:normal;text-align:left}
+.settings-content .library-backup .import-library{display:grid;gap:8px;width:100%;margin:0}
+.settings-content .library-backup .spex-file-picker{margin:0}
+.settings-content .library-backup .spex-file-name{overflow-wrap:anywhere}
+
+.settings-overview,.settings-overview .settings-panels,.settings-overview .settings-content{min-width:0}
+.settings-overview .settings-content{overflow-wrap:anywhere}
+.settings-overview .settings-sections{max-width:100%;overscroll-behavior-inline:contain}
+.settings-overview .account-status{flex-wrap:wrap}
+@media(max-width:700px){.settings-overview{padding-bottom:calc(100px + env(safe-area-inset-bottom))}}

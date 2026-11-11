@@ -1,17 +1,17 @@
 import {bindPlayerLifecycle,togglePlayerFullscreen} from './player-lifecycle.mjs?v=20261101-fullscreen89';
 import {playerShortcut} from './player-shortcuts.mjs?v=20261030-keys82';
 import './surface-controls.mjs?v=20261030-keys82';
-import './cinejoy-ui.mjs?v=20261031-hub86';
+import './cinejoy-ui.mjs?v=20261111-ui92';
 import {installDomainLinks} from './domains.mjs?v=20261030-keys82';
-import {installMultiview} from './multiview.mjs?v=20261030-keys82';
+import {installMultiview} from './multiview.mjs?v=20261111-ui92';
 import {installInterfacePolish} from './interface-polish.mjs?v=20261030-keys82';
-import {installTrailerPreviews} from './trailer-previews.mjs?v=20261030-keys82';
+import {installTrailerPreviews} from './trailer-previews.mjs?v=20261111-ui92';
 import {personPlaceholder} from './reference-ui.mjs?v=20261030-keys82';
 import {installHomeExperience} from './home-experience.mjs?v=20261030-keys82';
 import {installAmbientSilk} from './ambient-silk.mjs?v=20261030-keys82';
-import {playerIcon} from './player-icons.mjs?v=20261101-airplay88';
-import {installOutlaw} from './outlaw.mjs?v=20261101-airplay88';
-import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261110-wing90';
+import {playerIcon} from './player-icons.mjs?v=20261111-ui92';
+import {installOutlaw} from './outlaw.mjs?v=20261111-ui92';
+import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261111-ui92';
 (() => {
   "use strict";
   installAmbientSilk();

@@ -1,6 +1,6 @@
 {
-  "version": "2026.11.10.90",
-  "date": "2026-11-10",
+  "version": "2026.11.11.92",
+  "date": "2026-11-11",
   "sources": [
     "Wing Secret",
     "Wing Nebula",
@@ -35,7 +35,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Wing streams now play through an independent edge media gateway, with integrated quality, audio, subtitles, seeking and video context menu.",
+  "notes": "Welcome setup, account profile appearance, live sports game center beneath broadcasts, and Spex source names.",
   "name": "Spex",
   "sports": {
     "route": "/sports",
@@ -122,7 +122,6 @@
   "polish": {
     "sportsCalendar": true,
     "domainStatus": "live-http",
-    "shorts": "official-trailers",
     "starterLists": 4
   },
   "changelog": "/updates",

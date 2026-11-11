@@ -1,14 +1,37 @@
 import {PlaybackClock} from './playback-clock.mjs?v=20261101-subs87';
 import {bindPlayerLifecycle,togglePlayerFullscreen} from './player-lifecycle.mjs?v=20261101-fullscreen89';
 import {playerShortcut} from './player-shortcuts.mjs?v=20261030-keys82';
-import {rankSources,recordSourceResult} from './source-ranking.mjs?v=20261030-keys82';
-import {playbackLabel,movieRisk,riskMarkup} from './source-insights.mjs?v=20261030-keys82';
+import {rankSources,recordSourceResult} from './source-ranking.mjs?v=20261111-ui92';
+import {playbackLabel,movieRisk,riskMarkup} from './source-insights.mjs?v=20261111-ui92';
 import {animeEpisode} from './anime-mapping.mjs?v=20261030-keys82';
-import {installPlayerChrome} from './player-chrome.mjs?v=20261110-wing90';
+import {installPlayerChrome} from './player-chrome.mjs?v=20261111-ui92';
 import {wingServers} from './wing-client.mjs?v=20261110-wing90';
 import {WING_GATEWAY} from './wing-config.mjs?v=20261110-wing90';
 import {installVideoContext} from './player-context.mjs?v=20261110-wing90';
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sourceNames={
+ "wing-secret": "Spex Main",
+ "wing-nebula": "Alpha",
+ "wing-lisbon": "Charlie",
+ "wing-solara": "Delta",
+ "wing-athens": "Echo",
+ "cinesrc": "Spex Alternative",
+ "moviesapi": "Foxtrot",
+ "yapgrid": "Golf",
+ "screenscape": "Hotel",
+ "cinextream": "India",
+ "vidcore": "Juliet",
+ "braflix-dev": "Kilo",
+ "aniembed": "Lima",
+ "aniweeb": "Mike",
+ "nikastream": "November",
+ "xpass": "Oscar",
+ "vidrift": "Papa",
+ "vidnest": "Quebec",
+ "vixsrc": "Romeo",
+ "vidlove": "Sierra",
+ "cinezo": "Tango"
+};
 export const providers=[
  ...(WING_GATEWAY?wingServers.map(server=>({...server,origin:new URL(import.meta.url).origin,wing:true,controls:true,hideControls:true})):[]),
  {id:'yapgrid',name:'YapGrid',origin:'https://yapgrid.com',moviesOnly:true,path:item=>`/embed/movie/${item.id}?autoplay=0`},
@@ -27,7 +50,7 @@ export const providers=[
  {id:'vixsrc',name:'VixSrc',origin:'https://vixsrc.to',ads:true,path:item=>item.type==='tv'?`/tv/${item.id}/${item.season}/${item.episode}`:`/movie/${item.id}`},
  {id:'vidlove',name:'VidLove',origin:'https://player.vidlove.cc',ads:true,path:item=>`/embed/${item.type==='tv'?`tv/${item.id}/${item.season}/${item.episode}`:`movie/${item.id}`}`},
  {id:'cinezo',name:'Cinezo',origin:'https://player.cinezo.live',ads:true,path:item=>`/embed/${item.type==='tv'?`tv/${item.id}/${item.season}/${item.episode}`:`movie/${item.id}`}`}
-];
+].map(source=>({...source,name:sourceNames[source.id] || source.name}));
 export const readAds=prefix=>{try{return localStorage.getItem(prefix+'.ads')==='true'}catch{return false}};
 export function setAds(prefix,value){localStorage.setItem(prefix+'.ads',String(!!value))}
 export function normalizedItem(item){const id=Number(item.tmdbId||item.id);if(!Number.isSafeInteger(id)||id<1)throw Error('This title has no valid TMDB ID.');return {...item,id,type:['tv','series'].includes(item.type||item.kind)?'tv':'movie',season:Math.max(0,Math.floor(Number(item.season??1)||0)),episode:Math.max(1,Math.floor(Number(item.episode)||1))}}

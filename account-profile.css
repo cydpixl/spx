@@ -1,0 +1,24 @@
+.account-profile{margin-top:24px;min-width:0}
+.account-profile h3{font-size:18px;margin:0 0 12px}
+.account-profile-card{position:relative;overflow:hidden;border:1px solid #ffffff24;border-radius:16px;background:#151822;color:#f5f7fb}
+.account-profile-banner{height:clamp(105px,20vw,180px);background:linear-gradient(125deg,#623d99,#282448 60%,#16232c);overflow:hidden}
+.account-profile-banner img{width:100%;height:100%;object-fit:cover;display:block}
+.account-profile-card img[hidden]{display:none}
+.account-profile-identity{position:relative;display:flex;align-items:end;gap:12px;padding:0 14px 16px;margin-top:-31px}
+.account-profile-avatar{position:relative;display:grid;place-items:center;width:78px;height:78px;border:5px solid #151822;border-radius:50%;overflow:hidden;background:#a675ed;color:#17092b;flex:none;font-size:28px;font-weight:800}
+.account-profile-avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.account-profile-identity strong,.account-profile-identity small{display:block;overflow-wrap:anywhere}
+.account-profile-identity small{color:#b7bdd0;margin-top:3px}
+.profile-edit-form,.profile-media-fields{display:grid;gap:12px;margin-top:14px;min-width:0}
+.profile-media-fields{grid-template-columns:repeat(2,minmax(0,1fr));margin:0}
+.profile-edit-form fieldset{min-width:0;margin:0;border:1px solid #ffffff22;border-radius:12px;padding:12px;display:grid;gap:10px}
+.profile-edit-form fieldset[hidden]{display:none}
+.profile-edit-form legend{font-size:13px;font-weight:650}
+.profile-edit-form label{display:grid;gap:6px;min-width:0;font-size:12px}
+.profile-edit-form input{width:100%;min-width:0;max-width:100%;font:inherit}
+.profile-edit-form input[type=url]{box-sizing:border-box;min-height:42px;background:#ffffff11;color:inherit;border:1px solid #ffffff26;border-radius:9px;padding:8px}
+.profile-edit-form input[type=file]::file-selector-button{min-height:38px;margin-right:6px;background:#ffffff13;border:1px solid #ffffff24;border-radius:8px;color:inherit}
+.profile-edit-form [data-profile-remove]{justify-self:start;border:0;background:none;color:#d5b6ff;padding:8px 0}
+.profile-edit-form .play-action{justify-self:start;max-width:100%}
+.profile-edit-form [data-profile-status]{margin:0;overflow-wrap:anywhere}
+@media(max-width:610px){.profile-media-fields{grid-template-columns:minmax(0,1fr)}}

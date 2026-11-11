@@ -1,10 +1,10 @@
 import {airPlayHelp} from './airplay.mjs?v=20261101-airplay88';
-import {sourceScore} from './source-ranking.mjs?v=20261030-keys82';
-import {playbackLabel,movieRisk,riskMarkup} from './source-insights.mjs?v=20261030-keys82';
+import {sourceScore} from './source-ranking.mjs?v=20261111-ui92';
+import {playbackLabel,movieRisk,riskMarkup} from './source-insights.mjs?v=20261111-ui92';
 import {installSubtitleBrowser} from './subtitle-browser.mjs?v=20261101-subs87';
-import {applyControlLayout,controlLayout} from './player-layout.mjs?v=20261101-airplay88';
+import {applyControlLayout,controlLayout} from './player-layout.mjs?v=20261111-ui92';
 import {installAdvancedPlayer} from './player-advanced.mjs?v=20261110-wing90';
-import {playerIcon as icon} from './player-icons.mjs?v=20261101-airplay88';
+import {playerIcon as icon} from './player-icons.mjs?v=20261111-ui92';
 import {wingTrackMenu} from './wing-controls.mjs?v=20261110-wing90';
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function installPlayerChrome(player,dialog){
@@ -12,7 +12,7 @@ export function installPlayerChrome(player,dialog){
  $('.stream-heading [data-close]').innerHTML=icon('back');
  $('.stream-heading .stream-identity').append($('.stream-episode'));
  const transport=$('.stream-transport');
- const play=$('[data-toggle]');transport.prepend(play);
+ const play=$('[data-toggle]');
  for(const [selector,name,direction]of [['[data-skip="-10"]','rewind','Back'],['[data-skip="10"]','forward','Forward']]){const b=$(selector),seconds=player.controlSettings?.seek||10;b.innerHTML=icon(name).replace('>10</text>','>'+seconds+'</text>');b.setAttribute('aria-label',direction+' '+seconds+' seconds');b.title=direction+' '+seconds+' seconds'}
  const volume=$('.stream-volume');volume.querySelector('span').remove();player.volume=1;try{const saved=Number(localStorage.getItem(player.prefix+'.volume'));if(localStorage.getItem(player.prefix+'.volume')!==null&&Number.isFinite(saved))player.volume=Math.max(0,Math.min(1,saved))}catch{}player.muted=player.volume===0;$('[data-volume]').value=player.volume;player.lastAudibleVolume=player.volume||1;
  const mute=make('volume','Mute',()=>{if(player.muted)player.setVolume(player.lastAudibleVolume||1);else{player.lastAudibleVolume=player.volume||1;player.setVolume(0)}});
@@ -53,5 +53,5 @@ export function installPlayerChrome(player,dialog){
  const update=()=>{if(!dialog.isConnected)return;if(player.state.playing)dialog.classList.remove('chrome-paused');play.innerHTML=icon(player.state.playing?'pause':'play');hit.hidden=player.nativeControls||!player.state.duration;mute.innerHTML=icon(player.muted?'muted':'volume');mute.setAttribute('aria-label',player.muted?'Unmute':'Mute');if(document.activeElement!==$('[data-volume]'))$('[data-volume]').value=player.muted?0:player.volume;dialog.classList.toggle('has-native-controls',player.nativeControls);nativeBar.hidden=!player.nativeControls;nativeBack.hidden=!player.provider.hideControls;if(audioChoice)for(const button of audioChoice.querySelectorAll('button'))button.setAttribute('aria-pressed',String(!!player.provider.anime&&button.dataset.animeAudio===player.animeAudio));dialog.classList.toggle('chrome-paused',!player.state.playing);};player.chromeUpdate=update;update();
  player.subtitleController=installSubtitleBrowser({player,dialog});
  function wake(){dialog.classList.remove('chrome-idle');clearTimeout(hideTimer);hideTimer=setTimeout(()=>{if(player.state.playing&&!active&&!dialog.contains(document.activeElement?.closest('input,select'))&&!dialog.querySelector('.stream-controller:hover,.stream-volume-group:hover')&&!dialog.classList.contains('volume-open'))dialog.classList.add('chrome-idle')},3000)}
- for(const [selector,keys] of [['[data-skip="-10"]','ArrowLeft I J'],['[data-skip="10"]','ArrowRight K L']]){const button=dialog.querySelector(selector);if(button){button.setAttribute('aria-keyshortcuts',keys);button.title=(keys.includes('Left')?'Back':'Forward')+' · '+keys.replaceAll(' ',' / ')}} dialog.addEventListener('pointermove',wake);dialog.addEventListener('pointerleave',()=>{if(player.state.playing&&!active)dialog.classList.add('chrome-idle')});dialog.addEventListener('focusin',wake);dialog.addEventListener('keydown',e=>{wake();if(e.key==='Escape'&&active){e.preventDefault();e.stopImmediatePropagation();closeMenu();lastFocus?.focus()}});dialog.addEventListener('close',()=>{clearTimeout(hideTimer);clearTimeout(volumeTimer);if(player.dialog===dialog||!player.dialog)player.chromeUpdate=null},{once:true});wake();
+ for(const [selector,keys] of [['[data-skip="-10"]','ArrowLeft I J'],['[data-skip="10"]','ArrowRight K L']]){const button=dialog.querySelector(selector);if(button){button.setAttribute('aria-keyshortcuts',keys);button.title=button.getAttribute('aria-label')+' · '+keys.replaceAll(' ',' / ')}} dialog.addEventListener('pointermove',wake);dialog.addEventListener('pointerleave',()=>{if(player.state.playing&&!active)dialog.classList.add('chrome-idle')});dialog.addEventListener('focusin',wake);dialog.addEventListener('keydown',e=>{wake();if(e.key==='Escape'&&active){e.preventDefault();e.stopImmediatePropagation();closeMenu();lastFocus?.focus()}});dialog.addEventListener('close',()=>{clearTimeout(hideTimer);clearTimeout(volumeTimer);if(player.dialog===dialog||!player.dialog)player.chromeUpdate=null},{once:true});wake();
 }

@@ -1,6 +1,53 @@
 {
   "releases": [
     {
+      "version": "2026.11.11.92",
+      "date": "2026-11-11",
+      "title": "Welcome, profile appearance, and live game stats",
+      "summary": "Set up Spex around your theme, favorites, and the features you use.",
+      "sections": [
+        {
+          "title": "Welcome and accounts",
+          "changes": [
+            "The new welcome screen sets your theme, saves five favorites, and lets you choose which features to show.",
+            "Signed-in users can adjust their profile picture and save an image or GIF header."
+          ]
+        },
+        {
+          "title": "Sports and playback",
+          "changes": [
+            "Sports broadcasts now include a live game center with scores, period scoring, player stats and team stats. Browse other games while watching or switch to an available stream.",
+            "Spex Main and Spex Alternative lead the catalog server list, with a consistent five-bar quality scale.",
+            "Title hover previews wait a little longer and episode rating controls use the existing chevrons."
+          ]
+        }
+      ]
+    },
+    {
+      "version": "2026.11.11.91",
+      "date": "2026-11-11",
+      "title": "Season ratings and player controls",
+      "summary": "Browse episode ratings by season and find Sports in the grid menu.",
+      "sections": [
+        {
+          "title": "Navigation and settings",
+          "changes": [
+            "New Spex favicon and larger navigation.",
+            "Sports moves into the grid menu and the standalone Shorts feature is removed.",
+            "Library backup controls fit narrow screens."
+          ]
+        },
+        {
+          "title": "Ratings and playback",
+          "changes": [
+            "Select a season, compare season averages, and open episodes from their TMDB audience ratings.",
+            "Secret, Nebula, Lisbon, Solara and Athens appear with five purple quality bars.",
+            "Rewind and forward sit on either side of Play in the default player layout."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.11.10.90",
       "date": "2026-11-10",
       "title": "Wing playback and video details",

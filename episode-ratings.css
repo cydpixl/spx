@@ -1,0 +1,42 @@
+/* Season ratings use the dialog's scroll area, with no nested horizontal table. */
+.ratings-dialog{width:min(740px,calc(100% - 24px));box-sizing:border-box;max-height:calc(100dvh - 24px);padding:clamp(16px,4vw,28px);overflow:auto;overscroll-behavior:contain;background:#15171c!important;color:#f8fafc}
+.ratings-dialog h2{font-size:clamp(20px,3vw,25px);line-height:1.25}
+.ratings-dialog .outlaw-dialog-body>.ratings-title{margin:4px 0;color:#f0f2f5;font-weight:600}
+.ratings-dialog .outlaw-dialog-body>.ratings-source{color:#a9afba;margin:0 0 20px}
+.ratings-toolbar{display:flex;align-items:end;justify-content:space-between;gap:10px}
+.ratings-toolbar label{display:grid;gap:6px;font-size:12px;color:#bfc4d0;min-width:0}
+.ratings-toolbar select,.ratings-step button{background:#252831;border:1px solid #ffffff26;color:#fff;border-radius:10px;min-height:44px}
+.ratings-toolbar select{width:min(240px,100%);padding:0 12px;color-scheme:dark;font:inherit;font-size:14px}
+.ratings-step{display:flex;gap:6px}
+.ratings-step button{width:44px;font:24px/1 system-ui;cursor:pointer}
+.ratings-step button:disabled{opacity:.4;cursor:default}
+.ratings-dialog .rating-legend{color:#c2c7d0;margin:16px 0}
+.ratings-dialog .rating-legend i{background:var(--rating-color)}
+[data-score-band="excellent"]{--rating-color:#72f4b4;--rating-ink:#052a1a}
+[data-score-band="great"]{--rating-color:#64dff9;--rating-ink:#09262d}
+[data-score-band="good"]{--rating-color:#ffda62;--rating-ink:#302200}
+[data-score-band="mixed"]{--rating-color:#ffa86b;--rating-ink:#381c0a}
+[data-score-band="low"]{--rating-color:#ff8fb0;--rating-ink:#360b1a}
+[data-score-band="unrated"]{--rating-color:#b1b8c6;--rating-ink:#202531}
+.episode-rating-score{display:inline-grid;place-items:center;justify-self:start;min-width:45px;padding:6px 8px;border-radius:7px;background:var(--rating-color);color:var(--rating-ink);font-size:13px;font-weight:750;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ratings-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:14px 0;gap:8px;border-block:1px solid #ffffff1d}
+.ratings-summary>div{display:grid;grid-template-rows:auto 32px;align-items:center;gap:6px}
+.ratings-summary small,.rating-episode-name small,.ratings-comparison small{display:block;color:#b0b7c6;font-size:12px;line-height:1.4}
+.ratings-summary strong{font-size:14px}
+.ratings-episodes,.ratings-comparison{margin:8px 0 0;padding:0;list-style:none}
+.ratings-episodes li,.ratings-comparison li{border-bottom:1px solid #ffffff14}
+.ratings-episodes a,.ratings-comparison button{display:grid;grid-template-columns:36px minmax(0,1fr) auto;align-items:center;gap:12px;min-height:58px;padding:10px 8px;border-radius:8px;color:inherit;text-align:left}
+.ratings-episodes a:hover,.ratings-comparison button:hover,.ratings-step button:not(:disabled):hover{background:#ffffff12}
+.ratings-comparison button{width:100%;grid-template-columns:minmax(0,1fr) auto;background:none;border:0;font:inherit;cursor:pointer}
+.rating-episode-name,.ratings-comparison button>span:first-child{display:grid;gap:4px;overflow-wrap:anywhere}
+.rating-episode-number{color:#b0b7c6;font-variant-numeric:tabular-nums;font-size:13px}
+.ratings-results>p{color:#d1d6df;margin:14px 0}
+.ratings-dialog :is(a,button,select):focus-visible{outline:2px solid #e2d4ff;outline-offset:-2px}
+@media(max-width:420px){.ratings-episodes a{grid-template-columns:27px minmax(0,1fr) auto;gap:8px;padding-inline:4px}}
+
+.ratings-dialog{margin:auto;max-height:min(850px,calc(100dvh - 24px));overscroll-behavior-y:contain}
+.ratings-step button{display:grid;place-items:center;background:none;border:0;border-radius:0;padding:0}
+.ratings-step svg{width:19px;height:19px}
+.ratings-step button:not(:disabled):hover{background:none;color:#ce9aff}
+.ratings-dialog .ratings-results{padding-bottom:4px}
+@media(max-width:420px){.ratings-toolbar{align-items:end}.ratings-step{gap:0}.ratings-step button{width:39px}}
