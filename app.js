@@ -1,4 +1,4 @@
-import {mountChristmasHome} from './christmas.mjs?v=20261111-ui97';
+import {mountChristmasHome} from './christmas.mjs?v=20261111-ui98';
 import {bindPlayerLifecycle,togglePlayerFullscreen} from './player-lifecycle.mjs?v=20261101-fullscreen89';
 import {playerShortcut} from './player-shortcuts.mjs?v=20261030-keys82';
 import './surface-controls.mjs?v=20261030-keys82';
@@ -11,7 +11,7 @@ import {personPlaceholder} from './reference-ui.mjs?v=20261030-keys82';
 import {installHomeExperience} from './home-experience.mjs?v=20261111-ui97';
 import {installAmbientSilk} from './ambient-silk.mjs?v=20261030-keys82';
 import {playerIcon} from './player-icons.mjs?v=20261111-ui92';
-import {installOutlaw} from './outlaw.mjs?v=20261111-ui97';
+import {installOutlaw} from './outlaw.mjs?v=20261111-ui98';
 import {ProviderPlayer,readAds,setAds} from './provider-player.mjs?v=20261111-ui96';
 (() => {
   "use strict";

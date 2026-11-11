@@ -17,7 +17,8 @@ export function lastGame(overview) {
  records.sort((a,b)=>Date.parse(b.event.gameDate||b.event.date)-Date.parse(a.event.gameDate||a.event.date));
  const row=records[0];if(!row)return null;
  const get=name=>row.stats?.[group.names?.indexOf(name)];
- return {opponent:row.event.opponent?.abbreviation||row.event.opponent?.displayName||'',date:row.event.gameDate||row.event.date,pts:get('points'),reb:get('totalRebounds'),ast:get('assists')};
+ const opponent=row.event.opponent;
+ return {opponent:opponent?.abbreviation||opponent?.displayName||'',opponentName:opponent?.displayName||'',opponentLogo:opponent?.logo||opponent?.logos?.[0]?.href||'',date:row.event.gameDate||row.event.date,pts:get('points'),reb:get('totalRebounds'),ast:get('assists')};
 }
 export function recentTeamGames(events,id) {
  return (events||[]).filter(e=>e.competitions?.[0]?.status?.type?.completed||e.competitions?.[0]?.status?.type?.state==='post'||e.status?.type?.completed)

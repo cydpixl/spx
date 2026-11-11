@@ -8,9 +8,10 @@ test('orders an inverted conference by its official seed',()=>{
  const first=team(1,.8),second=team(2,.7),last=team(15,.09);
  assert.deepEqual(orderedStandings([last,second,first]),[first,second,last]);
 });
-test('reads last player stats by named columns',()=>{
- const overview={gameLog:{statistics:[{names:['assists','points','totalRebounds'],events:[{eventId:'1',stats:[3,40,11]}]}],events:{1:{gameDate:'2026-11-09',opponent:{abbreviation:'LAL'}}}}};
- assert.deepEqual(lastGame(overview),{opponent:'LAL',date:'2026-11-09',pts:40,reb:11,ast:3});
+test('reads the last opponent logo and player stats by named columns',()=>{
+ const opponent={abbreviation:'LAL',displayName:'Los Angeles Lakers',logo:'https://example.com/lal.png'};
+ const overview={gameLog:{statistics:[{names:['assists','points','totalRebounds'],events:[{eventId:'1',stats:[3,40,11]}]}],events:{1:{gameDate:'2026-11-09',opponent}}}};
+ assert.deepEqual(lastGame(overview),{opponent:'LAL',opponentName:opponent.displayName,opponentLogo:opponent.logo,date:'2026-11-09',pts:40,reb:11,ast:3});
 });
 test('team recent games exclude upcoming fixtures',()=>{
  const make=(id,date,completed)=>({id,date,competitions:[{status:{type:{completed}},competitors:[{id:'24',winner:true,score:{displayValue:'112'}},{id:'20',team:{displayName:'Opponent'},score:{displayValue:'100'}}]}]});

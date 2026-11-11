@@ -1,6 +1,27 @@
 {
   "releases": [
     {
+      "version": "2026.11.11.98",
+      "date": "2026-11-11",
+      "title": "Compact Sports schedule",
+      "summary": "All scheduled games fit in a wrapping grid of team logos.",
+      "sections": [
+        {
+          "title": "Sports",
+          "changes": [
+            "Schedule cards show team logos, game times, and available scores.",
+            "The last game and game log in player profiles show opponent logos."
+          ]
+        },
+        {
+          "title": "Home",
+          "changes": [
+            "The decorative Christmas lights have been removed."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.11.11.97",
       "date": "2026-11-11",
       "title": "Home and Sports layout fixes",

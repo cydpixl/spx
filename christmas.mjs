@@ -21,7 +21,6 @@ export function initChristmas({read,write,enableTheme}){
  document.documentElement.classList.add('spex-christmas-season');
  const brand=document.querySelector('.site-header .brand-mark img');
  if(brand)brand.src='christmas-logo.png';
- const lights=document.createElement('img');lights.className='christmas-lights';lights.src='christmas-lights.png';lights.alt='';lights.setAttribute('aria-hidden','true');document.body.prepend(lights);
  if(read(noticeKey,false))return;
  const banner=document.createElement('aside');banner.className='christmas-notice';banner.setAttribute('aria-label','Christmas theme announcement');
  banner.innerHTML='<button type="button" class="christmas-notice-close" aria-label="Dismiss Christmas announcement">×</button><img src="christmas-logo.png" alt=""><div><strong>Christmas has arrived at Spex</strong><p>Try the Christmas theme for snowfall and festive colors.</p><button type="button" class="christmas-enable">Try Christmas theme</button></div>';

@@ -1,4 +1,3 @@
-.christmas-lights{position:absolute;z-index:20;pointer-events:none;top:-36px;left:-18px;width:min(890px,64vw);height:auto;filter:drop-shadow(0 4px 14px #0006)}
 .spex-christmas-season .brand-mark{width:56px;height:56px;overflow:visible}
 .spex-christmas-season .brand-mark img{width:100%;height:100%;object-fit:contain;transform:scale(1.25)}
 .christmas-home .row-heading{flex-wrap:wrap;column-gap:20px;row-gap:3px}
@@ -24,9 +23,6 @@
 .continue-section .continue-heading-group{display:flex;align-items:center;gap:8px}
 .continue-section .continue-heading-group a{color:inherit}
 .continue-section .continue-edit{flex:none;margin:0;min-width:32px;min-height:32px}
-@media(max-width:700px){.christmas-lights{top:-17px;left:-10px;width:96vw}.christmas-notice{bottom:85px}.spex-christmas-season .brand-mark{width:42px;height:42px}}
+@media(max-width:700px){.christmas-notice{bottom:85px}.spex-christmas-season .brand-mark{width:42px;height:42px}}
 @media(prefers-reduced-motion:reduce){.christmas-theme body::after{animation:none}}
 html[data-motion=off].christmas-theme body::after{animation:none}
-
-.sports-app-active .christmas-lights{left:62px}
-@media(max-width:700px){.sports-app-active .christmas-lights{left:42px;width:calc(100vw - 42px)}}

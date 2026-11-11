@@ -1,4 +1,4 @@
-import {initChristmas,isChristmasSeason} from './christmas.mjs?v=20261111-ui97';
+import {initChristmas,isChristmasSeason} from './christmas.mjs?v=20261111-ui98';
 import {renderReleaseHistory} from './release-history.mjs?v=20261031-hub86';
 import {mountStarterLists} from './starter-lists.mjs?v=20261029-access77';
 import {startWelcome} from './welcome.mjs?v=20261111-ui96';
@@ -7,7 +7,7 @@ import {renderDomains,domainsLink} from './domains.mjs?v=20261029-access77';
 import {rankSources,sourceScore} from './source-ranking.mjs?v=20261111-ui95';
 import {createExplore} from './explore.mjs?v=20261029-access77';
 import {installVoiceSearch} from './voice-search.mjs?v=20261029-access77';
-import {createSports} from './sports.mjs?v=20261111-ui97';
+import {createSports} from './sports.mjs?v=20261111-ui98';
 import {createCatalogPages} from './catalog-pages.mjs?v=20261029-access77';
 import {showCollection,showDownloads,attachFebboxHelp} from './comparison-polish.mjs?v=20261029-access77';
 import {bindAirPlay} from './airplay.mjs?v=20261101-airplay88';
