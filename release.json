@@ -1,5 +1,5 @@
 {
-  "version": "2026.11.11.95",
+  "version": "2026.11.11.96",
   "date": "2026-11-11",
   "sources": [
     "Wing Secret",
@@ -35,7 +35,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "For You setup, date-aware sports personalization, source quality indicators and uploaded account media.",
+  "notes": "Christmas on Spex, ranked NBA conferences, schedule-first sports navigation, and comment profiles.",
   "name": "Spex",
   "sports": {
     "route": "/sports",

@@ -1,6 +1,29 @@
 {
   "releases": [
     {
+      "version": "2026.11.11.96",
+      "date": "2026-11-11",
+      "title": "Christmas on Spex and the new NBA view",
+      "summary": "A Christmas collection and countdown on Home, plus a schedule-first Sports page.",
+      "sections": [
+        {
+          "title": "Christmas",
+          "changes": [
+            "Seasonal logo and lights, a one-time announcement, and an optional Christmas theme with snowfall.",
+            "The welcome wall and featured films move more slowly. Choose Black or preview custom colors directly in setup."
+          ]
+        },
+        {
+          "title": "NBA and playback",
+          "changes": [
+            "The Sports sidebar opens Schedule, Players, Standings, and other sections. Standings use published conference order with wins, losses, and streak.",
+            "Team profiles show rosters, recent games, and team stats. Player cards show the last game and award estimates when available.",
+            "Comment author profiles show uploaded media. Source quality bars appear in the Servers menu."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.11.11.95",
       "date": "2026-11-11",
       "title": "For You, sports slate, and profile uploads",

@@ -22,6 +22,7 @@ export function startWelcome({ read, write, settings, themes, metadata, catalog,
  const body = dialog.querySelector('.welcome-body');
  const choices = new Map();
  let step = 0, theme = settings.theme, pendingTheme = theme, leaving=false, accountStarted=false;
+ const colors=Object.fromEntries(['background','accent','secondary'].map(key=>[key,settings[key]]));
  let picks = {}, trending = [], results = [], sequence = 0, searchTimer;
  let status = 'Loading trending titles…';
  for (const [key] of features) picks[key] = settings[key];
@@ -31,12 +32,12 @@ export function startWelcome({ read, write, settings, themes, metadata, catalog,
   leaving=true;write(KEY,true);
   window.removeEventListener('outlaw-auth',authChanged);
   clearTimeout(searchTimer);
-  if(skip){previewTheme(settings.theme);}else{
+  if(skip){previewTheme(settings.theme,{background:settings.background,accent:settings.accent,secondary:settings.secondary});}else{
    dialog.classList.add('welcome-leaving');
    dialog.querySelector('.welcome-panel').inert=true;
    const splash=document.createElement('div');splash.className='welcome-finish';splash.innerHTML='<img src="favicon.png" alt="Spex">';dialog.append(splash);
    if(settings.motion&&!matchMedia('(prefers-reduced-motion: reduce)').matches)await new Promise(resolve=>setTimeout(resolve,420));
-   finish({theme,...picks},[...choices.values()].map(remember));
+   finish({theme,...picks,...(theme==='Custom'?colors:{})},[...choices.values()].map(remember));
    if(settings.motion&&!matchMedia('(prefers-reduced-motion: reduce)').matches){splash.classList.add('welcome-finish-away');await new Promise(resolve=>setTimeout(resolve,310));}
   }
   dialog.close();dialog.remove();window.dispatchEvent(new Event('spex-welcome-complete'));
@@ -51,7 +52,7 @@ export function startWelcome({ read, write, settings, themes, metadata, catalog,
   const title = ['Welcome to Spex', 'Pick five favorites', 'Make Spex yours', 'You’re ready to watch'][step];
   const copy = ['Choose a theme to get started.', 'Choose five movies and shows you like. Spex uses them to recommend titles in For You.', 'Choose what appears in your grid menu. You can change this in Settings.', 'Create an account to sync your library, or get started as a guest.'][step];
   const content = [
-   () => '<div class="welcome-themes" role="group" aria-label="Theme">' + themes.map(name => '<button type="button" data-theme-name="' + esc(name) + '" aria-pressed="' + (name === theme) + '">' + esc(name) + '</button>').join('') + '</div>',
+   () => '<div class="welcome-themes" role="group" aria-label="Theme">' + themes.map(name => '<button type="button" data-theme-name="' + esc(name) + '" aria-pressed="' + (name === theme) + '">' + esc(name) + '</button>').join('') + '</div><fieldset class="welcome-custom" '+(theme==='Custom'?'':'hidden')+'><legend>Custom colors</legend>'+[['background','Background'],['accent','Accent'],['secondary','Secondary']].map(([key,label])=>'<label>'+label+'<input type="color" data-custom-theme="'+key+'" value="'+esc(colors[key])+'"></label>').join('')+'</fieldset>',
    () => '<label class="welcome-search">Search movies and shows<input type="search" placeholder="Search titles…" autocomplete="off"></label><div class="welcome-picked"></div><div class="welcome-results"></div>',
    () => '<div class="welcome-features">' + features.map(([key,name,detail]) => '<label><span><strong>' + name + '</strong><small>' + detail + '</small></span><input type="checkbox" role="switch" data-welcome-feature="' + key + '"' + (picks[key]?' checked':'') + '></label>').join('') + '</div>',
    () => community.getUser() ? '<p class="welcome-account">Signed in as <strong>' + esc(community.getUser().name) + '</strong></p>' : '<div class="welcome-account"><button type="button" class="play-action" data-welcome-account="register">Create an account</button><button type="button" class="subtle-pill" data-welcome-account="login">Sign in</button></div>'
@@ -68,10 +69,12 @@ export function startWelcome({ read, write, settings, themes, metadata, catalog,
   body.querySelectorAll('[data-theme-name]').forEach(button => {
    button.onclick = () => {
     theme = button.dataset.themeName;
-    if (theme !== pendingTheme) { previewTheme(theme); pendingTheme = theme; }
+    if (theme !== pendingTheme) { previewTheme(theme,colors); pendingTheme = theme; }
+    body.querySelector('.welcome-custom').hidden=theme!=='Custom';
     body.querySelectorAll('[data-theme-name]').forEach(option => option.setAttribute('aria-pressed', String(option === button)));
    };
   });
+  body.querySelectorAll('[data-custom-theme]').forEach(input=>input.oninput=()=>{colors[input.dataset.customTheme]=input.value;previewTheme('Custom',colors)});
   body.querySelectorAll('[data-welcome-feature]').forEach(input => {
    input.onchange = () => { picks[input.dataset.welcomeFeature] = input.checked; };
   });

@@ -1,6 +1,6 @@
 import {styleSelect} from './filter-menu.mjs?v=20261111-ui94';
 import {normalizeAthlete,teamLine} from './sports-model.mjs?v=20261031-hub86';
-import {SPORTS_DATA,scheduleLeagues} from './sports-data.mjs?v=20261111-ui94';
+import {SPORTS_DATA,scheduleLeagues} from './sports-data.mjs?v=20261111-ui96';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const PROFILE_KEY='spex.sports.profile.v2';
 export function sportsProfile(){try{const p=JSON.parse(localStorage.getItem(PROFILE_KEY)||'null');return p&&typeof p==='object'?{...p,leagues:Array.isArray(p.leagues)?p.leagues:['basketball/nba']}:null}catch{return null}}

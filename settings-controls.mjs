@@ -1,4 +1,4 @@
-import {themePalettes} from './theme-palettes.mjs?v=20261029-sports78';
+import {themePalettes} from './theme-palettes.mjs?v=20261111-ui96';
 import {playerIcon} from './player-icons.mjs?v=20261029-sports78';
 let openChoice=null,sequence=0;
 const closeChoice=()=>{if(!openChoice)return;openChoice.menu.hidden=true;openChoice.root.append(openChoice.menu);openChoice.button.setAttribute('aria-expanded','false');openChoice=null};

@@ -1,4 +1,4 @@
-import {providers,readAds,sourceAllowed} from './provider-player.mjs?v=20261111-ui95';
+import {providers,readAds,sourceAllowed} from './provider-player.mjs?v=20261111-ui96';
 import {movieRisk,riskMarkup} from './source-insights.mjs?v=20261111-ui95';
 import {sourceRating} from './source-ranking.mjs?v=20261111-ui95';
 import {createFilterMenu} from './filter-menu.mjs?v=20261111-ui94';

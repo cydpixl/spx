@@ -21,10 +21,20 @@ export function profileMedia(username,kind) {
  return media + '/media/' + encodeURIComponent(username) + '/' + kind;
 }
 
-export function avatarMarkup(user) {
+export function avatarMarkup(user,legacy) {
  const initial=esc(user.name?.trim().slice(0,1).toUpperCase()||'?');
- if (!/^[a-z0-9_]{3,24}$/.test(user.username||'')) return '<span>'+initial+'</span>';
- return '<span>'+initial+'</span><img alt="" loading="lazy" decoding="async" src="'+esc(profileMedia(user.username,'avatar')+(sessionStorage.getItem('spex.avatar.version:'+user.username)?'?v='+encodeURIComponent(sessionStorage.getItem('spex.avatar.version:'+user.username)):''))+'" onerror="this.remove()">';
+ const fallback=normalizeProfile(legacy);
+ const valid=/^[a-z0-9_]{3,24}$/i.test(user.username||'');
+ const username=String(user.username||'').toLowerCase();
+ const version=valid?sessionStorage.getItem('spex.avatar.version:'+username):null;
+ const publicURL=valid?profileMedia(username,'avatar')+(version?'?v='+encodeURIComponent(version):''):'';
+ return '<span class="profile-initial">'+initial+'</span>'+(fallback.avatar?'<img class="profile-legacy" alt="" src="'+esc(fallback.avatar)+'" style="object-position:'+fallback.x+'% '+fallback.y+'%;transform-origin:'+fallback.x+'% '+fallback.y+'%;transform:scale('+fallback.zoom+')" onerror="this.remove()">':'')+(publicURL?'<img class="profile-uploaded-avatar" alt="" decoding="async" src="'+esc(publicURL)+'" onerror="this.remove()">':'');
+}
+
+export function commentProfileMarkup(user,legacy){
+ const username=String(user.username||'').toLowerCase(),fallback=normalizeProfile(legacy);
+ const banner=/^[a-z0-9_]{3,24}$/.test(username)?profileMedia(username,'banner'):'';
+ return '<div class="account-profile-card"><div class="account-profile-banner">'+(fallback.banner?'<img class="profile-legacy" alt="" src="'+esc(fallback.banner)+'" onerror="this.remove()">':'')+(banner?'<img alt="" src="'+esc(banner)+'" onerror="this.remove()">':'')+'</div><div class="account-profile-identity"><div class="account-profile-avatar">'+avatarMarkup(user,legacy)+'</div><div><strong>'+esc(user.name)+'</strong><small>'+esc(username?'@'+username:'')+'</small></div></div></div>';
 }
 
 function cropAvatar(file) {

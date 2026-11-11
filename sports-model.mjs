@@ -4,5 +4,5 @@ export function normalizeAthlete(a,{leaguePath='basketball/nba',team={}}={}){con
 export function teamLine(p){return `<span class="sp-player-team">${p.teamBadge?`<img src="${esc(p.teamBadge)}" alt="" loading="lazy" onerror="this.hidden=true">`:''}<span>${esc(p.teamName||'Team unavailable')}</span></span>`}
 export const readLocal=(k,fallback)=>{try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(fallback)?(Array.isArray(v)?v:fallback):fallback&&typeof fallback==='object'?(v&&typeof v==='object'&&!Array.isArray(v)?v:fallback):v??fallback}catch{return fallback}};
 export const writeLocal=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch{return false}};
-export function flattenStandings(data){return data.standings?[{name:data.name||'Standings',...data.standings}]:(data.children||[]).flatMap(flattenStandings)}
+export function flattenStandings(data){return data.standings?[{...data.standings,name:data.name||data.standings.displayName||'Standings'}]:(data.children||[]).flatMap(flattenStandings)}
 export function trackerValue(row,label){const i=row.labels?.indexOf(label);const raw=i>=0?row.stats?.[i]:null,n=raw!==null&&raw!==undefined&&String(raw).trim()!==''?Number(raw):NaN;return Number.isFinite(n)?n:null}

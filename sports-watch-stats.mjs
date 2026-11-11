@@ -1,5 +1,5 @@
 import {uiIcon} from './reference-ui.mjs?v=20261029-sports78';
-import { SPORTS_DATA } from './sports-data.mjs?v=20261111-ui94';
+import { SPORTS_DATA } from './sports-data.mjs?v=20261111-ui96';
 import { matchOfficialGame } from './sports-event-state.mjs?v=20261111-ui94';
 
 const esc = value => String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

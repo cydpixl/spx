@@ -1217,7 +1217,11 @@ export const themePalettes={
   }
 };
 
+
+themePalettes.Black={...themePalettes.AMOLED,'--theme-root-bg':'#000000','--theme-background-main':'#000000','--theme-themePreview-primary':'#f4f4f5','--theme-themePreview-secondary':'#9a9aa2'};
+themePalettes.Christmas={...themePalettes.Forest,'--theme-root-bg':'#0b1914','--theme-background-main':'#0b1914','--theme-themePreview-primary':'#ef6b75','--theme-themePreview-secondary':'#f5d495'};
 export function applyTheme(settings){
+ document.documentElement.classList.toggle('christmas-theme',settings.theme==='Christmas');
  const root=document.documentElement,palette=themePalettes[settings.theme]||themePalettes.Default;
  for(const key of [...root.style])if(key.startsWith('--theme-'))root.style.removeProperty(key);
  for(const [key,value]of Object.entries(palette))root.style.setProperty(key,value);
@@ -1225,7 +1229,7 @@ export function applyTheme(settings){
  root.style.setProperty('--outlaw-accent',custom?settings.accent:palette['--theme-themePreview-primary']);
  root.style.setProperty('--outlaw-secondary',custom?settings.secondary:palette['--theme-themePreview-secondary']);
  root.style.setProperty('--outlaw-background',custom?settings.background:palette['--theme-root-bg']||palette['--theme-background-main']);
- const accents={Default:'#b7ed74',Surface:'#b7ed74',Aero:'#83c9f3',Blue:'#a7afff',Teal:'#8cddbc',Forest:'#a5cea2',Mocha:'#dfbc8c',Red:'#f0a3ab',Pink:'#eeb1dc',Dark:'#d3d8e0',AMOLED:'#b7ed74'};
+ const accents={Default:'#b7ed74',Surface:'#b7ed74',Aero:'#83c9f3',Blue:'#a7afff',Teal:'#8cddbc',Forest:'#a5cea2',Mocha:'#dfbc8c',Red:'#f0a3ab',Pink:'#eeb1dc',Dark:'#d3d8e0',AMOLED:'#b7ed74',Black:'#f4f4f5',Christmas:'#ef6b75'};
  const accent=custom?settings.accent:accents[settings.theme]||accents.Default,bg=custom?settings.background:settings.theme==='Default'?'#090b0e':settings.theme==='Surface'?'#101418':palette['--theme-root-bg']||'#080a0d';
  root.style.setProperty('--ui-bg',bg);root.style.setProperty('--ui-accent',accent);
  root.style.setProperty('--ui-surface','color-mix(in srgb, '+bg+' 90%, white)');

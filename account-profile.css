@@ -40,3 +40,8 @@
 .avatar-crop-dialog output{min-width:50px;text-align:center;font-variant-numeric:tabular-nums}
 .comment-avatar{position:relative;overflow:hidden}
 .comment-avatar img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover}
+.comment-author{padding:0;border:0;background:none;color:inherit;font:inherit;font-weight:700;cursor:pointer}
+.comment-author:hover{text-decoration:underline}
+.comment-profile-dialog{width:min(420px,calc(100vw - 24px))}
+.comment-profile-dialog .account-profile-banner{position:relative}
+.comment-profile-dialog .account-profile-banner img{position:absolute;inset:0}
