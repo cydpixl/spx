@@ -1,3 +1,4 @@
+import {createFilterMenu} from './filter-menu.mjs?v=20261111-ui94';
 const bands = [
  ['excellent', '9.0+'],
  ['great', '8.0–8.9'],
@@ -31,9 +32,7 @@ export function showEpisodeRatings(item, { app, openDialog, closeDialog, normali
  const cache = new Map();
 
  const dialog = openDialog('Episode ratings', '<p class="ratings-title">' + esc(item.title) + '</p><p class="ratings-source">TMDB audience scores out of 10</p>' +
-  (seasons.length ? '<div class="ratings-toolbar"><label>View <select data-ratings-season><option value="all">Compare seasons</option>' +
-  seasons.map(season => '<option value="' + season + '">Season ' + season + '</option>').join('') +
-  '</select></label><div class="ratings-step"><button type="button" data-ratings-prev aria-label="Previous season">' + icon('left') + '</button><button type="button" data-ratings-next aria-label="Next season">' + icon('right') + '</button></div></div>' +
+  (seasons.length ? '<div class="ratings-toolbar"><button type="button" data-ratings-season></button><div class="ratings-step"><button type="button" data-ratings-prev aria-label="Previous season">' + icon('left') + '</button><button type="button" data-ratings-next aria-label="Next season">' + icon('right') + '</button></div></div>' +
   '<div class="rating-legend" aria-label="Rating scale">' + bands.map(([band, label]) => '<span><i data-score-band="' + band + '"></i>' + label + '</span>').join('') + '</div>' : '') +
   '<div class="ratings-results" aria-busy="false"></div>', 'ratings-dialog');
  const host = dialog.querySelector('.ratings-results');
@@ -102,7 +101,7 @@ export function showEpisodeRatings(item, { app, openDialog, closeDialog, normali
   const id = ++request;
   const season = selection;
   const index = seasons.indexOf(season);
-  select.value = season;
+  picker.refresh();
   previous.disabled = index <= 0;
   next.disabled = index < 0 || index >= seasons.length - 1;
   host.setAttribute('aria-busy', 'true');
@@ -123,7 +122,8 @@ export function showEpisodeRatings(item, { app, openDialog, closeDialog, normali
   selection = value;
   void draw();
  }
- select.onchange = () => choose(select.value === 'all' ? 'all' : Number(select.value));
+ const picker=createFilterMenu({button:select,label:'View episode ratings by season',options:()=>[['all','Compare seasons'],...seasons.map(n=>[String(n),'Season '+n])],value:()=>String(selection),onChange:value=>choose(value==='all'?'all':Number(value)),container:dialog});
+ dialog.addEventListener('close',()=>picker.destroy(),{once:true});
  previous.onclick = () => choose(seasons[seasons.indexOf(selection) - 1]);
  next.onclick = () => choose(seasons[seasons.indexOf(selection) + 1]);
  host.onclick = event => {

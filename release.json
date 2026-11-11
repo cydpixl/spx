@@ -1,5 +1,5 @@
 {
-  "version": "2026.11.11.93",
+  "version": "2026.11.11.94",
   "date": "2026-11-11",
   "sources": [
     "Wing Secret",
@@ -35,7 +35,7 @@
     "The-Traitors-S05E05.mp4"
   ],
   "catalog": "https://bogart-catalog.cydpixl7.workers.dev",
-  "notes": "Welcome setup, account profile appearance, live sports game center beneath broadcasts, and Spex source names.",
+  "notes": "For You setup, date-aware sports personalization, source quality indicators and uploaded account media.",
   "name": "Spex",
   "sports": {
     "route": "/sports",

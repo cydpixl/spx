@@ -1,5 +1,5 @@
 import {domainsLink} from './domains.mjs?v=20261029-access77';
-import {createFilterMenu} from './filter-menu.mjs?v=20261029-access77';
+import {createFilterMenu} from './filter-menu.mjs?v=20261111-ui94';
 import {playerIcon as icon} from './player-icons.mjs?v=20261111-ui92';
 const KEY='spex.multiview.v1',MAX=6;
 const choices=[['movies','Movies'],['series','Shows'],['sports','Sports'],['manga','Manga'],['books','Books'],['search','Search']];

@@ -10,7 +10,7 @@ export function matchOfficialGame(event,scores=[]){
 export function reconcileEventStatus(event,scores=[],now=Date.now()){
  if(event.channel)return event;
  const match=matchOfficialGame(event,scores);
- if(match)return {...event,live:match.state==='in',liveVerified:match.state==='in',status:match.state,scoreDetail:match.detail,scores:match.teams};
+ if(match)return {...event,live:match.state==='in',liveVerified:match.state==='in',status:match.state,scoreDetail:match.detail,leaguePath:match.leaguePath||event.leaguePath,league:event.league||match.league,scores:match.teams};
  if(event.date&&now-event.date>12*3600000)return {...event,live:false,liveVerified:false,status:'post'};
  return {...event,liveVerified:!!event.schedule&&event.status==='in'};
 }

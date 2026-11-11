@@ -12,3 +12,7 @@
 .source-signal.source-signal--premium{color:#ce9aff}
 .source-signal.source-signal--premium i.is-on{background:#ce9aff}
 .source-signal.source-signal--premium i:nth-child(5){height:20px}
+
+.source-rating-unrated{display:inline-block;margin:0 12px;color:#c2c2cb;font-size:11px;white-space:nowrap}
+
+.source-signal--observed i.is-on{background:#9deb9a}

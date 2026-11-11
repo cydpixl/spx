@@ -1,5 +1,6 @@
-import { SPORTS_DATA } from './sports-data.mjs?v=20261029-sports78';
-import { matchOfficialGame } from './sports-event-state.mjs?v=20261111-ui92';
+import {uiIcon} from './reference-ui.mjs?v=20261029-sports78';
+import { SPORTS_DATA } from './sports-data.mjs?v=20261111-ui94';
+import { matchOfficialGame } from './sports-event-state.mjs?v=20261111-ui94';
 
 const esc = value => String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key = game => game.leaguePath + ':' + game.id;
@@ -50,8 +51,8 @@ export function mountWatchStats(host, { event, getEvents, getScores, onSwitch })
  const controller = new AbortController();
  let selected = '', current, summary, tab = 'box', ticket = 0, pending = false, unavailable = false;
  let statsRequest;
- host.innerHTML = '<header class="watch-stats-heading"><h3>Game center</h3><span data-watch-refresh></span></header>' +
-  '<div class="watch-score-strip" aria-label="Today’s games"></div><section class="watch-game-details"><header class="watch-game-header"></header>' +
+ host.innerHTML = '<header class="watch-stats-heading"><span data-watch-refresh></span><div class="watch-game-pager"><button type="button" data-watch-step="-1" aria-label="Previous active game">'+uiIcon('left')+'</button><button type="button" data-watch-step="1" aria-label="Next active game">'+uiIcon('right')+'</button></div></header>' +
+  '<div class="watch-score-strip" aria-label="Active games"></div><section class="watch-game-details"><header class="watch-game-header"></header>' +
   '<div class="watch-stats-tabs" role="group" aria-label="Game stats"><button type="button" data-watch-tab="box">Box score</button>' +
   '<button type="button" data-watch-tab="players">Player stats</button><button type="button" data-watch-tab="teams">Team stats</button></div>' +
   '<div class="watch-stats-body"></div></section>';
@@ -73,13 +74,15 @@ export function mountWatchStats(host, { event, getEvents, getScores, onSwitch })
    return '<button type="button" data-watch-game="' + esc(id) + '" aria-pressed="' + (id===selected) + '" class="watch-score-card"><small>' +
     esc(game.league) + ' · ' + esc(game.detail || game.state || '') + '</small>' + game.teams.map(team => '<span>' + teamLabel(team) +
      '<b>' + esc(game.state==='pre'?'—':team.score) + '</b></span>').join('') + '</button>';
-  }).join('') || noData('Today’s scores will appear here when available.');
+  }).join('') || noData('No other active games.');
   if (strip !== stripSignature) {
    const focus = scores.contains(document.activeElement) ? document.activeElement.dataset.watchGame : '';
    scores.innerHTML = strip;
    stripSignature = strip;
    if (focus) [...scores.querySelectorAll('button')].find(button=>button.dataset.watchGame===focus)?.focus({preventScroll:true});
   }
+  const pager=host.querySelector('.watch-game-pager');pager.hidden=rows.length<2;
+  const index=rows.findIndex(game=>key(game)===selected);for(const button of pager.querySelectorAll('button'))button.disabled=button.dataset.watchStep==='-1'?index<=0:index>=rows.length-1;
   stamp.textContent = updated ? 'Updated ' + new Date(updated).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}) : '';
   for (const button of host.querySelectorAll('[data-watch-tab]')) button.setAttribute('aria-pressed',String(button.dataset.watchTab===tab));
   const shown = current || {title:event.title,teams:event.teams || []};
@@ -143,11 +146,12 @@ export function mountWatchStats(host, { event, getEvents, getScores, onSwitch })
  function refresh() {
   const all = getScores().filter(game=>game.id && game.leaguePath && game.teams?.length===2);
   const active = matchOfficialGame(event,all);
-  rows = [active,...all.filter(game=>game!==active).sort((a,b)=>Number(b.state==='in')-Number(a.state==='in') || Number(b.leaguePath===active?.leaguePath)-Number(a.leaguePath===active?.leaguePath))].filter(Boolean);
+  rows = all.filter(game=>game.state==='in').sort((a,b)=>Number(b===active)-Number(a===active)||Number(b.leaguePath===active?.leaguePath)-Number(a.leaguePath===active?.leaguePath));
   if (current) current = rows.find(game=>key(game)===selected) || current;
   if (!selected && active) select(active);
   else draw();
  }
+ host.querySelector('.watch-game-pager').onclick=e=>{const step=Number(e.target.closest('[data-watch-step]')?.dataset.watchStep);if(!step)return;const game=rows[rows.findIndex(game=>key(game)===selected)+step];if(game){select(game);scores.querySelector('[aria-pressed=true]')?.scrollIntoView({block:'nearest',inline:'nearest'});}};
  scores.addEventListener('click',e=>{const id=e.target.closest('[data-watch-game]')?.dataset.watchGame;if(id)select(rows.find(game=>key(game)===id))});
  host.querySelector('.watch-stats-tabs').onclick=e=>{const next=e.target.closest('[data-watch-tab]')?.dataset.watchTab;if(next){tab=next;draw()}};
  const timer = setInterval(fetchSummary,20000);

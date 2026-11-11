@@ -7,7 +7,7 @@ export const scheduleLeagues=[
 ];
 export function normalizeSchedule(data,[path,category,league],month){
  if(!Array.isArray(data.events))throw Error('Invalid schedule');
- return data.events.map(e=>{const c=e.competitions?.[0],teams=(c?.competitors||[]).map(t=>({name:t.team?.displayName||t.team?.name||'',badge:t.team?.logo||''}));return {id:'schedule-'+month.replace('-','')+'-'+path.replaceAll('/','-')+'-'+e.id,title:teams.length===2?teams.map(t=>t.name).join(' vs '):e.name,category,league,date:Date.parse(e.date)||0,live:e.status?.type?.state==='in',status:e.status?.type?.state||'pre',teams,sources:[],scheduleURL:e.links?.find(l=>l.href?.startsWith('https://www.espn.com/'))?.href||'',schedule:true}}).filter(e=>e.id&&e.title&&e.date);
+ return data.events.map(e=>{const c=e.competitions?.[0],teams=(c?.competitors||[]).map(t=>({name:t.team?.displayName||t.team?.name||'',badge:t.team?.logo||''}));return {id:'schedule-'+month.replace('-','')+'-'+path.replaceAll('/','-')+'-'+e.id,title:teams.length===2?teams.map(t=>t.name).join(' vs '):e.name,category,league,leaguePath:path,date:Date.parse(e.date)||0,live:e.status?.type?.state==='in',status:e.status?.type?.state||'pre',teams,sources:[],scheduleURL:e.links?.find(l=>l.href?.startsWith('https://www.espn.com/'))?.href||'',schedule:true}}).filter(e=>e.id&&e.title&&e.date);
 }
 export async function loadTeamSchedules(month,json,onProgress=()=>{}){
  const items=[],results=[];let cursor=0;

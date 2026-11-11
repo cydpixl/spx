@@ -1,6 +1,30 @@
 {
   "releases": [
     {
+      "version": "2026.11.11.94",
+      "date": "2026-11-11",
+      "title": "For You, sports slate, and profile uploads",
+      "summary": "Setup choices curate your home recommendations, and the sports scoreboard follows your selected leagues.",
+      "sections": [
+        {
+          "title": "Setup and playback",
+          "changes": [
+            "Full-screen poster wall, visible theme previews, and a Spex transition after setup. Escape skips setup.",
+            "The six standard sources use purple quality bars. Enable advertisements in Settings to see additional sources.",
+            "Catalog-style season menu, explicit watched labels, and Watch Together on title details."
+          ]
+        },
+        {
+          "title": "Sports and profiles",
+          "changes": [
+            "The local sports day rolls over at 1 a.m. The broadcast stats panel lists active games and supports previous and next navigation.",
+            "NBA players include published averages and labeled Spex award estimates.",
+            "Upload a profile picture and adjust it in a crop window. Banner uploads accept GIFs up to 50 MB, and profile pictures appear beside comments."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.11.11.93",
       "date": "2026-11-11",
       "title": "Welcome, profile appearance, and live game stats",

@@ -1,4 +1,4 @@
-import {movieRisk,sportsRisk} from './source-insights.mjs?v=20261111-ui92';
+import {movieRisk,sportsRisk} from './source-insights.mjs?v=20261111-ui94';
 
 const KEY='spex.source-performance.v1',TTL=7*86400000;
 function read(){try{const data=JSON.parse(localStorage.getItem(KEY)||'{}');return data&&typeof data==='object'&&!Array.isArray(data)?data:{}}catch{return {}}}
@@ -17,10 +17,10 @@ export function sourceScore(source,{sports=false,restricted=true,now=Date.now(),
  const risk=sports?sportsRisk(source):movieRisk(source,restricted);
  // The dated catalog samples were collected in a particular playback mode.
  const sampleMatches=source.wing||source.id==='vidcore'||source.id==='yapgrid'||source.id==='cinesrc'||source.id==='moviesapi'||source.id==='braflix-dev'||source.id==='screenscape'||source.id==='cinextream'?restricted:!restricted;
- const level=source.wing||sports||sampleMatches?risk.level:'unknown';
+ const level=source.wing||source.id==='cinesrc'||sports||sampleMatches?risk.level:'unknown';
  let score=({premium:115,good:90,unknown:50,caution:35,danger:5})[level]??50;
  if(source.id==='wing-secret')score+=20;
- if(source.id==='cinesrc'&&level==='unknown')score=123;
+ if(source.id==='cinesrc')score=123;
  const reasons=[level==='premium'?'Top quality Wing source':level==='good'?'Playback observed in this mode':level==='danger'?'A playback or advertising problem was observed':level==='caution'?'Playback observed with advertising concerns':'No current playback sample for this mode'];
  if(sports){if(source.sandbox){score+=12;reasons.push('Restricted player')}if(source.hd)score+=3;}
  else {if(source.controls){score+=4;reasons.push('Integrated playback controls')}if(source.ads||source.advertising)score-=8;}
@@ -30,4 +30,14 @@ export function sourceScore(source,{sports=false,restricted=true,now=Date.now(),
 }
 export function rankSources(sources,options={}){
  const history=read();return sources.map((source,index)=>({source,index,...sourceScore(source,{...options,history})})).sort((a,b)=>b.score-a.score||a.index-b.index).map(entry=>entry.source);
+}
+
+export function sourceRating(source,restricted=true){
+ const risk=movieRisk(source,restricted);
+ if(risk.level==='premium')return risk;
+ const entry=read()[keyFor(source,{restricted})];
+ if(!entry||Date.now()-entry.at>=TTL)return risk;
+ if(entry.result==='error')return {level:'danger',label:'Playback issue',detail:'Playback failed in this browser.'};
+ if(!source.ads&&!source.advertising&&risk.level==='unknown'&&entry.success>0)return {level:'observed',label:'Playback observed',detail:'Playback was verified in this browser. Ads and redirects were not measured.'};
+ return risk;
 }

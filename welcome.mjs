@@ -2,8 +2,8 @@ const KEY = 'spex.welcome.v1';
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const titleKey = title => title.type + ':' + title.id;
 const image = (title, backdrop = false) => {
- const src = backdrop ? title.backdrop || title.poster : title.poster || title.backdrop;
- return typeof src === 'string' && (/^\/[\w.-]+$/.test(src) || src.startsWith('https://image.tmdb.org/')) ? '<img src="' + esc(src.startsWith('/')?'https://image.tmdb.org/t/p/w342'+src:src) + '" alt="" draggable="false">' : '';
+ const src = title.poster || title.backdrop;
+ return typeof src === 'string' && (/^\/[\w.-]+$/.test(src) || src.startsWith('https://image.tmdb.org/')) ? '<img src="' + esc(src.startsWith('/')?'https://image.tmdb.org/t/p/'+(backdrop?'w185':'w342')+src:backdrop?src.replace(/\/t\/p\/w\d+\//,'/t/p/w185/'):src) + '" alt="" draggable="false">' : '';
 };
 const features = [
  ['showSports', 'Sports', 'Live broadcasts, scores, and game stats'],
@@ -11,8 +11,8 @@ const features = [
  ['showMultiview', 'Multiview', 'Watch multiple feeds together']
 ];
 
-export function startWelcome({ read, write, settings, themes, metadata, catalog, remember, previewTheme, finish, community }) {
- if (read(KEY, false) || document.querySelector('.welcome-dialog')) return;
+export function startWelcome({ read, write, settings, themes, metadata, catalog, remember, previewTheme, finish, community, force=false }) {
+ if ((!force&&read(KEY,false)) || document.querySelector('.welcome-dialog')) return;
  const dialog = document.createElement('dialog');
  dialog.className = 'welcome-dialog';
  dialog.setAttribute('aria-labelledby', 'welcome-heading');
@@ -21,29 +21,35 @@ export function startWelcome({ read, write, settings, themes, metadata, catalog,
  const panel = dialog.querySelector('.welcome-panel');
  const body = dialog.querySelector('.welcome-body');
  const choices = new Map();
- let step = 0, theme = settings.theme, pendingTheme = theme;
+ let step = 0, theme = settings.theme, pendingTheme = theme, leaving=false, accountStarted=false;
  let picks = {}, trending = [], results = [], sequence = 0, searchTimer;
  let status = 'Loading trending titles…';
  for (const [key] of features) picks[key] = settings[key];
 
- function finishWelcome() {
-  write(KEY, true);
-  finish({ theme, ...picks }, [...choices.values()].map(remember));
-  window.removeEventListener('outlaw-auth', authChanged);
+ async function finishWelcome(skip=false) {
+  if(leaving)return;
+  leaving=true;write(KEY,true);
+  window.removeEventListener('outlaw-auth',authChanged);
   clearTimeout(searchTimer);
-  dialog.close();
-  dialog.remove();
-  window.dispatchEvent(new Event('spex-welcome-complete'));
+  if(skip){previewTheme(settings.theme);}else{
+   dialog.classList.add('welcome-leaving');
+   dialog.querySelector('.welcome-panel').inert=true;
+   const splash=document.createElement('div');splash.className='welcome-finish';splash.innerHTML='<img src="favicon.png" alt="Spex">';dialog.append(splash);
+   if(settings.motion&&!matchMedia('(prefers-reduced-motion: reduce)').matches)await new Promise(resolve=>setTimeout(resolve,420));
+   finish({theme,...picks},[...choices.values()].map(remember));
+   if(settings.motion&&!matchMedia('(prefers-reduced-motion: reduce)').matches){splash.classList.add('welcome-finish-away');await new Promise(resolve=>setTimeout(resolve,310));}
+  }
+  dialog.close();dialog.remove();window.dispatchEvent(new Event('spex-welcome-complete'));
  }
 
  function authChanged() {
-  if (step === 3 && community.getUser()) draw(false);
+  if(step===3&&community.getUser()){if(accountStarted)void finishWelcome();else draw(false);}
  }
 
  function draw(animate = true) {
   dialog.querySelector('[data-welcome-step]').textContent = (step + 1) + ' / 4';
   const title = ['Welcome to Spex', 'Pick five favorites', 'Make Spex yours', 'You’re ready to watch'][step];
-  const copy = ['Choose a theme to get started.', 'Choose five movies and shows you like. We’ll save them to your Favorites.', 'Choose what appears in your grid menu. You can change this in Settings.', 'Create an account to sync your library, or get started as a guest.'][step];
+  const copy = ['Choose a theme to get started.', 'Choose five movies and shows you like. Spex uses them to recommend titles in For You.', 'Choose what appears in your grid menu. You can change this in Settings.', 'Create an account to sync your library, or get started as a guest.'][step];
   const content = [
    () => '<div class="welcome-themes" role="group" aria-label="Theme">' + themes.map(name => '<button type="button" data-theme-name="' + esc(name) + '" aria-pressed="' + (name === theme) + '">' + esc(name) + '</button>').join('') + '</div>',
    () => '<label class="welcome-search">Search movies and shows<input type="search" placeholder="Search titles…" autocomplete="off"></label><div class="welcome-picked"></div><div class="welcome-results"></div>',
@@ -70,7 +76,7 @@ export function startWelcome({ read, write, settings, themes, metadata, catalog,
    input.onchange = () => { picks[input.dataset.welcomeFeature] = input.checked; };
   });
   body.querySelectorAll('[data-welcome-account]').forEach(button => {
-   button.onclick = () => community.signIn(button.dataset.welcomeAccount);
+   button.onclick = () => {accountStarted=true;community.signIn(button.dataset.welcomeAccount);};
   });
   if (step === 1) {
    const search = body.querySelector('input');
@@ -110,8 +116,8 @@ export function startWelcome({ read, write, settings, themes, metadata, catalog,
   next.disabled = choices.size !== 5 && !partial;
   next.textContent = partial && choices.size !== 5 ? 'Continue' : 'Next';
   const visible = [...new Map(results.map(title => [titleKey(title),title])).values()].slice(0,20);
-  host.innerHTML = visible.length ? visible.map((title,i) => '<button type="button" data-pick="' + i + '" aria-pressed="' + choices.has(titleKey(title)) + '">' + image(title) +
-   '<span class="welcome-title-name">' + esc(title.title) + '</span><span class="welcome-check" aria-hidden="true">✓</span></button>').join('') :
+  host.innerHTML = visible.length ? visible.map((title,i) => '<button type="button" data-pick="' + i + '" aria-label="' + esc(title.title) + '" aria-pressed="' + choices.has(titleKey(title)) + '">' + (image(title)||'<span class="welcome-title-name">'+esc(title.title)+'</span>') +
+   '<span class="welcome-check" aria-hidden="true">✓</span></button>').join('') :
    '<p role="status">' + esc(message) + '</p>' + (!trending.length && status !== 'Loading trending titles…' ? '<button type="button" class="subtle-pill" data-welcome-retry>Retry trending titles</button>' : '');
   host.querySelector('[data-welcome-retry]')?.addEventListener('click', loadTrending);
   picked.querySelectorAll('[data-remove]').forEach(button => {
@@ -130,22 +136,24 @@ export function startWelcome({ read, write, settings, themes, metadata, catalog,
  }
 
  async function loadTrending() {
-  const feeds = await Promise.allSettled(['trending-movies','trending-tv'].map(tab => metadata('/api/movie-discover',{tab,page:1})));
+  const feeds = await Promise.allSettled(['trending-movies','trending-tv'].flatMap(tab=>[1,2,3,4].map(page=>metadata('/api/movie-discover',{tab,page}))));
   if (!dialog.isConnected) return;
-  const [movies,shows] = feeds.map(feed => feed.status === 'fulfilled' ? feed.value.items || [] : []);
+  const pages=feeds.map(feed=>feed.status==='fulfilled'?feed.value.items||[]:[]);
+  const movies=pages.slice(0,4).flat(),shows=pages.slice(4).flat();
   const interleaved = Array.from({length:Math.max(movies.length,shows.length)}, (_,i) => [movies[i],shows[i]]).flat().filter(Boolean);
   trending = [...new Map(interleaved.map(title=>[titleKey(title),title])).values()];
   if (!trending.length) trending = catalog.filter(title => title.title);
   status = trending.length ? 'No matching titles.' : 'Trending titles are temporarily unavailable.';
-  const art = trending.filter(title => image(title,true));
-  dialog.querySelector('.welcome-wall').innerHTML = Array.from({length:3},(_,i) => {
-   const row = art.filter((_,index) => index % 3 === i);
-   return '<div class="welcome-wall-row">' + row.map(title => image(title,true)).join('') + '</div>';
+  const art=trending.filter(title=>image(title));
+  const wall=dialog.querySelector('.welcome-wall'),rowCount=7;
+  if(art.length>=rowCount)wall.innerHTML=Array.from({length:rowCount},(_,i)=>{
+   const row=art.filter((_,index)=>index%rowCount===i);const tiles=row.map(title=>image(title,true)).join('');
+   return '<div class="welcome-wall-row"><div class="welcome-wall-track">'+tiles.repeat(4)+'</div></div>';
   }).join('');
   if (step === 1 && !body.querySelector('input').value) { results = trending; renderResults(); }
  }
 
- dialog.addEventListener('cancel', event => event.preventDefault());
+ dialog.addEventListener('cancel',event=>{event.preventDefault();void finishWelcome(true);});
  window.addEventListener('outlaw-auth', authChanged);
  dialog.showModal();
  draw(false);

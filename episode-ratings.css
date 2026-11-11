@@ -40,3 +40,7 @@
 .ratings-step button:not(:disabled):hover{background:none;color:#ce9aff}
 .ratings-dialog .ratings-results{padding-bottom:4px}
 @media(max-width:420px){.ratings-toolbar{align-items:end}.ratings-step{gap:0}.ratings-step button{width:39px}}
+
+.ratings-toolbar .discovery-filter{min-width:156px}
+.episode-card .watched-episode{position:static;align-self:start;display:inline-flex;justify-content:center;width:auto;min-height:28px;padding:4px 8px;margin:4px 0 3px;border:1px solid #ffffff24;border-radius:6px;background:#ffffff0b;color:inherit;font-size:11px;box-shadow:none}
+.episode-card .watched-episode[aria-pressed=true]{color:var(--ui-accent,#b6ed76)}

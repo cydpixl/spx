@@ -35,3 +35,22 @@
  .watch-stats-tabs button{font-size:13px;padding-inline:8px}
  .watch-stats-table[aria-label="Team statistics"] :is(td,th){padding-inline:5px}
 }
+
+.watch-stats{background:color-mix(in srgb,var(--ui-raised,#141921) 68%,transparent);border-color:color-mix(in srgb,var(--ui-accent,#ce9aff) 20%,transparent);backdrop-filter:blur(26px) saturate(1.3)}
+.watch-score-card[aria-pressed=true]{border-color:color-mix(in srgb,var(--ui-accent,#ce9aff) 62%,transparent);background:color-mix(in srgb,var(--ui-accent,#ce9aff) 13%,transparent)}
+.watch-stats-tabs button[aria-pressed=true]{border-color:var(--ui-accent,#ce9aff)}
+.watch-game-pager{display:flex;gap:4px;margin-left:auto}
+.watch-game-pager[hidden]{display:none}
+.watch-game-pager button{border:0;background:none;color:inherit;width:40px;height:40px;display:grid;place-items:center;cursor:pointer}
+.watch-game-pager button:disabled{opacity:.28;cursor:default}
+.watch-game-pager svg{width:18px;height:18px}
+.sports-card .sports-badge:empty,.sports-chat-connection:empty{display:none!important}
+@media(min-width:1101px){.sports-watch-layout>.sports-chat{align-self:start;position:sticky;top:92px;height:min(680px,calc(100dvh - 114px));min-height:0;overflow:hidden}}
+.sports-watch-layout>.sports-chat .sports-chat-messages{overscroll-behavior:contain}
+.nba-basic-stats{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;font-variant-numeric:tabular-nums}
+.nba-basic-stats b{color:#fff}
+.nba-award-line{display:block;color:var(--ui-accent,#ce9aff)!important;margin-top:3px;font-size:10px}
+.sh-table-scroll td .sh-track-action{display:block;padding:3px 0;margin-top:3px;background:none;border:0;color:var(--ui-accent,#ce9aff);border-radius:0;cursor:pointer}
+.sh-table-scroll td:first-child .sh-text-link{padding:4px 0;background:none;border:0}
+.discovery-options[popover]{margin:0;right:auto;bottom:auto}
+.watch-score-strip{scroll-snap-type:x proximity}.watch-score-card{scroll-snap-align:start}
