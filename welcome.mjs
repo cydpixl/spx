@@ -33,6 +33,7 @@ export function startWelcome({ read, write, settings, themes, metadata, catalog,
   clearTimeout(searchTimer);
   dialog.close();
   dialog.remove();
+  window.dispatchEvent(new Event('spex-welcome-complete'));
  }
 
  function authChanged() {

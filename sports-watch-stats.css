@@ -27,3 +27,11 @@
 .watch-stats-table tbody th{font-weight:600}
 .watch-stats-message{color:#c1ccdf;font-size:13px;line-height:1.5;margin:14px 0 5px}
 .watch-stats :is(button,[tabindex]):focus-visible{outline:2px solid #ce9aff;outline-offset:-2px}
+
+.watch-stats-table[aria-label="Team statistics"] table{table-layout:fixed;white-space:normal}
+.watch-stats-table[aria-label="Team statistics"] th:first-child{width:50%;overflow-wrap:anywhere}
+@media(max-width:550px){
+ .watch-stats-tabs{gap:0}
+ .watch-stats-tabs button{font-size:13px;padding-inline:8px}
+ .watch-stats-table[aria-label="Team statistics"] :is(td,th){padding-inline:5px}
+}
