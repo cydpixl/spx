@@ -1,6 +1,27 @@
 {
   "releases": [
     {
+      "version": "2026.11.11.97",
+      "date": "2026-11-11",
+      "title": "Home and Sports layout fixes",
+      "summary": "Edge arrows and preview titles return, and the Christmas collection follows Browse by Provider.",
+      "sections": [
+        {
+          "title": "Home",
+          "changes": [
+            "The featured title opens Home, followed by Continue Watching, Browse by Provider, and the Christmas collection and countdown.",
+            "Christmas lights sit over the top of the hero. Carousel controls sit at each row edge."
+          ]
+        },
+        {
+          "title": "Sports",
+          "changes": [
+            "The expandable sidebar uses translucent glass. Larger game schedule cards show both team names alongside logos and scores."
+          ]
+        }
+      ]
+    },
+    {
       "version": "2026.11.11.96",
       "date": "2026-11-11",
       "title": "Christmas on Spex and the new NBA view",

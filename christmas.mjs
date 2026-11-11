@@ -32,15 +32,28 @@ export function initChristmas({read,write,enableTheme}){
  document.body.append(banner);document.addEventListener('pointerdown',outside,true);
 }
 export function mountChristmasHome({app,metadata,remember,row,normalizeLinks}){
- if(!isChristmasSeason())return;
- const block=document.createElement('section');block.className='christmas-home';block.setAttribute('aria-labelledby','christmas-title');
- block.innerHTML='<div class="christmas-feature"><div class="christmas-countdown"><h1 id="christmas-title">Christmas on Spex</h1><p data-countdown></p><a class="christmas-browse" href="#christmas-collection">Browse the collection</a></div><img class="christmas-feature-logo" src="christmas-logo.png" alt=""></div><div id="christmas-collection" class="christmas-collection"><p role="status">Loading Christmas collection…</p></div>';
- app.prepend(block);
- const counter=block.querySelector('[data-countdown]'),host=block.querySelector('#christmas-collection');
+ const providerShelf=app.querySelector('#providerShelf');
+ if(!isChristmasSeason()||!providerShelf)return;
+ const block=document.createElement('div');block.id='christmas-collection';block.className='christmas-home';
+ block.innerHTML='<div class="christmas-status"><p data-countdown></p><p role="status">Loading Christmas collection…</p></div>';
+ providerShelf.after(block);
+ const counter=block.querySelector('[data-countdown]');
  const paint=()=>{const n=christmasDays();counter.innerHTML=n?'<strong>'+n+'</strong> '+(n===1?'day':'days')+' until Christmas':'Merry Christmas';};
  paint();
  const timer=setInterval(()=>{if(!block.isConnected){clearInterval(timer);return;}paint();},60000);
- block.querySelector('.christmas-browse').onclick=e=>{e.preventDefault();host.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});};
- async function load(){try{const items=await getCollection(metadata);if(!host.isConnected)return;host.innerHTML=row('Christmas movies & shows',items.map(remember));normalizeLinks();}catch{if(!host.isConnected)return;host.innerHTML='<p role="status">Christmas titles are temporarily unavailable.</p><button class="subtle-pill" type="button">Retry</button>';host.querySelector('button').onclick=()=>void load();}}
+ async function load(){
+  try{
+   const items=await getCollection(metadata);if(!block.isConnected)return;
+   block.innerHTML=row('Christmas movies & shows',items.map(remember));
+   block.querySelector('.row-heading').append(counter);
+   normalizeLinks();
+  }catch{
+   if(!block.isConnected)return;
+   block.innerHTML='<div class="christmas-status"><p role="status">Christmas titles are temporarily unavailable.</p><button class="subtle-pill" type="button">Retry</button></div>';
+   const status=block.firstElementChild;
+   status.prepend(counter);
+   status.querySelector('button').onclick=()=>void load();
+  }
+ }
  void load();
 }

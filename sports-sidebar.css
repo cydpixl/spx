@@ -1,9 +1,9 @@
-body.sports-app-active{background:var(--ui-bg,#101116);color:var(--ui-text,#f4f4f6)}
+body.sports-app-active{background:radial-gradient(ellipse at 0 0,color-mix(in srgb,var(--ui-accent,#c6d2ef) 12%,transparent),transparent 44%) fixed,var(--ui-bg,#101116);color:var(--ui-text,#f4f4f6)}
 body.sports-app-active :is(.site-header,canvas.ambient-silk-page){display:none!important}
 body.sports-app-active .sports-page{box-sizing:border-box;width:auto;max-width:none;padding:24px clamp(20px,4vw,68px) 60px;margin-left:62px}
 .sports-app-active .sports-heading-actions [data-sport-filter],.sports-app-active .sports-favorite-shortcuts,.sports-app-active .sh-tabs[aria-label="Sports explorer"]{display:none!important}
 .sports-app-active .sports-heading-actions{display:flex;justify-content:flex-end;width:auto}
-.sports-sidebar{position:fixed;z-index:120;top:0;left:0;bottom:0;width:62px;padding:12px 8px;overflow:hidden;display:flex;flex-direction:column;gap:6px;background:var(--ui-raised,#18191e);border-right:1px solid var(--ui-border,#ffffff24);transition:width .2s ease;box-sizing:border-box}
+.sports-sidebar{position:fixed;z-index:120;top:0;left:0;bottom:0;width:62px;padding:12px 8px;overflow:hidden;display:flex;flex-direction:column;gap:6px;background:linear-gradient(155deg,color-mix(in srgb,var(--ui-accent,#c6d2ef) 13%,transparent),transparent 42%),color-mix(in srgb,var(--ui-bg,#101116) 68%,transparent);backdrop-filter:blur(24px) saturate(1.3);border-right:1px solid var(--ui-border,#ffffff24);box-shadow:inset -1px 0 0 #ffffff08;transition:width .2s ease;box-sizing:border-box}
 .sports-sidebar:is(:hover,:has(:focus-visible),.is-expanded){width:184px;box-shadow:8px 0 32px #0005}
 .sports-sidebar-links{display:flex;flex-direction:column;gap:4px;overflow:hidden auto}
 .sports-sidebar button{display:flex;align-items:center;gap:12px;padding:0 12px;min-height:42px;width:100%;border:0;border-radius:8px;background:transparent;color:var(--ui-text,#f4f4f6);white-space:nowrap;text-align:left;cursor:pointer}
@@ -16,13 +16,15 @@ body.sports-app-active .sports-page{box-sizing:border-box;width:auto;max-width:n
 .sports-page:not([data-sports-section=schedule])>:is(.sp-live-workspace,.sports-toolbar,.sports-filters,.sports-status,.sports-grid,.sports-more,.sports-calendar,.sports-providers){display:none!important}
 .sports-page:not([data-sports-section=schedule]) .sp-sports-hub{margin-top:0;padding-top:12px}
 .sports-page .sp-live-workspace{padding-top:8px}
-.sports-page .sp-score-list{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(108px,130px);gap:9px;max-height:none;overflow:auto}
-.sports-page .sp-score-match{position:relative;padding:10px}
-.sports-page .sp-score-match>header{margin-bottom:8px;flex-wrap:wrap}
-.sports-page .sp-score-match>footer{margin-top:9px}
-.sports-page .sp-score-team{display:grid;grid-template-columns:29px 1fr;gap:8px}
-.sports-page .sp-score-team b{justify-self:end}
-.sports-page .sp-score-team img{width:29px;height:29px;object-fit:contain;background:transparent;border-radius:0}
+.sports-page .sp-score-list{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:clamp(232px,19vw,270px);gap:12px;max-height:none;overflow:auto;padding-bottom:10px}
+.sports-page .sp-score-match{padding:14px 16px;background:color-mix(in srgb,var(--ui-raised,#18191e) 58%,transparent);border-color:var(--ui-border,#ffffff24);backdrop-filter:blur(16px) saturate(1.25)}
+.sports-page .sp-score-match:is(:hover,:focus-visible){background:color-mix(in srgb,var(--ui-accent,#c6d2ef) 10%,var(--ui-raised,#18191e));border-color:color-mix(in srgb,var(--ui-accent,#c6d2ef) 38%,transparent)}
+.sports-page .sp-score-match>header{margin-bottom:12px;flex-wrap:wrap;color:var(--ui-muted,#b7b7c1)}
+.sports-page .sp-score-match>footer{margin-top:12px}
+.sports-page .sp-score-team{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:9px;min-height:34px}
+.sports-page .sp-score-team strong{grid-column:2;font-size:13px;font-weight:600;line-height:1.25;overflow-wrap:anywhere}
+.sports-page .sp-score-team b{grid-column:3;justify-self:end;font-size:20px}
+.sports-page .sp-score-team img{width:34px;height:34px;object-fit:contain;background:transparent;border-radius:0}
 .sports-page .sh-player-grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
 .sports-page .sh-player-grid article{background:color-mix(in srgb,var(--ui-raised,#14151b) 78%,transparent)}
 .sports-page .sh-player-grid .sh-headshot{width:100%;height:112px;object-fit:contain;object-position:bottom center;border-radius:0;background:transparent}
@@ -42,6 +44,7 @@ body.sports-app-active .sports-page{box-sizing:border-box;width:auto;max-width:n
  .sports-sidebar:not(.is-expanded) button span{opacity:0}
  .sports-sidebar-toggle{display:flex!important}
  .sports-sidebar button{min-height:38px;padding:0 8px}
+ .sports-page .sp-score-list{grid-auto-columns:min(246px,100%)}
  .sports-page .sh-player-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
  .sports-page .sh-player-grid .sh-headshot{height:85px}
  .sh-conference .sh-table-scroll td,.sh-conference .sh-table-scroll th{padding-inline:6px}
