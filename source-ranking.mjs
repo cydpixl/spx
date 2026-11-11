@@ -1,4 +1,4 @@
-import {movieRisk,sportsRisk} from './source-insights.mjs?v=20261111-ui94';
+import {movieRisk,sportsRisk} from './source-insights.mjs?v=20261111-ui95';
 
 const KEY='spex.source-performance.v1',TTL=7*86400000;
 function read(){try{const data=JSON.parse(localStorage.getItem(KEY)||'{}');return data&&typeof data==='object'&&!Array.isArray(data)?data:{}}catch{return {}}}
@@ -34,9 +34,13 @@ export function rankSources(sources,options={}){
 
 export function sourceRating(source,restricted=true){
  const risk=movieRisk(source,restricted);
- if(risk.level==='premium')return risk;
  const entry=read()[keyFor(source,{restricted})];
  if(!entry||Date.now()-entry.at>=TTL)return risk;
+ if(risk.level==='premium'){
+  if(entry.result==='error')return {...risk,bars:2,indicator:'2 of 5 · Recent playback problem in this browser'};
+  if(entry.result==='playing')return {...risk,indicator:'5 of 5 · Playback observed in this browser'};
+  return risk;
+ }
  if(entry.result==='error')return {level:'danger',label:'Playback issue',detail:'Playback failed in this browser.'};
  if(!source.ads&&!source.advertising&&risk.level==='unknown'&&entry.success>0)return {level:'observed',label:'Playback observed',detail:'Playback was verified in this browser. Ads and redirects were not measured.'};
  return risk;

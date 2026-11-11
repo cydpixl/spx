@@ -1,7 +1,7 @@
 {
   "releases": [
     {
-      "version": "2026.11.11.94",
+      "version": "2026.11.11.95",
       "date": "2026-11-11",
       "title": "For You, sports slate, and profile uploads",
       "summary": "Setup choices curate your home recommendations, and the sports scoreboard follows your selected leagues.",
@@ -10,7 +10,7 @@
           "title": "Setup and playback",
           "changes": [
             "Full-screen poster wall, visible theme previews, and a Spex transition after setup. Escape skips setup.",
-            "The six standard sources use purple quality bars. Enable advertisements in Settings to see additional sources.",
+            "The six standard sources use purple quality bars, which dim after a recent playback failure in your browser. Enable advertisements in Settings to see additional sources.",
             "Catalog-style season menu, explicit watched labels, and Watch Together on title details."
           ]
         },

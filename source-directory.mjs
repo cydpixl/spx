@@ -1,6 +1,6 @@
-import {providers,readAds,sourceAllowed} from './provider-player.mjs?v=20261111-ui94';
-import {movieRisk,riskMarkup} from './source-insights.mjs?v=20261111-ui94';
-import {sourceRating} from './source-ranking.mjs?v=20261111-ui94';
+import {providers,readAds,sourceAllowed} from './provider-player.mjs?v=20261111-ui95';
+import {movieRisk,riskMarkup} from './source-insights.mjs?v=20261111-ui95';
+import {sourceRating} from './source-ranking.mjs?v=20261111-ui95';
 import {createFilterMenu} from './filter-menu.mjs?v=20261111-ui94';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function renderSourceDirectory({app,normalizeLinks,notify}){
