@@ -1,0 +1,4 @@
+SPEX deployment smoke test
+Created: 2026-11-16
+Purpose: Verify GitHub write access and whether the configured site deployment picks up a new commit.
+This file is not used by the application and may be removed after verification.
